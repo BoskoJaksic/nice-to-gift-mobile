@@ -1,0 +1,7 @@
+{
+  "name": "NiceToGift-Mobile-App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
