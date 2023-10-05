@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="main-content-get-started">
+    <div class="img-get-started">
+      <img ngSrc="assets/images/get-started.svg" height="119" width="237">
+    </div>
+
+    <div class="text-button-get-started">
+      <p class="typography-title">Hello!</p>
+      <p class="typography-small">You’re ready to go.</p>
+    </div>
+
+    <div class="text-button-get-started button-position ">
+      <div class="button-itself">
+        <app-secondary-button [disabled]='false' (onClick)="commonService.goToRoute('/tabs/tabs/home-tab')">
+          <span class="button-text">GET STARTED</span>
+        </app-secondary-button>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

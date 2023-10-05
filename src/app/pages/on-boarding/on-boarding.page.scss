@@ -1,0 +1,32 @@
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.indicator-line {
+  width: 10px;
+  height: 10px;
+  background-color: white; /* Boja neaktivnih tačaka */
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Animacija promene boje */
+}
+
+.indicator-line.active {
+  background-color: var(--ion-color-secondary); /* Boja aktivne tačke (crvena) */
+}
+
+.height-35 {
+  height: 17em;
+}
+.height-50 {
+  height: 25em;
+}
+.main-content{
+  background-color: var(--ion-color-primary);
+  height: 100%;
+  margin-top: -17px;
+  padding-top: 1px;
+}

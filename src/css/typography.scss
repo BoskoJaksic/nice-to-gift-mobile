@@ -1,0 +1,58 @@
+.typography-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.23999999463558197px;
+  text-align: center;
+}
+
+.typography-small {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+.text-align-center {
+  text-align: center
+}
+
+.button-text {
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.typography3 {
+  color: var(--ion-color-secondary);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+.typography-on-boarding{
+  color: var(--ion-color-secondary);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px; /* 116.667% */
+  letter-spacing: -0.24px;
+}
+
+.icon-text{
+  color: var(--ion-color-secondary);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 222.222% */
+  letter-spacing: -0.24px;
+}

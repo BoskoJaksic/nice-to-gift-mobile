@@ -1,0 +1,7 @@
+<ion-item class="roundedInput"  [ngClass]="additionalClass" mode="md">
+  <ion-label class="typography1">{{label}}</ion-label>
+  <ion-input [type]="inputType"  [value]="value"
+             (keyup)="oninputChange($event)"
+             [placeholder]="placeholder"
+             (focus)="markAsTouched($event)" class="typography2"></ion-input>
+</ion-item>

@@ -1,0 +1,25 @@
+<div class="div-content">
+  <div class="text-align-center">
+    <img ngSrc="assets/icon/login-icon.svg" height="225" width="119" alt="">
+  </div>
+  <div class="text-align-center text-div">
+    <span class="typography-title">Nice to gift</span>
+    <p class="typography-small">Welcome to the world of unique <br>and heartfelt gift ideas.</p>
+  </div>
+
+  <form [formGroup]="form" style="margin-top: 70px">
+    <app-input placeholder="Email" inputType="text" formControlName="email"></app-input>
+    <app-input placeholder="Password" inputType="password" formControlName="password"></app-input>
+    <p style="margin-top: 38px">
+      <app-secondary-button [disabled]="!form.valid" (onClick)="onSubmit()">
+        <span class="button-text">{{ login ? 'Log In' : 'Sign Up' }}</span>
+      </app-secondary-button>
+    </p>
+    <p class="typography-small">
+      {{ login ? "Don't have an account?" : "Already have an account?" }}
+    </p>
+    <p class="typography3 signup-text" >
+      <span (click)="commonService.goToRoute(login ? 'register' : 'login-register')">{{ login ? "Sign Up" : "Login" }}</span>
+    </p>
+  </form>
+</div>
