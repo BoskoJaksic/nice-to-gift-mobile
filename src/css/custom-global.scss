@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Popins';
+  src: url('../assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+
+h1, p, div, ion-button, ion-label, ion-title, a, ion-item {
+  font-family: 'Popins', sans-serif !important;
+}
+
+

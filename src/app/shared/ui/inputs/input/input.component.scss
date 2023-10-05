@@ -1,0 +1,15 @@
+.roundedInput {
+  --background: var(--ion-color-light);
+  --border-radius: 56px;
+  --highlight-height: 0;
+  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+}
+
+ion-item {
+  --highlight-color-focused: var(--ion-color-secondary);
+  --highlight-color-valid: var(--ion-color-success);
+  --highlight-color-invalid: var(--ion-color-danger);
+}

@@ -1,0 +1,41 @@
+<ion-content>
+  <swiper-container [ngClass]="classToApply" id="swiperContainer"
+                    allow-touch-move="false" #swiper (afterinit)="swiperReady()" loop="true">
+    <swiper-slide>
+      <app-slide1></app-slide1>
+    </swiper-slide>
+    <swiper-slide>
+      <app-slide2></app-slide2>
+    </swiper-slide>
+    <swiper-slide>
+      <app-slide3></app-slide3>
+    </swiper-slide>
+    <swiper-slide>
+      <app-slide4></app-slide4>
+    </swiper-slide>
+  </swiper-container>
+  <div class="main-content" id="element">
+    <div style="margin-top: 68px;margin-bottom: 39px">
+      <app-text [currentIndex]="currentIndex"></app-text>
+    </div>
+
+
+    <div class="carousel-indicators">
+      <div
+        *ngFor="let slide of slides; let i = index"
+        [class.active]="currentIndex === i"
+        class="indicator-line"
+      ></div>
+    </div>
+    <div style="display: flex;justify-content: center;margin-top: 60px">
+      <div style="width: 136px">
+        <app-secondary-button (onClick)="goNext()" [disabled]="false"><span class="button-text">Next</span>
+        </app-secondary-button>
+      </div>
+
+    </div>
+    <div style="display: flex;justify-content: center;margin-top: 20px">
+      <span class="typography-small" (click)="commonService.goToRoute('/tabs/tabs/home-tab')">Skip</span>
+    </div>
+  </div>
+</ion-content>
