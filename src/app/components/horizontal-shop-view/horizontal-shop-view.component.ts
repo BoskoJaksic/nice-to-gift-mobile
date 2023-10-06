@@ -14,6 +14,7 @@ export class HorizontalShopViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('car',this.cards)
   }
 
 }

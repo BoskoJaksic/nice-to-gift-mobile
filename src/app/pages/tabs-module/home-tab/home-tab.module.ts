@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { HomeTabPageRoutingModule } from './home-tab-routing.module';
+import {HomeTabPageRoutingModule} from './home-tab-routing.module';
 
-import { HomeTabPage } from './home-tab.page';
-import {HeaderComponent} from "../../../components/header/header.component";
-import {TabsPageModule} from "../tabs/tabs.module";
+import {HomeTabPage} from './home-tab.page';
+import {SharedModule} from "../../../shared/shared.module";
 
 @NgModule({
   imports: [
@@ -17,11 +16,12 @@ import {TabsPageModule} from "../tabs/tabs.module";
     IonicModule,
     HomeTabPageRoutingModule,
     NgOptimizedImage,
-    TabsPageModule
+    SharedModule
   ],
   exports: [
-    HeaderComponent
+
   ],
-  declarations: [HomeTabPage, HeaderComponent]
+  declarations: [HomeTabPage]
 })
-export class HomeTabPageModule {}
+export class HomeTabPageModule {
+}
