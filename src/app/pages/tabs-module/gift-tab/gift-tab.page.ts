@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {cards} from "../../../shared/mocks";
 
 @Component({
   selector: 'app-gift-tab',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gift-tab.page.scss'],
 })
 export class GiftTabPage implements OnInit {
+  cards = cards;
 
   constructor() { }
 

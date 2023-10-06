@@ -1,14 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home-tab</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="main-content">
+    <app-header></app-header>
+    <p class="screen-card-text">Hello!</p>
+    <p class="screen-card-text">My Gifts</p>
+    <div class="gift-card">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="8">
+            <span class="screen-card-text">Gift received</span><br/>
+            <span class="screen-card-text-small">Fri 22 sep</span><br/>
+            <span class="screen-card-text-medium">90 days left to pickup</span>
+            <div style="margin-top: 25px">
+              <ion-row>
+                <ion-col size="1" style="margin-right: 5px">
+                  <ion-icon src="assets/icon/home-gift-card-map.svg" style="margin-top: 5px"></ion-icon>
+                </ion-col>
+                <ion-col size="10">
+                  <span class="screen-card-text-medium">1128 Gorontalo</span>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-col>
+          <ion-col>
+            <img ngSrc="assets/images/home-gift-card.svg" height="78" width="78"
+                 style="float: right;margin-top: -10px;margin-right: -13px">
+            <p class="screen-card-text-small" style="float: right;margin-top: 40px">12 km away</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home-tab</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-button href="/">fff</ion-button>
+
+    </div>
+<!--    <app-horizontal-shop-view [cards]="cards" [title]="'Shops'"></app-horizontal-shop-view>-->
+  </div>
 </ion-content>
+

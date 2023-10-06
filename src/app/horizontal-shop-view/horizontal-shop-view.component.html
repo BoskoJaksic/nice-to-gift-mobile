@@ -1,0 +1,9 @@
+<div style="display: flex;justify-content: space-between;">
+  <p class="screen-card-text">{{title}}</p>
+  <span *ngIf="seeAll" style="margin-top: 27px" class="screen-card-text-small">See All</span>
+</div>
+<div class="scrolling-wrapper-flexbox">
+  <div class="card" *ngFor="let card of cards">
+    <h2>{{card.shopName}}</h2>
+  </div>
+</div>
