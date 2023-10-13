@@ -1,0 +1,19 @@
+<div style="display: flex;justify-content: space-between;">
+  <p class="screen-card-text">{{title}}</p>
+  <span *ngIf="seeAll" style="margin-top: 27px" class="screen-card-text-small"
+        (click)="commonService.goToRoute('all-shops')">See All</span>
+</div>
+<div class="scrolling-wrapper-flexbox">
+  <div class="card" *ngFor="let card of cards">
+    <img [src]="card.shopImg" alt="Shop Image">
+    <div style="display: flex;justify-content: space-between;">
+      <h2 class="screen-card-text-medium" style="margin-left: 17px">{{card.shopName}}</h2>
+      <div style="margin-right: 15px">
+        <img ngSrc="./assets/icon/rating-star.svg" height="16" width="17"
+             style="width: 16px;height: 16px;margin-right: 5px;margin-top: 3px">
+        <span>5.0</span>
+      </div>
+    </div>
+  </div>
+</div>
+

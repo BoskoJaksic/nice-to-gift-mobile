@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TabsPage} from './tabs.page';
 
 const routes: Routes = [
   {
@@ -13,30 +13,26 @@ const routes: Routes = [
       },
       {
         path: 'gift-tab',
-        loadChildren: () => import('../gift-tab/gift-tab.module').then( m => m.GiftTabPageModule)
+        loadChildren: () => import('../gift-tab/gift-tab.module').then(m => m.GiftTabPageModule)
       },
       {
         path: 'maps-tab',
-        loadChildren: () => import('../maps-tab/maps-tab.module').then( m => m.MapsTabPageModule)
+        loadChildren: () => import('../maps-tab/maps-tab.module').then(m => m.MapsTabPageModule)
       },
       {
         path: 'profile-tab',
-        loadChildren: () => import('../profile-tab/profile-tab.module').then( m => m.ProfileTabPageModule)
+        loadChildren: () => import('../profile-tab/profile-tab.module').then(m => m.ProfileTabPageModule)
       },
       {
         path: 'settings-tab',
-        loadChildren: () => import('../settings-tab/settings-tab.module').then( m => m.SettingsTabPageModule)
+        loadChildren: () => import('../settings-tab/settings-tab.module').then(m => m.SettingsTabPageModule)
       },
     ]
   },
-  {
-    path: '',
-    redirectTo: '/tabs-module/home-tab',
-    pathMatch: 'full'
-  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule {
+}

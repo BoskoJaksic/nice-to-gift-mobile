@@ -56,3 +56,23 @@
   line-height: 20px; /* 222.222% */
   letter-spacing: -0.24px;
 }
+.screen-card-text{
+  color: var(--ion-color-secondary);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.screen-card-text-small{
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.screen-card-text-medium {
+  color: var(--ion-color-secondary) !important;
+  font-size: 14px !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  line-height: normal !important;
+}

@@ -1,0 +1,33 @@
+<ion-content>
+  <div class="main-content">
+    <ion-row>
+      <ion-col size="5"><img ngSrc="./assets/icon/go-back.svg" width="40" height="40" (click)="goBackToPrevPage()">
+      </ion-col>
+      <ion-col>
+        <div class="screen-card-text">Shops</div>
+      </ion-col>
+    </ion-row>
+    <ion-item-divider mode="md" style="margin-bottom: 28px"></ion-item-divider>
+    <ion-searchbar style="margin-bottom: 50px;display: initial" animated="true" show-clear-button="focus" class="searchbar"
+                   [debounce]="1000" color="light"
+                   mode="ios" placeholder="Search"></ion-searchbar>
+    <div class="card-container">
+      <div class="card" style="  margin-bottom: 13px;width: 100%" *ngFor="let card of cards">
+        <img [src]="card.shopImg" alt="Shop Image">
+        <div style="display: flex;justify-content: space-between;">
+          <h2 class="screen-card-text-medium" style="margin-left: 17px">{{card.shopName}}</h2>
+          <div style="margin-right: 15px">
+            <img ngSrc="./assets/icon/rating-star.svg" height="16" width="17"
+                 style="width: 16px;height: 16px;margin-right: 5px;margin-top: 3px">
+            <span>5.0</span>
+          </div>
+        </div>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+</ion-content>
+
+

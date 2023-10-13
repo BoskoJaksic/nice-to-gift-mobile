@@ -1,3 +1,4 @@
+<ng-container *ngIf="inputType !=='password' else passwordInput">
 <ion-item class="roundedInput"  [ngClass]="additionalClass" mode="md">
   <ion-label class="typography1">{{label}}</ion-label>
   <ion-input [type]="inputType"  [value]="value"
@@ -5,3 +6,17 @@
              [placeholder]="placeholder"
              (focus)="markAsTouched($event)" class="typography2"></ion-input>
 </ion-item>
+</ng-container>
+
+<ng-template #passwordInput>
+  <ion-item class="roundedInput"  [ngClass]="additionalClass" mode="md">
+    <ion-label class="typography1">{{label}}</ion-label>
+    <ion-input [type]="showPassword ? 'text' : 'password'"  [value]="value"
+               (keyup)="oninputChange($event)"
+               [placeholder]="placeholder"
+               [(ngModel)]="password"
+               (focus)="markAsTouched($event)" class="typography2"></ion-input>
+    <ion-icon slot="end" src="./assets/icon/eye.svg" color="secondary"
+              (click)="toggleShowPassword()"></ion-icon>
+  </ion-item>
+</ng-template>

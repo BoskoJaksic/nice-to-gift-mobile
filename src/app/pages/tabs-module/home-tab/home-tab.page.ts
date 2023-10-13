@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {cards} from "../../../shared/mocks";
 
 @Component({
   selector: 'app-home-tab',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-tab.page.scss'],
 })
 export class HomeTabPage implements OnInit {
+  cards:any
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.cards = cards
   }
 
 }

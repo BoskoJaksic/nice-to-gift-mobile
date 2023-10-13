@@ -9,7 +9,5 @@
 }
 
 ion-item {
-  --highlight-color-focused: var(--ion-color-secondary);
-  --highlight-color-valid: var(--ion-color-success);
-  --highlight-color-invalid: var(--ion-color-danger);
+  --highlight-color-focused: var(--ion-color-secondary) !important;
 }

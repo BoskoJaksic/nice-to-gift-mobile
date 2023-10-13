@@ -33,6 +33,7 @@ export class TabsPage {
 
 
   constructor() {
+
   }
 
   ionTabsWillChange(e: any) {
