@@ -8,25 +8,34 @@ import {KeycloakService} from "../../core/keycloack/keycloack.service";
   providedIn: 'root'
 })
 export class StorageService {
-  private _storage: Storage | null = null;
 
   constructor(private storage: Storage, private keycloakService: KeycloakService) {
     this.init();
   }
 
   async init() {
-    this._storage = await this.storage.create();
+    this.storage = await this.storage.create();
   }
 
   public setToken(key: string, value: any) {
-    this._storage?.set(key, value);
+    this.storage?.set(key, value);
+  }
+
+  public async checkIfTokenExists() {
+    try {
+      let token = await this.storage?.get("token");
+      return !!token;
+    } catch (error) {
+      console.error('Error occurred while getting token:', error);
+      throw error; // Rethrow the error to handle it at a higher level
+    }
   }
 
   public async getToken(value: any) {
     try {
-      let token = await this._storage?.get(value);
+      let token = await this.storage?.get(value);
       await this.getWorkingToken(token);
-      return await this._storage?.get(value);
+      return await this.storage?.get(value);
     } catch (error) {
       console.error('Error occurred while getting token:', error);
       throw error; // Rethrow the error to indicate that something went wrong
@@ -52,7 +61,7 @@ export class StorageService {
 
   public async getAnotherToken() {
     return new Promise<void>(async (resolve, reject) => {
-      const refreshToken = this._storage?.get('refresh_token');
+      const refreshToken = this.storage?.get('refresh_token');
       if (!refreshToken) {
         reject('Refresh token not found');
         return;
@@ -73,10 +82,10 @@ export class StorageService {
   }
 
   public async removeToken(key: string) {
-    await this._storage?.remove(key);
+    await this.storage?.remove(key);
   }
 
   public async clearAllFromStorage() {
-    await this._storage?.clear()
+    await this.storage?.clear()
   }
 }

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from "./core/auth.guard";
 
 const routes: Routes = [
   {
@@ -16,18 +17,22 @@ const routes: Routes = [
   },
   {
     path: 'on-boarding',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/on-boarding/on-boarding.module').then(m => m.OnBoardingPageModule)
   },
   {
     path: 'tabs',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/tabs-module/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'get-started',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/get-started/get-started.module').then(m => m.GetStartedPageModule)
   },
   {
     path: 'all-shops',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/all-shops/all-shops.module').then(m => m.AllShopsPageModule)
   },
   {

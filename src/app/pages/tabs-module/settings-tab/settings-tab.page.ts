@@ -20,7 +20,7 @@ export class SettingsTabPage implements OnInit {
   async logOut() {
     const refreshToken = await this.storageService.getToken('refresh_token')
     this.keycloakService.logout(refreshToken, 'logout').subscribe(r=>{
-      this.storageService.removeToken('access_token')
+      this.storageService.removeToken('token')
       this.storageService.removeToken('refresh_token')
       this.commonService.goToRoute('/')
     })
