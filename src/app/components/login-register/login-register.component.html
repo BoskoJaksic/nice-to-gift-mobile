@@ -10,6 +10,8 @@
   <form [formGroup]="form" style="margin-top: 70px">
     <app-input placeholder="Email" inputType="text" formControlName="email"></app-input>
     <app-input placeholder="Password" inputType="password" formControlName="password"></app-input>
+    <div *ngIf="errorMessage !== ''" class="error-text"><ion-icon name="close-outline" style="width: 20px;height: 20px"></ion-icon>
+     <div>{{errorMessage}}</div> </div>
     <p style="margin-top: 38px">
       <app-secondary-button [disabled]="!form.valid" (onClick)="onSubmit()">
         <span class="button-text">{{ login ? 'Log In' : 'Sign Up' }}</span>

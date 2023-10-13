@@ -51,4 +51,7 @@ export class OnBoardingPage implements OnInit {
     }
 
   }
+  ngOnDestroy(): void {
+
+  }
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {KeycloakService} from "../../../core/keycloack/keycloack.service";
+import {StorageService} from "../../../shared/services/storage.service";
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-settings-tab',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsTabPage implements OnInit {
 
-  constructor() { }
+  constructor(private keycloakService: KeycloakService, private storageService: StorageService,
+              private commonService: CommonService) {
+  }
 
   ngOnInit() {
   }
 
+  async logOut() {
+    const refreshToken = await this.storageService.getToken('refresh_token')
+    this.keycloakService.logout(refreshToken, 'logout').subscribe(r=>{
+      this.storageService.removeToken('access_token')
+      this.storageService.removeToken('refresh_token')
+      this.commonService.goToRoute('/')
+    })
+  }
 }

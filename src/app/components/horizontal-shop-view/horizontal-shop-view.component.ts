@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'app-horizontal-shop-view',
@@ -10,7 +11,7 @@ export class HorizontalShopViewComponent implements OnInit {
   @Input() title = ''
   @Input() seeAll: boolean = true;
 
-  constructor() {
+  constructor(public commonService:CommonService) {
   }
 
   ngOnInit() {

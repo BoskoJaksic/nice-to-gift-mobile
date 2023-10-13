@@ -20,6 +20,13 @@ export class InputComponent  implements ControlValueAccessor {
   @Input() additionalClass: string = '';
   @Input() placeholder: string = '';
   value: any = '';
+  password = '';
+  public showPassword = false;
+
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   registerOnChange(fn: any) {
     this.onChange = fn;

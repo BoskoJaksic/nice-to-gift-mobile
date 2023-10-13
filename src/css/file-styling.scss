@@ -1,3 +1,16 @@
 .main-content{
   padding: 50px 13px 0 16px;
 }
+
+ion-searchbar{
+  .searchbar-input-container{
+    .searchbar-input{
+      border-radius: 30px !important;
+      width: 100% !important;
+    }
+  }
+}
+
+ .searchbar-input-container.sc-ion-searchbar-ios {
+   height: 60px;
+ }
