@@ -1,0 +1,61 @@
+<ion-content>
+  <div class="content-wrapper">
+    <div class="background-container"
+         [ngStyle]="{'background-image': 'url(' + shopImg + ')', 'background-size': 'cover', 'background-position': 'center', 'width': '100%', 'height': '250px','border-radius':'0 0 20px 20px'}">
+      <div class="go-back-container">
+        <img src="./assets/icon/go-back-white.svg" width="40" height="40" (click)="goBackToPrevPage()"
+             class="go-back-img">
+      </div>
+      <div class="content-container">
+        <ion-row class="bottom-row">
+          <ion-col><span class="card-name text-position">dsd</span></ion-col>
+          <ion-col>
+            <div style="float: right;margin-right: 13px">
+              <img src="./assets/icon/star-white.svg" height="16" width="17"
+                   style="width: 16px;height: 16px;margin-right: 8px;margin-top: 3px">
+              <span>5.0</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="main-content-shop">
+      <ion-row>
+        <ion-col><span class="typography-small">adresa</span></ion-col>
+        <ion-col>
+          <div style="float: right">
+            <img src="./assets/icon/clock.svg" height="16" width="17"
+                 style="width: 16px;height: 16px;margin-right: 8px;margin-top: 3px">
+            <span>10 AM - 7 PM</span></div>
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p class="typography-small" style="margin-top: -10px;float: left">adresa 2</p>
+        </ion-col>
+      </ion-row>
+      <mat-tab-group>
+        <mat-tab label="Menu items">
+          <app-shop-products [products]="cards" (totalAmountEmitter)="handleTotalAmount($event)"></app-shop-products>
+        </mat-tab>
+        <mat-tab label="Reviews">
+          <app-shop-reviews></app-shop-reviews>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+
+  <div class="checkout-button">
+    <div style="display:flex;justify-content: start;margin-left: 30px;margin-top: 13px">
+      <ion-icon src="./assets/icon/eur.svg"></ion-icon>
+      <span class="total-price">{{totalAmountFromChild}}</span>
+    </div>
+    <div class="checkout checkout-text">
+      Checkout<span style="margin-left: 17px; margin-top: 3px"> <ion-icon src="./assets/icon/go-checkout.svg"></ion-icon></span>
+    </div>
+
+  </div>
+
+
+</ion-content>

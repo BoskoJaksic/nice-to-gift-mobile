@@ -16,7 +16,8 @@
                [placeholder]="placeholder"
                [(ngModel)]="password"
                (focus)="markAsTouched($event)" class="typography2"></ion-input>
-    <ion-icon slot="end" src="./assets/icon/eye.svg" color="secondary"
+    <ion-icon slot="end" [src]="showPassword? './assets/icon/eye2.svg':'./assets/icon/eye.svg' " color="secondary"
               (click)="toggleShowPassword()"></ion-icon>
+
   </ion-item>
 </ng-template>

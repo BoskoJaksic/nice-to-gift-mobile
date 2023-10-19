@@ -1,0 +1,19 @@
+ion-toast.custom-toast {
+  --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+  --color: #4b4a50;
+}
+
+ion-toast.custom-toast::part(message) {
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+ion-toast.custom-toast::part(button) {
+  border-left: 1px solid #d2d2d2;
+  color: #030207;
+  font-size: 15px;
+}

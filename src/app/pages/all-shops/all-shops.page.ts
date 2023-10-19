@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from "../../shared/services/navigation.service";
 import {cards} from "../../shared/mocks";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'app-all-shops',
@@ -10,7 +11,7 @@ import {cards} from "../../shared/mocks";
 export class AllShopsPage implements OnInit {
   cards = cards
 
-  constructor(private navigation: NavigationService) {
+  constructor(private navigation: NavigationService, public commonService:CommonService) {
   }
 
   ngOnInit() {

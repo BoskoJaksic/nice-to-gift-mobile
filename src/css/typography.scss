@@ -10,7 +10,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 21px;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   text-align: center;
 }
 
@@ -75,4 +75,60 @@
   font-style: normal !important;
   font-weight: 600 !important;
   line-height: normal !important;
+}
+.card-name{
+  color: #FFF;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.cake-name{
+  color: var(--ion-color-secondary);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.product-quantity{
+  color: var(--ion-color-secondary);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 100% */
+  letter-spacing: -0.24px;
+}
+.total-price{
+  color: var(--ion-color-secondary);
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.checkout-text{
+  color: #1A3957;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.minutes{
+  color: var(--Color---Text-Primary, #3E4462);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px; /* 200% */
+  letter-spacing: -0.24px;
+}
+.no-of-stars{
+  color: #1A3957;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }

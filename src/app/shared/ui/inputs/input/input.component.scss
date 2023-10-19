@@ -10,4 +10,6 @@
 
 ion-item {
   --highlight-color-focused: var(--ion-color-secondary) !important;
+  --highlight-color-invalid: var(--ion-color-secondary) !important;; // invalid underline color
+  --highlight-color-valid: var(--ion-color-secondary) !important;; // valid underline color
 }

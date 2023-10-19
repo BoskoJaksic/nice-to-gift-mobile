@@ -17,8 +17,11 @@ export class StorageService {
     this.storage = await this.storage.create();
   }
 
-  public setToken(key: string, value: any) {
+  public setItem(key: string, value: any) {
     this.storage?.set(key, value);
+  }
+  public async getItem(value: any) {
+    return await this.storage?.get(value);
   }
 
   public async checkIfTokenExists() {
@@ -69,8 +72,8 @@ export class StorageService {
 
       this.keycloakService.refreshToken(await refreshToken).subscribe(
         (response) => {
-          this.setToken('token', response.access_token);
-          this.setToken('refresh_token', response.refresh_token);
+          this.setItem('token', response.access_token);
+          this.setItem('refresh_token', response.refresh_token);
           resolve(); // Resolve the promise after successfully setting the tokens
         },
         (error) => {

@@ -8,6 +8,14 @@
   </div>
 
   <form [formGroup]="form" style="margin-top: 70px">
+    <ion-row>
+      <ion-col><app-input *ngIf="currentRoute ==='/register'" placeholder="Name" inputType="text" formControlName="name"></app-input>
+      </ion-col>
+      <ion-col>
+        <app-input *ngIf="currentRoute ==='/register'" placeholder="Surname" inputType="text" formControlName="surname"></app-input>
+
+      </ion-col>
+    </ion-row>
     <app-input placeholder="Email" inputType="text" formControlName="email"></app-input>
     <app-input placeholder="Password" inputType="password" formControlName="password"></app-input>
     <div *ngIf="errorMessage !== ''" class="error-text"><ion-icon name="close-outline" style="width: 20px;height: 20px"></ion-icon>
