@@ -7,7 +7,7 @@ import {CommonService} from "../../services/common.service";
   styleUrls: ['./horizontal-shop-view.component.scss'],
 })
 export class HorizontalShopViewComponent implements OnInit {
-  @Input() cards: any
+  @Input() shops: any
   @Input() title = ''
   @Input() seeAll: boolean = true;
 
@@ -15,7 +15,7 @@ export class HorizontalShopViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('car',this.cards)
+    console.log('car',this.shops)
   }
 
 }

@@ -1,0 +1,49 @@
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg" width="40" height="40" (click)="goBackToPrevPage()">
+      </ion-col>
+      <ion-col>
+        <div class="screen-card-text">Payment Method</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="main-content">
+    <div class="content-wrapper">
+
+    </div>
+    <div class="payment-message">
+      <div class="payment-text" style="margin-bottom: 24px">Payment</div>
+      <ion-row>
+        <ion-col><span class="typography-small">Item Total</span></ion-col>
+        <ion-col>
+          <div style="display: flex;justify-content: end">
+            <span class="checkout-text">€ {{amountService.getTotalAmount()}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><span class="typography-small">Fee {{amountService.getFeeAmount()}}%</span></ion-col>
+        <ion-col>
+          <div style="display: flex;justify-content: end">
+            <span class="checkout-text">€ {{amountService.getFeeAmountCalc()}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-item-divider mode="md" style="margin-top: -25px"></ion-item-divider>
+      <ion-row>
+        <ion-col><span class="typography-small">To Pay</span></ion-col>
+        <ion-col>
+          <div style="display: flex;justify-content: end">
+            <span class="checkout-text">€ {{amountService.getTotalAmountToPay()}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </div>
+  </div>
+  <app-checkout-button goTo="tabs/tabs/gift-tab" [isFromCheckout]="true" [amount]="amountService.getTotalAmountToPay()"></app-checkout-button>
+</ion-content>

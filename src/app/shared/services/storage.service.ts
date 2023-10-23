@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Storage} from "@ionic/storage-angular";
 import jwt_decode from "jwt-decode";
 import {KeycloakService} from "../../core/keycloack/keycloack.service";
+import {CommonService} from "../../services/common.service";
 
 
 @Injectable({
@@ -9,7 +10,9 @@ import {KeycloakService} from "../../core/keycloack/keycloack.service";
 })
 export class StorageService {
 
-  constructor(private storage: Storage, private keycloakService: KeycloakService) {
+  constructor(private storage: Storage,
+              private commonService: CommonService,
+              private keycloakService: KeycloakService) {
     this.init();
   }
 
@@ -20,8 +23,8 @@ export class StorageService {
   public setItem(key: string, value: any) {
     this.storage?.set(key, value);
   }
-  public async getItem(value: any) {
-    return await this.storage?.get(value);
+  public getItem(value: any) {
+    return this.storage?.get(value);
   }
 
   public async checkIfTokenExists() {
@@ -79,6 +82,7 @@ export class StorageService {
         (error) => {
           console.error('Error occurred while refreshing token:', error);
           reject(error); // Reject the promise if there's an error
+          this.commonService.goToRoute('login-register')
         }
       );
     });

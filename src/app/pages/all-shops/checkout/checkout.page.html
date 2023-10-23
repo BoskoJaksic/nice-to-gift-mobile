@@ -1,0 +1,63 @@
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg" width="40" height="40" (click)="goBackToPrevPage()">
+      </ion-col>
+      <ion-col>
+        <div class="screen-card-text">Checkout</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="main-content">
+    <div class="screen-card-text" style="margin-top: 36px">My cart</div>
+    <div class="content-wrapper">
+      <div class="card-checkout" *ngFor="let selectedProduct of selectedProducts">
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col><span class="checkout-text">{{selectedProduct.name}}</span> <br/><br/>
+            <div style="display: flex">
+            <ion-icon src="./assets/icon/eur.svg" class="eur-symbol" style="margin-right: 4px"></ion-icon>
+            <span class="no-of-stars">{{selectedProduct.amount}}</span>
+            </div>
+          </ion-col>
+          <ion-col style="text-align: end">
+            <!--            <ion-icon class="delete-product" src="./assets/icon/delete-checkout.svg" (click)="removeProduct(selectedProduct)">-->
+            <!--          </ion-icon>-->
+            <br/>
+            <br/>
+            <div style="display: flex;justify-content: end;">
+              <ion-fab-button color="primary" size="small" style="width: 30px;height: 30px"
+                              (click)="updateProductQuantity(selectedProduct,false)">
+                <ion-icon name="remove-outline" style="color: white"></ion-icon>
+              </ion-fab-button>
+              <p style="margin-top: 10px" class="product-quantity">{{selectedProduct.quantity}}</p>
+              <ion-fab-button color="primary" size="small" style="width: 30px;height: 30px"
+                              (click)="updateProductQuantity(selectedProduct,true)">
+                <ion-icon name="add-outline" style="color: white"></ion-icon>
+              </ion-fab-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="text-message">
+      <ion-row style="padding-left: 11px;padding-top: 13px">
+        <ion-col size="1">
+          <ion-icon src="./assets/icon/gift-message-area.svg" style="height: 33px;width: 33px"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-textarea wrap="soft"
+                        mode="ios"
+                        class="textarea"
+                        placeholder="Write a message with the gift.."
+          >
+          </ion-textarea>
+        </ion-col>
+      </ion-row>
+
+    </div>
+  </div>
+  <app-checkout-button [amount]="amountService.getTotalAmount()" goTo="all-shops/payment-method"></app-checkout-button>
+</ion-content>

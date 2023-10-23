@@ -22,6 +22,10 @@ export class SettingsTabPage implements OnInit {
     this.keycloakService.logout(refreshToken, 'logout').subscribe(r=>{
       this.storageService.removeToken('token')
       this.storageService.removeToken('refresh_token')
+      this.storageService.removeToken('userName')
+      this.storageService.removeToken('userSurname')
+      this.storageService.removeToken('userId')
+      this.storageService.removeToken('userEmail')
       this.commonService.goToRoute('/')
     })
   }

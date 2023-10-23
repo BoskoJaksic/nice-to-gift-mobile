@@ -1,0 +1,36 @@
+.content-wrapper {
+  height: 50vh; /* Set the height to 100% of viewport height */
+  overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
+  padding-bottom: 60px; /* Adjust the bottom padding to accommodate the fixed checkout-button button */
+}
+
+.card-checkout {
+  border-radius: 20px;
+  background-color: var(--ion-color-light);
+  height: 113px;
+  margin-top: 11px;
+}
+
+.delete-product {
+  margin-top: 18px;
+  margin-right: 18px;
+  width: 24px;
+  height: 24px;
+}
+.text-message{
+  border-radius: 16px 16px 16px 0px;
+  background: #FFF;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+  height: 115px;
+}
+
+ion-textarea.textarea {
+  --height:115px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --placeholder-color: var(--ion-color-secondary);
+  --placeholder-opacity: 0.5;
+}
+.sc-ion-textarea-md-h:not(.legacy-textarea) {
+  min-height: 90px;
+}

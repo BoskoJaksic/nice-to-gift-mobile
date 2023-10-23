@@ -1,0 +1,17 @@
+.checkout-button {
+  margin-left: 16px;
+  margin-right: 13px !important;
+  position: fixed;
+  bottom: 10px;
+  width: 93%;
+  height: 70px;
+  background-color: var(--ion-color-primary);
+  color: #fff; /* Customize button text color */
+  border-radius: 39px !important;
+}
+.checkout{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+  margin-right: 40px;
+}

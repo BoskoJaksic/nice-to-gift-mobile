@@ -14,11 +14,10 @@ export class CommonService {
   }
 
 
-  goToRoute(whereTo: string,params?:any) {
+  goToRoute(whereTo: any,params?:any) {
     if (params){
       this.router.navigate([whereTo,params])
     }else{
-
       this.router.navigate([whereTo])
     }
     return

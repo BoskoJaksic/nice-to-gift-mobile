@@ -1,5 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {cards} from "../../shared/mocks";
+import {Component, Input, OnInit} from '@angular/core';
+import {AmountService} from "../../shared/services/ammount.service";
+import {ProductModel} from "../../shared/model/product.model";
+import {ProductApiService} from "../../shared/services/product-api.service";
+import {ToasterService} from "../../shared/services/toaster.service";
+import {CheckoutService} from "../../shared/services/checkout.service";
 
 @Component({
   selector: 'app-shop-products',
@@ -7,17 +11,49 @@ import {cards} from "../../shared/mocks";
   styleUrls: ['./shop-products.component.scss'],
 })
 export class ShopProductsComponent implements OnInit {
-  @Output() totalAmountEmitter: EventEmitter<number> = new EventEmitter<number>();
+  allProducts: ProductModel[] = []
+  @Input() shopId: string = ''
+  previousUrl: string = '';
 
-  @Input() products: any
+  constructor(private amountService: AmountService,
+              private toasterService: ToasterService,
+              public checkoutService: CheckoutService,
+              private productApiService: ProductApiService) {
 
-  constructor() {
   }
 
   ngOnInit() {
+    this.getAllProducts();
+    this.checkoutService.getAllProducts().subscribe(r => {
+      this.allProducts = r
+    })
   }
+
+
+  getAllProducts() {
+    this.productApiService.getAllProducts('Product').subscribe(
+      (products: any) => {
+
+        this.allProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
+        this.checkoutService.setAllProducts(this.allProducts);
+        // Handle the shops data returned from the service
+        console.log('product', this.allProducts);
+      },
+      (error: any) => {
+        // Handle errors if any
+        console.error(error);
+      }
+    );
+  }
+
+
   increaseQuantity(product: any) {
-    product.quantity++; // Increase product quantity by 1
+    console.log('inc', product)
+    if (product.stock === product.quantity) {
+      this.toasterService.presentToast('No more in the stock', 'warning')
+    } else {
+      product.quantity++; // Increase product quantity by 1
+    }
   }
 
   decreaseQuantity(product: any) {
@@ -27,16 +63,16 @@ export class ShopProductsComponent implements OnInit {
   }
 
   updateTotal(product: any) {
-    product.total = product.quantity * product.price;
-    this.totalAmountEmitter.emit(this.getTotalAmount());
+    product.total = product.quantity * product.amount;
+    this.amountService.calculateTotalAmount(this.allProducts)
+    this.updateCheckoutService();
   }
 
-  getTotalAmount(): number {
-    return this.products.reduce((total:any, product:any) => total + product.total, 0);
+  updateCheckoutService(): void {
+    this.checkoutService.setAllProducts(this.allProducts);
   }
-  protected readonly cards = cards;
 
-  onIonInfinite($event: any) {
-
-  }
+  // getTotalAmount(): number {
+  //   return this.allProducts.reduce((total: any, product: any) => total + product.total, 0);
+  // }
 }

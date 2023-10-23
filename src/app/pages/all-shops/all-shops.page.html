@@ -15,14 +15,14 @@
                    [debounce]="1000" color="light"
                    mode="ios" placeholder="Search"></ion-searchbar>
     <div class="card-container">
-      <div class="card" style="  margin-bottom: 13px;width: 100%" *ngFor="let card of cards" (click)="commonService.goToRoute('all-shops/single-shop-view',card.shopImg)">
-        <img [src]="card.shopImg" alt="Shop Image">
+      <div class="card" style="  margin-bottom: 13px;width: 100%" *ngFor="let shop of allShops" (click)="commonService.goToRoute('all-shops/single-shop-view',shop.id)">
+        <img [src]="shop.shopImg" alt="Shop Image">
         <div style="display: flex;justify-content: space-between;">
-          <h2 class="screen-card-text-medium" style="margin-left: 17px">{{card.shopName}}</h2>
+          <h2 class="screen-card-text-medium" style="margin-left: 17px">{{shop.name}}</h2>
           <div style="margin-right: 15px">
             <img ngSrc="./assets/icon/rating-star.svg" height="16" width="17"
                  style="width: 16px;height: 16px;margin-right: 5px;margin-top: 3px">
-            <span>5.0</span>
+            <span>{{shop.averageRating}}</span>
           </div>
         </div>
       </div>

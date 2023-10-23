@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavigationService} from "../../../shared/services/navigation.service";
-import {cards} from "../../../shared/mocks";
+import {AmountService} from "../../../shared/services/ammount.service";
+import {CommonService} from "../../../services/common.service";
+import {ShopApiServices} from "../../../shared/services/shop-api.services";
+import {ShopModel} from "../../../shared/model/shop.model";
+import {CheckoutService} from "../../../shared/services/checkout.service";
+import {StorageService} from "../../../shared/services/storage.service";
 
 @Component({
   selector: 'app-single-shop-view',
@@ -9,23 +13,46 @@ import {cards} from "../../../shared/mocks";
   styleUrls: ['./single-shop-view.page.scss'],
 })
 export class SingleShopViewPage implements OnInit {
-  // shopId: String = ''
-  shopImg: String = ''
-  cards = cards
+  shopId: string = ''
   totalAmountFromChild: number = 0;
-
-  constructor(private _Activatedroute: ActivatedRoute, private navigation: NavigationService) {
+  shopDetails:any
+  constructor(private _Activatedroute: ActivatedRoute,
+              public amountService: AmountService,
+              public checkoutService: CheckoutService,
+              public storageService: StorageService,
+              private shopApiService: ShopApiServices,
+              private commonService: CommonService) {
   }
+
 
   ngOnInit() {
-    // this.shopId = this._Activatedroute.snapshot.params["id"];
-    this.shopImg = this._Activatedroute.snapshot.params["id"];
-    console.log('ddd', this.shopImg)
+    this.shopId = this._Activatedroute.snapshot.params["id"];
+    this.amountService.setShopId(this.shopId);
+    this.storageService.setItem('shopId',this.shopId)
+    this.getShopDetails();
   }
+
+  getShopDetails() {
+    this.shopApiService.getSingleShopDetails(this.shopId).subscribe(
+      (shops: ShopModel) => {
+        this.shopDetails = shops
+        // Handle the shops data returned from the service
+        console.log('shopDetails',this.shopDetails);
+      },
+      (error: any) => {
+        // Handle errors if any
+        console.error(error);
+      }
+    );
+  }
+
   handleTotalAmount(totalAmount: number) {
     this.totalAmountFromChild = totalAmount;
   }
+
   goBackToPrevPage(): void {
-    this.navigation.back();
+    this.amountService.setTotalAmount(0);
+    this.checkoutService.setAllProducts([])
+    this.commonService.goToRoute('all-shops');
   }
 }

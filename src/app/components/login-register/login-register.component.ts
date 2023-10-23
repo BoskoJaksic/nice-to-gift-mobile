@@ -7,6 +7,7 @@ import {ApiService} from "../../core/api.service";
 import jwt_decode from "jwt-decode";
 import {Router} from "@angular/router";
 import {ToasterService} from "../../shared/services/toaster.service";
+import {AmountService} from "../../shared/services/ammount.service";
 
 @Component({
   selector: 'app-login-register',
@@ -18,12 +19,14 @@ export class LoginRegisterComponent implements OnInit {
   @Input() login: boolean = true;
   errorMessage: String = ''
   currentRoute = ''
+  showSpinner: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               public commonService: CommonService,
               private keycloakService: KeycloakService,
               private storageService: StorageService,
               private apiService: ApiService,
+              private amountService: AmountService,
               private router: Router,
               private toasterService: ToasterService
   ) {
@@ -39,7 +42,15 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getFeeAmount();
+  }
 
+  getFeeAmount() {
+// this.shopApiServices.getFeeAmount().subscribe(r => {
+    //   this.feeAmount = r;
+    // this.calculateTotalToPay()
+    // }) todo set this inside subscribe
+    this.amountService.setFeeAmount('3')
   }
 
   afterLoginRedirect(response: any) {
@@ -47,9 +58,11 @@ export class LoginRegisterComponent implements OnInit {
     // @ts-ignore
     this.storageService.setItem('userName', decodedToken.name)
     // @ts-ignore
-    this.storageService.setItem('userSurname', decodedToken.surname)
+    this.storageService.setItem('userSurname', decodedToken.lastname)
     // @ts-ignore
     this.storageService.setItem('userId', decodedToken.userId)
+    // @ts-ignore
+    this.storageService.setItem('userEmail', decodedToken.email)
 
     // @ts-ignore
     if (decodedToken.firstLogin) {
@@ -64,9 +77,11 @@ export class LoginRegisterComponent implements OnInit {
     this.keycloakService.login(this.form.value.email, this.form.value.password).subscribe(r => {
       this.storageService.setItem('token', r.access_token)
       this.storageService.setItem('refresh_token', r.refresh_token)
+      this.showSpinner = false;
       this.afterLoginRedirect(r)
     }, error => {
       console.log('err', error)
+      this.showSpinner = false;
       if (error.status === 401) {
         this.errorMessage = 'Invalid user credentials'
       }
@@ -83,8 +98,12 @@ export class LoginRegisterComponent implements OnInit {
     this.apiService.post('Users/register', dataToSend).subscribe(r => {
       this.toasterService.presentToast('User successfully registered', 'success')
       this.commonService.goToRoute('login-register')
+      this.showSpinner = false;
+
     }, error => {
       console.log('err reg', error)
+      this.showSpinner = false;
+
       if (error.status === 400) {
         this.errorMessage = "Can't login with this credentials"
       }
@@ -92,6 +111,7 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showSpinner = true;
     console.log('form', this.form.value)
     if (this.login) {
       this.loginUser()
