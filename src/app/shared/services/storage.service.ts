@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Storage} from "@ionic/storage-angular";
 import jwt_decode from "jwt-decode";
 import {KeycloakService} from "../../core/keycloack/keycloack.service";
+import {CommonService} from "../../services/common.service";
 
 
 @Injectable({
@@ -9,7 +10,9 @@ import {KeycloakService} from "../../core/keycloack/keycloack.service";
 })
 export class StorageService {
 
-  constructor(private storage: Storage, private keycloakService: KeycloakService) {
+  constructor(private storage: Storage,
+              private commonService: CommonService,
+              private keycloakService: KeycloakService) {
     this.init();
   }
 
@@ -17,8 +20,11 @@ export class StorageService {
     this.storage = await this.storage.create();
   }
 
-  public setToken(key: string, value: any) {
+  public setItem(key: string, value: any) {
     this.storage?.set(key, value);
+  }
+  public getItem(value: any) {
+    return this.storage?.get(value);
   }
 
   public async checkIfTokenExists() {
@@ -69,13 +75,14 @@ export class StorageService {
 
       this.keycloakService.refreshToken(await refreshToken).subscribe(
         (response) => {
-          this.setToken('token', response.access_token);
-          this.setToken('refresh_token', response.refresh_token);
+          this.setItem('token', response.access_token);
+          this.setItem('refresh_token', response.refresh_token);
           resolve(); // Resolve the promise after successfully setting the tokens
         },
         (error) => {
           console.error('Error occurred while refreshing token:', error);
           reject(error); // Reject the promise if there's an error
+          this.commonService.goToRoute('login-register')
         }
       );
     });

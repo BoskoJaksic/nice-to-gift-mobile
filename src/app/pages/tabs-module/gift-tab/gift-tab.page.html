@@ -1,8 +1,12 @@
+<app-header *ngIf="!isFromCheckout"></app-header>
 <ion-content>
-  <div class="main-content">
-    <app-header></app-header>
+  <div class="main-content" *ngIf="!isFromCheckout else viewComponent">
     <p class="screen-card-text">Gift</p>
-    <app-horizontal-shop-view [cards]="cards" [title]="'Shops'"></app-horizontal-shop-view>
-    <app-horizontal-shop-view [cards]="cards" [seeAll]="false" [title]="'Top rated'"></app-horizontal-shop-view>
+    <app-horizontal-shop-view [shops]="shops" [title]="'Shops'"></app-horizontal-shop-view>
+    <app-horizontal-shop-view [shops]="topRatedShops" [seeAll]="false" [title]="'Top rated'"></app-horizontal-shop-view>
   </div>
+  <ng-template #viewComponent>
+    <app-order-confirmed (closeComponent)="handleCloseComponent($event)"></app-order-confirmed>
+  </ng-template>
 </ion-content>
+

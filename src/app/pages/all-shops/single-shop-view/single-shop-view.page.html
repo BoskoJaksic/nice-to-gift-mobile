@@ -1,0 +1,45 @@
+<ion-content>
+  <div class="content-wrapper">
+    <div class="background-container"
+  [ngStyle]="{'background-image': 'url(' + shopDetails?.shopImg + ')', 'background-size': 'cover', 'background-position': 'center', 'width': '100%', 'height': '250px','border-radius':'0 0 20px 20px'}"
+>
+      <div class="go-back-container">
+        <img src="./assets/icon/go-back-white.svg" width="40" height="40" (click)="goBackToPrevPage()"
+             class="go-back-img">
+      </div>
+      <div class="content-container">
+        <ion-row class="bottom-row">
+          <ion-col><span class="card-name text-position">dsd</span></ion-col>
+          <ion-col>
+            <div style="float: right;margin-right: 13px">
+              <img src="./assets/icon/star-white.svg" height="16" width="17"
+                   style="width: 16px;height: 16px;margin-right: 8px;margin-top: 3px">
+              <span>{{shopDetails?.averageRating}}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="main-content-shop">
+      <ion-row>
+        <ion-col size="6"><span class="typography-small">{{shopDetails?.address}}</span></ion-col>
+        <ion-col>
+          <div style="float: right">
+            <img src="./assets/icon/clock.svg" height="16" width="17"
+                 style="width: 16px;height: 16px;margin-right: 8px;margin-top: 3px">
+            <span>10 AM - 7 PM</span></div>
+
+        </ion-col>
+      </ion-row>
+      <mat-tab-group>
+        <mat-tab label="Menu items">
+          <app-shop-products [shopId]="shopId"></app-shop-products>
+        </mat-tab>
+        <mat-tab label="Reviews">
+          <app-shop-reviews></app-shop-reviews>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+  <app-checkout-button goTo="all-shops/checkout" [amount]="amountService.getTotalAmount()"></app-checkout-button>
+</ion-content>

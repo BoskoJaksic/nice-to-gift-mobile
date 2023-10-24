@@ -1,6 +1,7 @@
 <div class="div-content">
   <div class="text-align-center">
-    <img ngSrc="assets/icon/login-icon.svg" height="225" width="119" alt="">
+    <img *ngIf="currentRoute ==='/register'" ngSrc="assets/images/login.svg" alt="" height="119" width="119">
+    <img *ngIf="currentRoute !=='/register'" ngSrc="assets/images/login-bigger.svg" alt="" height="225" width="119">
   </div>
   <div class="text-align-center text-div">
     <span class="typography-title">Nice to gift</span>
@@ -8,20 +9,32 @@
   </div>
 
   <form [formGroup]="form" style="margin-top: 70px">
+    <app-input *ngIf="currentRoute ==='/register'" placeholder="Name" inputType="text"
+               formControlName="name"></app-input>
+
+    <app-input *ngIf="currentRoute ==='/register'" placeholder="Surname" inputType="text"
+               formControlName="surname"></app-input>
+
+
     <app-input placeholder="Email" inputType="text" formControlName="email"></app-input>
     <app-input placeholder="Password" inputType="password" formControlName="password"></app-input>
-    <div *ngIf="errorMessage !== ''" class="error-text"><ion-icon name="close-outline" style="width: 20px;height: 20px"></ion-icon>
-     <div>{{errorMessage}}</div> </div>
+    <div *ngIf="errorMessage !== ''" class="error-text">
+      <ion-icon name="close-outline" style="width: 20px;height: 20px"></ion-icon>
+      <div>{{errorMessage}}</div>
+    </div>
     <p style="margin-top: 38px">
-      <app-secondary-button [disabled]="!form.valid" (onClick)="onSubmit()">
-        <span class="button-text">{{ login ? 'Log In' : 'Sign Up' }}</span>
+      <app-secondary-button [disabled]="!form.valid && showSpinner" (onClick)="onSubmit()">
+        <span class="button-text" style="margin-right: 5px">{{ login ? 'Log In' : 'Sign Up' }}</span>
+        <ion-spinner *ngIf="showSpinner" style="color: white"></ion-spinner>
+
       </app-secondary-button>
     </p>
     <p class="typography-small">
       {{ login ? "Don't have an account?" : "Already have an account?" }}
     </p>
-    <p class="typography3 signup-text" >
-      <span (click)="commonService.goToRoute(login ? 'register' : 'login-register')">{{ login ? "Sign Up" : "Login" }}</span>
+    <p class="typography3 signup-text">
+      <span
+        (click)="commonService.goToRoute(login ? 'register' : 'login-register')">{{ login ? "Sign Up" : "Login" }}</span>
     </p>
   </form>
 </div>

@@ -16,7 +16,7 @@ import {SharedModule} from "../../shared/shared.module";
     IonicModule,
     AllShopsPageRoutingModule,
     NgOptimizedImage,
-    SharedModule
+    SharedModule,
   ],
   declarations: [AllShopsPage]
 })

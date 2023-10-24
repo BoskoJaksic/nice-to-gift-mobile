@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Platform} from "@ionic/angular";
 import {Router} from "@angular/router";
 
 @Injectable({
@@ -10,15 +8,18 @@ export class CommonService {
 
 
   constructor(
-    private platform: Platform,
     private router: Router,
   ) {
 
   }
 
 
-  goToRoute(whereTo: string) {
-    this.router.navigate([whereTo])
+  goToRoute(whereTo: any,params?:any) {
+    if (params){
+      this.router.navigate([whereTo,params])
+    }else{
+      this.router.navigate([whereTo])
+    }
     return
   }
 }

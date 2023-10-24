@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {cards} from "../../../shared/mocks";
+import {StorageService} from "../../../shared/services/storage.service";
+import {ShopApiServices} from "../../../shared/services/shop-api.services";
+import {ShopModel} from "../../../shared/model/shop.model";
 
 @Component({
   selector: 'app-home-tab',
@@ -7,13 +9,29 @@ import {cards} from "../../../shared/mocks";
   styleUrls: ['./home-tab.page.scss'],
 })
 export class HomeTabPage implements OnInit {
-  cards:any
+  shops: ShopModel[] = [];
+  userName: string = ''
 
-  constructor() {
+  constructor(private storageService: StorageService, private shopApiService: ShopApiServices) {
   }
 
-  ngOnInit() {
-    this.cards = cards
+  async ngOnInit() {
+    this.userName = await this.storageService.getItem('userName')
+    this.getShops()
+  }
+
+  getShops(): void {
+    this.shopApiService.get10Shops().subscribe(
+      (shops: any) => {
+        this.shops = shops.data
+        // Handle the shops data returned from the service
+        console.log(shops);
+      },
+      (error: any) => {
+        // Handle errors if any
+        console.error(error);
+      }
+    );
   }
 
 }

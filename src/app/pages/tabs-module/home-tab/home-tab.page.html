@@ -1,7 +1,7 @@
+<app-header></app-header>
 <ion-content>
   <div class="main-content">
-    <app-header></app-header>
-    <p class="screen-card-text">Hello!</p>
+    <p class="screen-card-text">Hello {{userName}}!</p>
     <p class="screen-card-text">My Gifts</p>
     <div class="gift-card">
       <ion-grid>
@@ -29,7 +29,7 @@
         </ion-row>
       </ion-grid>
     </div>
-    <app-horizontal-shop-view [cards]="cards" [title]="'Shops'"></app-horizontal-shop-view>
+    <app-horizontal-shop-view [shops]="shops" [title]="'Shops'"></app-horizontal-shop-view>
   </div>
 </ion-content>
 

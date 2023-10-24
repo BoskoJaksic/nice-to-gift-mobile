@@ -13,7 +13,8 @@ const routes: Routes = [
       },
       {
         path: 'gift-tab',
-        loadChildren: () => import('../gift-tab/gift-tab.module').then(m => m.GiftTabPageModule)
+        loadChildren: () => import('../gift-tab/gift-tab.module').then(m => m.GiftTabPageModule),
+        data: { isFromCheckout: false }
       },
       {
         path: 'maps-tab',

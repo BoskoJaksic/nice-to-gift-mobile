@@ -10,14 +10,18 @@ import {CommonModule} from "@angular/common";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { IonicStorageModule } from '@ionic/storage-angular';
 import {AuthInterceptor} from "./core/auth.interceptor";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
 declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(),IonicStorageModule.forRoot(), AppRoutingModule,CommonModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(),IonicStorageModule.forRoot(), AppRoutingModule,CommonModule,
+    BrowserAnimationsModule,
+    HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}
