@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Platform} from "@ionic/angular";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -8,15 +9,28 @@ import {environment} from "../../environments/environment";
 })
 export class ApiService {
 
-  baseUrl = environment.baseURL;
+  baseUrl = this.getApiUrl();
+  // baseUrl = environment.baseURL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private platform: Platform) {
+  }
+
+  getApiUrl(): string {
+    if (this.platform.is('android')) {
+      return 'https://10.0.2.2:7295/api/';
+    } else if (this.platform.is('ios')) {
+      return 'https://localhost:7295/api/';
+    } else {
+      // Default URL for other platforms or when running in the browser
+      return 'https://localhost:7295/api/';
+    }
+  }
 
   get(path: string): Observable<any> {
     return this.http.get(this.baseUrl + path);
   }
 
-  post(path: string, data: any,options?:any): Observable<any> {
+  post(path: string, data: any, options?: any): Observable<any> {
     return this.http.post(this.baseUrl + path, data, options);
   }
 
@@ -24,7 +38,7 @@ export class ApiService {
     return this.http.put(this.baseUrl + path, data);
   }
 
-  delete(path: string,data:any): Observable<any> {
-    return this.http.delete(this.baseUrl + path,data);
+  delete(path: string, data: any): Observable<any> {
+    return this.http.delete(this.baseUrl + path, data);
   }
 }
