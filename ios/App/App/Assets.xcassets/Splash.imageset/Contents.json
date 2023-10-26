@@ -1,23 +1,128 @@
 {
   "images" : [
     {
+      "filename" : "Icon-App-20x20@1x.png",
       "idiom" : "universal",
-      "filename" : "splash-2732x2732-2.png",
       "scale" : "1x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Default@1x~universal~anyany-dark.png",
       "idiom" : "universal",
-      "filename" : "splash-2732x2732-1.png",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Icon-App-20x20@2x.png",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Default@2x~universal~anyany-dark.png",
       "idiom" : "universal",
-      "filename" : "splash-2732x2732.png",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Icon-App-20x20@3x.png",
+      "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Default@3x~universal~anyany-dark.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "Icon-App-29x29@1x.png",
+      "idiom" : "universal",
+      "scale" : "1x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-40x40@1x.png",
+      "idiom" : "universal",
+      "scale" : "1x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-76x76@1x.png",
+      "idiom" : "universal",
+      "scale" : "1x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-29x29@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-40x40@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-60x60@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-76x76@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-83.5x83.5@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "ItunesArtwork@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-29x29@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-40x40@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x",
+      "unassigned" : true
+    },
+    {
+      "filename" : "Icon-App-60x60@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x",
+      "unassigned" : true
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

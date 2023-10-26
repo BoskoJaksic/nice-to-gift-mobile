@@ -21,8 +21,8 @@ export class SettingsTabPage implements OnInit {
     this.avatarImg = ''
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
-      name: [''],
-      surname: [''],
+      name: ['',Validators.required],
+      surname: ['',Validators.required],
 
     });
   }

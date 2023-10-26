@@ -10,7 +10,7 @@ import {AmountService} from "../../../shared/services/ammount.service";
 export class PaymentMethodPage implements OnInit {
 
 
-  constructor(private commonService: CommonService,
+  constructor(public commonService: CommonService,
               public amountService: AmountService
   ) {
   }

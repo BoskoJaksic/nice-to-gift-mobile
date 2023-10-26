@@ -1,5 +1,7 @@
-<ion-header mode="ios" [translucent]="true">
+<ion-header mode="ios">
   <ion-toolbar>
-    <img ngSrc="assets/images/Logo.svg" height="53" width="184" alt="" >
-    </ion-toolbar>
+    <img ngSrc="assets/images/Logo.svg" height="53"
+         [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}"
+         width="184" alt="">
+  </ion-toolbar>
 </ion-header>
