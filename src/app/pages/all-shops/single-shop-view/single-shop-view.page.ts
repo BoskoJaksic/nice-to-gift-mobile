@@ -28,8 +28,10 @@ export class SingleShopViewPage implements OnInit {
   ngOnInit() {
     this.shopId = this._Activatedroute.snapshot.params["id"];
     this.amountService.setShopId(this.shopId);
-    this.storageService.setItem('shopId',this.shopId)
-    this.getShopDetails();
+    if (this.shopId !== 'false'){
+      this.storageService.setItem('shopId',this.shopId)
+      this.getShopDetails();
+    }
   }
 
   getShopDetails() {

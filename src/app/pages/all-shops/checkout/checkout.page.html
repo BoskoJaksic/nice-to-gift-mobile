@@ -16,13 +16,16 @@
     <div class="content-wrapper">
       <div class="card-checkout" *ngFor="let selectedProduct of selectedProducts">
         <ion-row>
-          <ion-col></ion-col>
-          <ion-col><span class="checkout-text">{{selectedProduct.name}}</span> <br/><br/>
+          <ion-col>
+            <img [src]="selectedProduct.imageUri" class="img-style"/>
+          </ion-col>
+          <ion-col style="padding-top: 17px"><span class="checkout-text">{{selectedProduct.name}}</span> <br/><br/>
             <div style="display: flex">
             <ion-icon src="./assets/icon/eur.svg" class="eur-symbol" style="margin-right: 4px"></ion-icon>
             <span class="no-of-stars">{{selectedProduct.amount}}</span>
             </div>
           </ion-col>
+
           <ion-col style="text-align: end">
             <!--            <ion-icon class="delete-product" src="./assets/icon/delete-checkout.svg" (click)="removeProduct(selectedProduct)">-->
             <!--          </ion-icon>-->

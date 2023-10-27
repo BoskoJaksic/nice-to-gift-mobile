@@ -1,6 +1,6 @@
 <ion-header mode="ios" [translucent]="true">
   <ion-toolbar>
-    <div class="screen-card-text" style="margin-left: 13px">Settings</div>
+    <div class="screen-card-text" style="margin-left: 13px" [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">Settings</div>
   </ion-toolbar>
 </ion-header>
 <ion-content>

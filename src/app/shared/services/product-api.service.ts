@@ -13,7 +13,7 @@ export class ProductApiService {
   }
 
 
-  getAllProducts(url: string): Observable<ProductModel> {
+  getAllShopProducts(url: string): Observable<ProductModel> {
     return this.apiService.get(url);
   }
 }

@@ -17,7 +17,7 @@ export class SettingsTabPage implements OnInit {
   constructor(private keycloakService: KeycloakService,
               private formBuilder: FormBuilder,
               private storageService: StorageService,
-              private commonService: CommonService) {
+              public commonService: CommonService) {
     this.avatarImg = ''
     this.form = this.formBuilder.group({
       email: ['', Validators.required],

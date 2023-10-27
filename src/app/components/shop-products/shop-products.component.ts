@@ -4,6 +4,7 @@ import {ProductModel} from "../../shared/model/product.model";
 import {ProductApiService} from "../../shared/services/product-api.service";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-shop-products',
@@ -13,29 +14,39 @@ import {CheckoutService} from "../../shared/services/checkout.service";
 export class ShopProductsComponent implements OnInit {
   allProducts: ProductModel[] = []
   @Input() shopId: string = ''
-  previousUrl: string = '';
+
 
   constructor(private amountService: AmountService,
               private toasterService: ToasterService,
               public checkoutService: CheckoutService,
+              private route: ActivatedRoute,
               private productApiService: ProductApiService) {
 
   }
 
   ngOnInit() {
-    this.getAllProducts();
     this.checkoutService.getAllProducts().subscribe(r => {
       this.allProducts = r
     })
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      if (id !== 'false') {
+
+        this.getAllProducts();
+      }
+    });
   }
 
 
   getAllProducts() {
-    this.productApiService.getAllProducts('Product').subscribe(
+    this.productApiService.getAllShopProducts(`Product?ShopId=${this.shopId}`).subscribe(
       (products: any) => {
 
         this.allProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
         this.checkoutService.setAllProducts(this.allProducts);
+        this.checkoutService.getAllProducts().subscribe(r => {
+          this.allProducts = r
+        })
         // Handle the shops data returned from the service
         console.log('product', this.allProducts);
       },
@@ -71,8 +82,4 @@ export class ShopProductsComponent implements OnInit {
   updateCheckoutService(): void {
     this.checkoutService.setAllProducts(this.allProducts);
   }
-
-  // getTotalAmount(): number {
-  //   return this.allProducts.reduce((total: any, product: any) => total + product.total, 0);
-  // }
 }
