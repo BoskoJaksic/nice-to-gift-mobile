@@ -58,12 +58,4 @@ export class AmountService {
     this.setTotalAmount(totalAmount);
     this.getTotalToPay()
   }
-
-  setShopId(id: String): void {
-    this.singleShopId = id;
-  }
-
-  getShopId(): String {
-    return this.singleShopId;
-  }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from "../../../shared/services/storage.service";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
-import {ShopModel} from "../../../shared/model/shop.model";
+import {ShopModel} from "../../../shared/model/shops/shop.model";
 
 @Component({
   selector: 'app-home-tab',

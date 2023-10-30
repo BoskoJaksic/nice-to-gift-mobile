@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "../../core/api.service";
 import {Observable} from "rxjs";
-import {ShopModel} from "../model/shop.model";
+import {ShopModel} from "../model/shops/shop.model";
+import {ShopReviewModel} from "../model/shops/shop-review.model";
+import {GetShopReviewModel} from "../model/shops/get-shop-review.model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +31,13 @@ export class ShopApiServices {
 
   getFeeAmount(): Observable<any> {
     return this.apiService.get('shops/fee');
+  }
+
+  postShopReview(data: ShopReviewModel): Observable<ShopReviewModel> {
+    return this.apiService.post('Shop/review', data);
+  }
+
+  getShopReview(shopId: string,page:number): Observable<GetShopReviewModel> {
+    return this.apiService.get(`Shop/reviews?ShopId=${shopId}&Page=${page}&Size=10`);
   }
 }

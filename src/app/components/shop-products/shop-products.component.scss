@@ -1,12 +1,18 @@
 .card-container {
   margin-top: 30px;
+  height: 60vh; /* Set the height to 100% of viewport height */
+  overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
+  position: relative;
+  padding-bottom: 60px;
 }
-.card-products{
+
+.card-products {
   width: 292px;
   height: 180px;
   background: var(--ion-color-light);;
   border-radius: 20px;
 }
+
 .card-products img {
   width: 100%;
   height: 60%; /* 80% of the card height for the shop image */

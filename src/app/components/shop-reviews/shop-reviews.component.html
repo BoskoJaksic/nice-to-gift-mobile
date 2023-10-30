@@ -1,67 +1,74 @@
-<div class="main-content">
-  <ion-item lines="none" class="rounded-input" (click)="toggleRating()" *ngIf="!ratingVisible">
-    <ion-input placeholder="Write a review" readonly="true"></ion-input>
-    <ion-icon slot="end" src="./assets/icon/edit-rating.svg"style="font-size: 40px"></ion-icon>
-  </ion-item>
+<div class="review-container ion-content-scroll-host">
 
-  <div class="self-review-card" *ngIf="ratingVisible">
-    <ion-row>
-      <ion-col size="10"><span class="screen-card-text-medium"></span>
-        <div style="display: flex">
-          <div *ngFor="let i of [1, 2, 3, 4, 5]">
-            <ion-icon class="rating-icon"
-                      src="{{ i <= userRating ? './assets/icon/filled-star.svg' : './assets/icon/rating-star.svg' }}"
-                      (click)="setRating(i)"></ion-icon>
-          </div>
-        </div>
-      </ion-col>
-      <ion-col size="2"><span class="no-of-stars" style="margin-right: 5px">{{userRating}}</span>
-        <ion-icon src="./assets/icon/filled-star.svg" style="width: 18px;height: 18px"></ion-icon>
-      </ion-col>
-    </ion-row>
+  <div class="main-content">
+    <ion-item lines="none" class="rounded-input" (click)="toggleRating()" *ngIf="!ratingVisible">
+      <ion-input placeholder="Write a review" readonly="true"></ion-input>
+      <ion-icon slot="end" src="./assets/icon/edit-rating.svg" style="font-size: 40px"></ion-icon>
+    </ion-item>
 
-    <div class="divider"></div>
-    <div class="self-text-container">
-      <ion-textarea
-        mode="ios"
-        placeholder="Type something here"
-        [(ngModel)]="textRate"
-        [autoGrow]="true">
-      </ion-textarea>
-    </div>
-    <div style="margin-top: 10px">
+    <div class="self-review-card" *ngIf="ratingVisible">
       <ion-row>
-        <ion-col size="7">
-          <app-secondary-button (onClick)="saveReview()" [disabled]="false"><span class="button-text">Save</span>
-          </app-secondary-button>
+        <ion-col size="10"><span class="screen-card-text-medium"></span>
+          <div style="display: flex">
+            <div *ngFor="let i of [1, 2, 3, 4, 5]">
+              <ion-icon class="rating-icon"
+                        src="{{ i <= userRating ? './assets/icon/filled-star.svg' : './assets/icon/rating-star.svg' }}"
+                        (click)="setRating(i)"></ion-icon>
+            </div>
+          </div>
         </ion-col>
-        <ion-col>
-          <ion-button fill="clear" (click)="discardReview()"><span class="screen-card-text-small discard-color">Discard</span></ion-button>
+        <ion-col size="2"><span class="no-of-stars" style="margin-right: 5px">{{userRating}}</span>
+          <ion-icon src="./assets/icon/filled-star.svg" style="width: 18px;height: 18px"></ion-icon>
         </ion-col>
       </ion-row>
+
+      <div class="divider"></div>
+      <div class="self-text-container">
+        <ion-textarea
+          mode="ios"
+          placeholder="Type something here"
+          [(ngModel)]="textRate"
+          [autoGrow]="true">
+        </ion-textarea>
+      </div>
+      <div style="margin-top: 10px">
+        <ion-row>
+          <ion-col size="7">
+            <app-secondary-button (onClick)="saveReview()" [disabled]="false"><span class="button-text">Save</span>
+            </app-secondary-button>
+          </ion-col>
+          <ion-col>
+            <ion-button fill="clear" (click)="discardReview()"><span class="screen-card-text-small discard-color">Discard</span>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+
+
+    <div class="review-card" *ngFor="let x of shopReviews">
+      <ion-row>
+        <ion-col size="3">
+          <ion-avatar>
+            <img alt="Silhouette of a person's head" [src]="x.reviewerBase64Image"/>
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="7"><span class="screen-card-text-medium">{{x.reviewerName}}</span>
+          <p class="minutes" style="margin-top: -5px">{{x.createdAt}}</p>
+        </ion-col>
+        <ion-col size="2"><span class="no-of-stars" style="margin-right: 5px">{{x.rating}}</span>
+          <ion-icon src="./assets/icon/filled-star.svg" style="width: 18px;height: 18px"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <div class="divider"></div>
+      <div class="text-container">
+        {{x.comment}}
+      </div>
     </div>
   </div>
-
-
-  <div class="review-card" *ngFor="let x of mockReviews">
-    <ion-row>
-      <ion-col size="3">
-        <ion-avatar>
-          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
-        </ion-avatar>
-      </ion-col>
-      <ion-col size="7"><span class="screen-card-text-medium">{{x.name}}</span>
-        <p class="minutes" style="margin-top: -5px">37 min ago</p>
-      </ion-col>
-      <ion-col size="2"><span class="no-of-stars" style="margin-right: 5px">5</span>
-        <ion-icon src="./assets/icon/filled-star.svg" style="width: 18px;height: 18px"></ion-icon>
-      </ion-col>
-    </ion-row>
-
-    <div class="divider"></div>
-    <div class="text-container">
-      {{x.text}}
-    </div>
-  </div>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </div>
 

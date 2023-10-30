@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ShopModel} from "../../../shared/model/shop.model";
+import {ShopModel} from "../../../shared/model/shops/shop.model";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
 import {ActivatedRoute} from "@angular/router";
 

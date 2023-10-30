@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "../../core/api.service";
 import {Observable} from "rxjs";
-import {ShopModel} from "../model/shop.model";
+import {ShopModel} from "../model/shops/shop.model";
 import {ProductModel} from "../model/product.model";
 
 @Injectable({

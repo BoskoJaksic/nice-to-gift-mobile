@@ -55,3 +55,10 @@
   height: 65px !important;
 }
 
+.review-container {
+  margin-top: 30px;
+  height: 60vh; /* Set the height to 100% of viewport height */
+  overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
+  position: relative;
+  padding-bottom: 60px;
+}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from "../../services/common.service";
-import {ShopModel} from "../../shared/model/shop.model";
+import {ShopModel} from "../../shared/model/shops/shop.model";
 import {ShopApiServices} from "../../shared/services/shop-api.services";
 
 @Component({
@@ -17,7 +17,8 @@ export class AllShopsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllShops(1)
+    this.page = 1;
+    this.getAllShops(this.page)
   }
 
   goBackToPrevPage(): void {
