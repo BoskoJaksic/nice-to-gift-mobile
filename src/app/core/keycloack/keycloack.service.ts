@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { Authentication} from "../../shared/model/authentication";
+import {Platform} from "@ionic/angular";
 
 
 @Injectable({
@@ -10,13 +11,23 @@ import { Authentication} from "../../shared/model/authentication";
 })
 export class KeycloakService {
 
-  constructor(private readonly httpClient: HttpClient) {
+  constructor(private readonly httpClient: HttpClient,private platform: Platform) {
   }
 
-  private readonly baseUrl: string = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
+  // private readonly baseUrl: string = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
+  private readonly baseUrl: string = `${this.getApiUrl()}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
   private readonly tokenUrl: string = 'token';
 
-
+  getApiUrl(): string {
+    if (this.platform.is('android')) {
+      return 'http://10.0.2.2:28081';
+    } else if (this.platform.is('ios')) {
+      return 'http://localhost:28081';
+    } else {
+      // Default URL for other platforms or when running in the browser
+      return 'http://localhost:28081';
+    }
+  }
   public login(username: string, password: string): Observable<Authentication> {
     const body = new URLSearchParams();
     body.set('client_id', environment.keycloak.clientId);

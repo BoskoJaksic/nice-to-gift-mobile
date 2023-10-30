@@ -3,9 +3,10 @@ import {ActivatedRoute} from '@angular/router';
 import {AmountService} from "../../../shared/services/ammount.service";
 import {CommonService} from "../../../services/common.service";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
-import {ShopModel} from "../../../shared/model/shop.model";
+import {ShopModel} from "../../../shared/model/shops/shop.model";
 import {CheckoutService} from "../../../shared/services/checkout.service";
 import {StorageService} from "../../../shared/services/storage.service";
+import {ShopService} from "../../../shared/services/shop.service";
 
 @Component({
   selector: 'app-single-shop-view',
@@ -15,21 +16,27 @@ import {StorageService} from "../../../shared/services/storage.service";
 export class SingleShopViewPage implements OnInit {
   shopId: string = ''
   totalAmountFromChild: number = 0;
-  shopDetails:any
+  shopDetails: any
+
   constructor(private _Activatedroute: ActivatedRoute,
               public amountService: AmountService,
               public checkoutService: CheckoutService,
               public storageService: StorageService,
+              public shopService: ShopService,
               private shopApiService: ShopApiServices,
               private commonService: CommonService) {
   }
 
 
   ngOnInit() {
-    this.shopId = this._Activatedroute.snapshot.params["id"];
-    this.amountService.setShopId(this.shopId);
-    this.storageService.setItem('shopId',this.shopId)
-    this.getShopDetails();
+    this._Activatedroute.params.subscribe(async params => {
+      const shopId = params['id'];
+      if (shopId !== 'false') {
+        this.shopService.setShopId(shopId)
+        this.getShopDetails();
+        this.shopId = shopId
+      }
+    })
   }
 
   getShopDetails() {
@@ -37,7 +44,7 @@ export class SingleShopViewPage implements OnInit {
       (shops: ShopModel) => {
         this.shopDetails = shops
         // Handle the shops data returned from the service
-        console.log('shopDetails',this.shopDetails);
+        console.log('shopDetails', this.shopDetails);
       },
       (error: any) => {
         // Handle errors if any

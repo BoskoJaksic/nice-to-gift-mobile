@@ -1,5 +1,8 @@
 <app-header></app-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="main-content">
     <p class="screen-card-text">Hello {{userName}}!</p>
     <p class="screen-card-text">My Gifts</p>

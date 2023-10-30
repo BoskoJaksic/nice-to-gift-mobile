@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from "../../services/common.service";
-import {ShopModel} from "../../shared/model/shop.model";
+import {ShopModel} from "../../shared/model/shops/shop.model";
 import {ShopApiServices} from "../../shared/services/shop-api.services";
 
 @Component({
@@ -17,7 +17,8 @@ export class AllShopsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllShops(1)
+    this.page = 1;
+    this.getAllShops(this.page)
   }
 
   goBackToPrevPage(): void {
@@ -37,6 +38,15 @@ export class AllShopsPage implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  handleRefresh(event: any) {
+    this.page = 1
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.getAllShops(this.page);
+      event.target.complete();
+    }, 2000);
   }
 
   onIonInfinite(event: any) {

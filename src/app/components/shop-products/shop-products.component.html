@@ -1,9 +1,9 @@
-<div class="card-container">
+<div class="card-container ion-content-scroll-host">
   <div class="card-products" style="  margin-bottom: 13px;width: 100%" *ngFor="let product of allProducts">
-    <img [src]="product.productImg" alt="Shop Image">
+    <img [src]="product.imageUri" alt="Shop Image">
 
     <ion-row style="padding-left: 10px">
-      <ion-col><span class="cake-name">Chocolate cake</span></ion-col>
+      <ion-col><span class="cake-name">{{product.name}}</span></ion-col>
       <ion-col>
         <div style="display: flex;justify-content: end;">
           <ion-fab-button color="primary" size="small" style="width: 30px;height: 30px" (click)="decreaseQuantity(product); updateTotal(product)">
@@ -22,4 +22,7 @@
       </ion-col>
     </ion-row>
   </div>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </div>

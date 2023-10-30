@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ShopModel} from "../../../shared/model/shop.model";
+import {ShopModel} from "../../../shared/model/shops/shop.model";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
 import {ActivatedRoute} from "@angular/router";
 
@@ -59,6 +59,15 @@ export class GiftTabPage implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.getShops();
+      this.getTopRatedShops();
+      event.target.complete();
+    }, 2000);
   }
 
   handleCloseComponent(event: any) {

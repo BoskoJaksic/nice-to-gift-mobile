@@ -4,6 +4,9 @@ import {ProductModel} from "../../shared/model/product.model";
 import {ProductApiService} from "../../shared/services/product-api.service";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
+import {ActivatedRoute} from "@angular/router";
+import {StorageService} from "../../shared/services/storage.service";
+import {ShopService} from "../../shared/services/shop.service";
 
 @Component({
   selector: 'app-shop-products',
@@ -13,38 +16,95 @@ import {CheckoutService} from "../../shared/services/checkout.service";
 export class ShopProductsComponent implements OnInit {
   allProducts: ProductModel[] = []
   @Input() shopId: string = ''
-  previousUrl: string = '';
+  page: number = 1
+
 
   constructor(private amountService: AmountService,
               private toasterService: ToasterService,
+              private storageService: StorageService,
+              private shopService: ShopService,
               public checkoutService: CheckoutService,
+              private route: ActivatedRoute,
               private productApiService: ProductApiService) {
 
   }
 
   ngOnInit() {
-    this.getAllProducts();
     this.checkoutService.getAllProducts().subscribe(r => {
       this.allProducts = r
     })
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      if (id !== 'false') {
+        this.page = 1;
+        this.getAllProducts(this.page);
+      }
+      this.shopId = this.shopService.getShopId();
+    });
   }
 
 
-  getAllProducts() {
-    this.productApiService.getAllProducts('Product').subscribe(
+  getAllProducts(page: number) {
+    this.productApiService.getAllShopProducts(`Product?ShopId=${this.shopId}&Page=${page}&Size=5`).subscribe(
       (products: any) => {
+        // Mapirajte novopristigle proizvode
+        const newProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
 
-        this.allProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
+        // Provjerite je li svaki novi proizvod već prisutan u this.allProducts
+        const uniqueNewProducts = newProducts.filter((newProduct:ProductModel) => {
+          return !this.allProducts.some((existingProduct) => existingProduct.id === newProduct.id);
+        });
+
+        // Dodajte samo jedinstvene proizvode na listu
+        this.allProducts = this.allProducts.concat(uniqueNewProducts);
+
+        // Postavite sve proizvode u servis za naplatu
         this.checkoutService.setAllProducts(this.allProducts);
-        // Handle the shops data returned from the service
-        console.log('product', this.allProducts);
+
+        // Dobavite sve proizvode iz servisa za naplatu
+        this.checkoutService.getAllProducts().subscribe(r => {
+          this.allProducts = r;
+        });
+
+        // Obradite podatke o proizvodima vraćene iz servisa
+        console.log('products', this.allProducts);
       },
       (error: any) => {
-        // Handle errors if any
+        // Obradite greške ako postoje
         console.error(error);
       }
     );
   }
+
+
+  // getAllProducts(page: number) {
+  //   this.productApiService.getAllShopProducts(`Product?ShopId=${this.shopId}&Page=${page}&Size=5`).subscribe(
+  //     (products: any) => {
+  //       const newProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
+  //       this.allProducts = this.allProducts.concat(newProducts);
+  //
+  //       // Postavite sve proizvode u servis za naplatu
+  //       this.checkoutService.setAllProducts(this.allProducts);
+  //
+  //       // Dobavite sve proizvode iz servisa za naplatu
+  //       this.checkoutService.getAllProducts().subscribe(r => {
+  //         this.allProducts = r;
+  //       });
+  //       // this.allProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
+  //       // this.checkoutService.setAllProducts(this.allProducts);
+  //       // this.checkoutService.getAllProducts().subscribe(r => {
+  //       //   this.allProducts = r
+  //       // })
+  //       // Handle the shops data returned from the service
+  //       console.log('product', this.allProducts);
+  //     },
+  //     (error: any) => {
+  //       // Handle errors if any
+  //       console.error(error);
+  //     }
+  //   );
+  // }
+
 
 
   increaseQuantity(product: any) {
@@ -72,7 +132,9 @@ export class ShopProductsComponent implements OnInit {
     this.checkoutService.setAllProducts(this.allProducts);
   }
 
-  // getTotalAmount(): number {
-  //   return this.allProducts.reduce((total: any, product: any) => total + product.total, 0);
-  // }
+  onIonInfinite(event: any) {
+    this.page++; // Increase the page number
+    this.getAllProducts(this.page);// Call your existing getAllShops method with the updated page number
+    event.target.complete();
+  }
 }

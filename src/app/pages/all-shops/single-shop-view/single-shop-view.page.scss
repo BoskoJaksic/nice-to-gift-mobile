@@ -56,6 +56,7 @@ ion-content {
 .content-wrapper {
   height: 97vh; /* Set the height to 100% of viewport height */
   overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
+  position: relative;
   padding-bottom: 60px; /* Adjust the bottom padding to accommodate the fixed checkout-button button */
 }
 

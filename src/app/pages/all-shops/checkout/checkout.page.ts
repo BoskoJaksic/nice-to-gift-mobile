@@ -13,7 +13,7 @@ import {StorageService} from "../../../shared/services/storage.service";
 export class CheckoutPage implements OnInit {
   selectedProducts: any[] = [];
 
-  constructor(private commonService: CommonService,
+  constructor(public commonService: CommonService,
               private checkoutService: CheckoutService,
               private storageService: StorageService,
               public amountService: AmountService) {
@@ -38,6 +38,6 @@ export class CheckoutPage implements OnInit {
 
   async goBackToPrevPage(): Promise<void> {
     let shopId = await this.storageService.getItem('shopId')
-    this.commonService.goToRoute('all-shops/single-shop-view', shopId);
+    this.commonService.goToRoute('all-shops/single-shop-view', 'false');
   }
 }

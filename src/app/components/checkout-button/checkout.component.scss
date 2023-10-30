@@ -1,13 +1,26 @@
-.checkout-button {
+.android-checkout-button {
   margin-left: 16px;
   margin-right: 13px !important;
   position: fixed;
-  bottom: 10px;
+  bottom: 30px;
   width: 93%;
   height: 70px;
   background-color: var(--ion-color-primary);
   color: #fff; /* Customize button text color */
   border-radius: 39px !important;
+  z-index: 999;
+}
+.ios-checkout-button {
+  margin-left: 16px;
+  margin-right: 13px !important;
+  position: fixed;
+  bottom: 25px;
+  width: 93%;
+  height: 70px;
+  background-color: var(--ion-color-primary);
+  color: #fff; /* Customize button text color */
+  border-radius: 39px !important;
+  z-index: 999;
 }
 .checkout{
   display: flex;

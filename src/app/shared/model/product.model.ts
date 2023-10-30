@@ -6,7 +6,7 @@ export interface ProductModel {
   "currency": string,
   "stock": number,
   "createdAt": string,
-  "imageId": string,
+  "imageUri": string,
   "shopId": string,
   productImg:string,
   quantity: number,

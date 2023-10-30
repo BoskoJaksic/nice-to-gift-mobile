@@ -4,6 +4,8 @@
   margin-top: 20px;
   border-radius: 20px;
   padding: 12px 20px 0 20px;
+  overflow-y: auto;
+
 }
 
 .divider {
@@ -12,9 +14,9 @@
 }
 
 .text-container {
-  margin-top: 16px;
   overflow-y: auto; /* Add vertical scrollbar when content overflows */
-  max-height: 100px; /* Set a maximum height for the text container */
+  max-height: 100px;
+  //margin-top: 16px;
 }
 
 .self-text-container {
@@ -30,6 +32,7 @@
   margin-top: 20px;
   border-radius: 20px;
   padding: 12px 20px 0 20px;
+  overflow-y: auto;
 }
 
 .discard-color {
@@ -52,4 +55,10 @@
   height: 65px !important;
 }
 
-
+.review-container {
+  margin-top: 30px;
+  height: 60vh; /* Set the height to 100% of viewport height */
+  overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
+  position: relative;
+  padding-bottom: 60px;
+}

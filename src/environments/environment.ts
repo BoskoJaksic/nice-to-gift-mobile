@@ -7,7 +7,7 @@ export const environment = {
     url: 'http://localhost:28081',
     realm: 'nice-to-gift',
     clientId: 'new-bosko',
-    client_secret:'BqA4ARCauJVBAi5inzilHa6qEFpjwXbT'
+    client_secret:'8XCLniibXzwpE7ro3qxRtL3EvordZzrP'
   },
   baseURL: 'https://localhost:7295/api/',
   serverUrl: '',

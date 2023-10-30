@@ -20,11 +20,11 @@ export class StorageService {
     this.storage = await this.storage.create();
   }
 
-  public setItem(key: string, value: any) {
+   public async setItem(key: string, value: any) {
     this.storage?.set(key, value);
   }
-  public getItem(value: any) {
-    return this.storage?.get(value);
+  public async getItem(value: any) {
+    return await this.storage?.get(value);
   }
 
   public async checkIfTokenExists() {

@@ -1,4 +1,44 @@
-
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <div class="screen-card-text" style="margin-left: 13px" [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">Settings</div>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-<ion-button (click)="logOut()" style="margin-top: 50px">logout</ion-button>
+  <div style="display: flex;justify-content: center">
+    <ion-avatar style="width: 110px;height: 110px">
+      <img alt="User profile"
+           [src]="avatarImg" height="110px" width="110px"/>
+    </ion-avatar>
+    <ion-icon src="./assets/icon/camera.svg" class="camera-img" (click)="takePicture()"></ion-icon>
+  </div>
+  <div class="main-content">
+    <div class="checkout-text" style="display: flex;justify-content: flex-start;margin-left: 10px"><span class="checkout-text">User info</span></div>
+    <form [formGroup]="form" >
+      <app-input placeholder="Name" inputType="text"
+                 additionalClass="settings-input-margin"
+                 formControlName="name"></app-input>
+
+      <app-input placeholder="Last Name" inputType="text"
+                 additionalClass="settings-input-marginr"
+                 formControlName="surname"></app-input>
+
+      <app-input placeholder="Email" inputType="text"
+                 additionalClass="settings-input-margin"
+                 formControlName="email"></app-input>
+    </form>
+    <ion-button fill="clear" color="secondary">
+      <ion-icon name="add" slot="start"></ion-icon>
+      <span class="checkout-text"> Add payment method</span>
+    </ion-button><br/>
+    <ion-button fill="clear" color="secondary" (click)="logOut()">
+      <ion-icon name="add" slot="start"></ion-icon>
+      <span class="checkout-text"> Logout</span>
+    </ion-button>
+
+    <div style="position: absolute;bottom: 10px;width: 91%;">
+      <app-secondary-button [disabled]="!form.valid" (onClick)="onSubmit()">
+        <span class="button-text">Save</span>
+      </app-secondary-button>
+    </div>
+  </div>
 </ion-content>

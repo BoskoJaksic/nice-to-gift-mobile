@@ -63,7 +63,9 @@ export class LoginRegisterComponent implements OnInit {
     this.storageService.setItem('userId', decodedToken.userId)
     // @ts-ignore
     this.storageService.setItem('userEmail', decodedToken.email)
-
+    // @ts-ignore
+    this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
+    this.form.reset();
     // @ts-ignore
     if (decodedToken.firstLogin) {
       this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
