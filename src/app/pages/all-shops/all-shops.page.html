@@ -11,6 +11,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="main-content">
     <ion-searchbar style="margin-bottom: 50px;display: initial" animated="true" show-clear-button="focus" class="searchbar"
                    [debounce]="1000" color="light"

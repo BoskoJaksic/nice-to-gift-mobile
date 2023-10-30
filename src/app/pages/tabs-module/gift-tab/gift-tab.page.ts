@@ -61,6 +61,15 @@ export class GiftTabPage implements OnInit {
     );
   }
 
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.getShops();
+      this.getTopRatedShops();
+      event.target.complete();
+    }, 2000);
+  }
+
   handleCloseComponent(event: any) {
     this.isFromCheckout = event;
   }

@@ -1,5 +1,8 @@
 <app-header *ngIf="!isFromCheckout"></app-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="main-content" *ngIf="!isFromCheckout else viewComponent">
     <p class="screen-card-text">Gift</p>
     <app-horizontal-shop-view [shops]="shops" [title]="'Shops'"></app-horizontal-shop-view>

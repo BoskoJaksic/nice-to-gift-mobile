@@ -40,6 +40,15 @@ export class AllShopsPage implements OnInit {
     );
   }
 
+  handleRefresh(event: any) {
+    this.page = 1
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.getAllShops(this.page);
+      event.target.complete();
+    }, 2000);
+  }
+
   onIonInfinite(event: any) {
     this.page++; // Increase the page number
     this.getAllShops(this.page);// Call your existing getAllShops method with the updated page number

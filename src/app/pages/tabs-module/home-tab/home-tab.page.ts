@@ -24,7 +24,6 @@ export class HomeTabPage implements OnInit {
     this.shopApiService.get10Shops().subscribe(
       (shops: any) => {
         this.shops = shops.data
-        // Handle the shops data returned from the service
         console.log(shops);
       },
       (error: any) => {
@@ -34,4 +33,11 @@ export class HomeTabPage implements OnInit {
     );
   }
 
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.getShops()
+      event.target.complete();
+    }, 2000);
+  }
 }
