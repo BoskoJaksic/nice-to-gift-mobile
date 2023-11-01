@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CommonService} from "../../services/common.service";
 import {ShopModel} from "../../shared/model/shops/shop.model";
 import {ShopApiServices} from "../../shared/services/shop-api.services";
+import {AmountService} from "../../shared/services/ammount.service";
+import {CheckoutService} from "../../shared/services/checkout.service";
 
 @Component({
   selector: 'app-all-shops',
@@ -13,12 +15,17 @@ export class AllShopsPage implements OnInit {
   page: number = 1
 
 
-  constructor(public commonService: CommonService, private shopApiService: ShopApiServices) {
+  constructor(public commonService: CommonService, private shopApiService: ShopApiServices,
+              private amountService: AmountService,
+              private checkoutService: CheckoutService
+              ) {
   }
 
   ngOnInit() {
     this.page = 1;
     this.getAllShops(this.page)
+    this.amountService.setTotalAmount(0);
+    this.checkoutService.setAllProducts([])
   }
 
   goBackToPrevPage(): void {
@@ -29,7 +36,11 @@ export class AllShopsPage implements OnInit {
     this.shopApiService.getAllShops(`Shop?Page=${page}&Size=10`).subscribe(
       (shops: any) => {
         // Append new shops to the existing allShops array
-        this.allShops = [...this.allShops, ...shops.data];
+        if (page === 1){
+          this.allShops = shops.data
+        }else{
+          this.allShops = [...this.allShops, ...shops.data];
+        }
         // Handle the shops data returned from the service
         console.log(shops);
       },
@@ -48,6 +59,7 @@ export class AllShopsPage implements OnInit {
       event.target.complete();
     }, 2000);
   }
+
 
   onIonInfinite(event: any) {
     this.page++; // Increase the page number

@@ -21,7 +21,7 @@ export class ShopProductsComponent implements OnInit {
 
   constructor(private amountService: AmountService,
               private toasterService: ToasterService,
-              private storageService: StorageService,
+              private storageService: AmountService,
               private shopService: ShopService,
               public checkoutService: CheckoutService,
               private route: ActivatedRoute,
@@ -48,7 +48,14 @@ export class ShopProductsComponent implements OnInit {
     this.productApiService.getAllShopProducts(`Product?ShopId=${this.shopId}&Page=${page}&Size=5`).subscribe(
       (products: any) => {
         // Mapirajte novopristigle proizvode
-        const newProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
+        // const newProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
+        const newProducts = products.data.map((product: any) => {
+          const fee = parseFloat(this.amountService.getFeeAmount());
+          // Izračunajte novu vrijednost amount s dodatkom 3%
+          const newAmount = product.amount * (1 + fee / 100);
+          // Dodajte quantity i total polja, te novu vrijednost amount u proizvod
+          return {...product, quantity: 0, total: 0, amount: newAmount};
+        });
 
         // Provjerite je li svaki novi proizvod već prisutan u this.allProducts
         const uniqueNewProducts = newProducts.filter((newProduct:ProductModel) => {

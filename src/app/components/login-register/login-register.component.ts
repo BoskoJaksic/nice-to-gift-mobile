@@ -65,7 +65,7 @@ export class LoginRegisterComponent implements OnInit {
     this.storageService.setItem('userEmail', decodedToken.email)
     // @ts-ignore
     this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
-    this.form.reset();
+
     // @ts-ignore
     if (decodedToken.firstLogin) {
       this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
@@ -73,6 +73,7 @@ export class LoginRegisterComponent implements OnInit {
     } else {
       this.commonService.goToRoute('tabs/tabs/home-tab')
     }
+    this.form.reset();
   }
 
   loginUser() {
