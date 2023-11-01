@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ShopModel} from "../../../shared/model/shops/shop.model";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
 import {ActivatedRoute} from "@angular/router";
+import {AmountService} from "../../../shared/services/ammount.service";
+import {CheckoutService} from "../../../shared/services/checkout.service";
 
 @Component({
   selector: 'app-gift-tab',
@@ -14,10 +16,14 @@ export class GiftTabPage implements OnInit {
   isFromCheckout: boolean = false;
 
   constructor(private shopApiService: ShopApiServices,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private amountService: AmountService,
+              private checkoutService: CheckoutService
   ) {
     this.route.paramMap.subscribe(params => {
       const state = window.history.state;
+      this.amountService.setTotalAmount(0);
+      this.checkoutService.setAllProducts([])
       if (state && state.isFromCheckout !== undefined) {
         const isFromCheckout = state.isFromCheckout;
         console.log('isFromCheckout:', isFromCheckout);

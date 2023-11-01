@@ -4,7 +4,7 @@ export interface ShopModel {
   "phoneNumber": string,
   "address": string,
   "averageRating": number,
-  "shopImg":string,
+  "imageUri":string,
   "workingHours": [
     {
       "day": number,

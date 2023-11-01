@@ -32,17 +32,19 @@ export class SingleShopViewPage implements OnInit {
     this._Activatedroute.params.subscribe(async params => {
       const shopId = params['id'];
       if (shopId !== 'false') {
-        this.shopService.setShopId(shopId)
-        this.getShopDetails();
         this.shopId = shopId
+        this.shopService.setShopId(shopId)
       }
+      this.getShopDetails();
     })
   }
 
+
   getShopDetails() {
-    this.shopApiService.getSingleShopDetails(this.shopId).subscribe(
-      (shops: ShopModel) => {
-        this.shopDetails = shops
+   let shopId= this.shopService.getShopId();
+    this.shopApiService.getSingleShopDetails(shopId).subscribe(
+      (shopsDetails: ShopModel) => {
+        this.shopDetails = shopsDetails
         // Handle the shops data returned from the service
         console.log('shopDetails', this.shopDetails);
       },

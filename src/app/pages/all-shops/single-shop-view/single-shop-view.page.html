@@ -1,7 +1,7 @@
 <ion-content scroll-y="false">
   <div class="">
     <div class="background-container"
-         [ngStyle]="{'background-image': 'url(' + shopDetails?.shopImg + ')', 'background-size': 'cover', 'background-position': 'center', 'width': '100%', 'height': '250px','border-radius':'0 0 20px 20px'}"
+         [ngStyle]="{'background-image': 'url(' + shopDetails?.imageUri + ')', 'background-size': 'cover', 'background-position': 'center', 'width': '100%', 'height': '250px','border-radius':'0 0 20px 20px'}"
     >
       <div class="go-back-container">
         <img src="./assets/icon/go-back-white.svg" width="40" height="40" (click)="goBackToPrevPage()"
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="main-content-shop">
-      <ion-row>
+      <ion-row style="margin-bottom: 10px">
         <ion-col size="6"><span class="typography-small">{{shopDetails?.address}}</span></ion-col>
         <ion-col>
           <div style="float: right">
