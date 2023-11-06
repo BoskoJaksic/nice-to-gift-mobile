@@ -29,7 +29,7 @@ export class AmountService {
   }
 
   getTotalAmount(): number {
-    return this.totalAmount;
+    return parseFloat(this.totalAmount.toFixed(2));
   }
 
 

@@ -1,0 +1,90 @@
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <ion-row [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">
+      <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
+                             width="40" height="40"
+                             (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list')">
+      </ion-col>
+      <ion-col>
+        <div class="screen-card-text">Add new card</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="main-content">
+    <div class="card-details" style="display: flex;justify-content: flex-start;margin-left: 10px;margin-top: 34px;margin-bottom: 6px">
+      Cardholder name
+    </div>
+    <form [formGroup]="form">
+      <ion-item class="roundedInput1">
+        <ion-input formControlName="cardholderName" placeholder="Cardholder name"></ion-input>
+      </ion-item>
+      <div class="card-details" style="display: flex;justify-content: flex-start;margin-left: 10px;margin-top: 34px;margin-bottom:6px">
+        Card number
+      </div>
+      <div class="number-input-inline">
+        <div class="number-input">
+          <ion-item class="roundedInput1">
+            <ion-input maxlength="4" formControlName="cardNum1" inputmode="numeric"></ion-input>
+          </ion-item>
+        </div>
+        <div class="number-input">
+          <ion-item class="roundedInput1">
+            <ion-input maxlength="4" formControlName="cardNum2" inputmode="numeric"></ion-input>
+          </ion-item>
+        </div>
+        <div class="number-input">
+          <ion-item class="roundedInput1">
+            <ion-input maxlength="4" formControlName="cardNum3" inputmode="numeric"></ion-input>
+          </ion-item>
+        </div>
+        <div class="number-input">
+
+          <ion-item class="roundedInput1">
+            <ion-input maxlength="4" formControlName="cardNum4" inputmode="numeric"></ion-input>
+          </ion-item>
+
+        </div>
+      </div>
+      <ion-row style="margin-top: 40px;margin-bottom: -6px">
+        <ion-col>
+          <div class="card-details" style="text-align: start;">Expiry date</div>
+        </ion-col>
+        <ion-col style="display: flex;justify-content: end;margin-right: 49px">
+          <div class="card-details" style="text-align: end;">CVC</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-top: 6px">
+        <ion-col>
+          <div class="number-input-inline">
+            <div class="number-input">
+              <ion-item class="roundedInput1">
+                <ion-input maxlength="2" formControlName="mm" placeholder="MM" inputmode="numeric"></ion-input>
+              </ion-item>
+            </div>
+            <div class="number-input">
+              <ion-item class="roundedInput1">
+                <ion-input maxlength="2" formControlName="yy" placeholder="YY" inputmode="numeric"></ion-input>
+              </ion-item>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col style="display: flex;justify-content: end">
+          <div class="number-input cvc-input">
+            <ion-item class="roundedInput1">
+              <ion-input maxlength="4" inputmode="numeric" formControlName="cvc"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <div style="width: 100%;margin-top: 100px">
+      <app-secondary-button [disabled]="!form.valid" (onClick)="onSubmit()">
+        <span class="button-text">Submit this card</span>
+      </app-secondary-button>
+    </div>
+  </div>
+</ion-content>

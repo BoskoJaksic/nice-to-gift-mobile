@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {register} from 'swiper/element/bundle';
 import {StatusBar, Style} from '@capacitor/status-bar';
-import {style} from "@angular/animations";
+import { Stripe } from '@capacitor-community/stripe';
+import {environment} from "../environments/environment";
 
 register();
 @Component({
@@ -11,7 +12,9 @@ register();
 })
 export class AppComponent {
   constructor() {
-
+    Stripe.initialize({
+      publishableKey: environment.stripe.publishKey,
+    });
   }
   ngOnInit() {
     const options = {
@@ -20,4 +23,6 @@ export class AppComponent {
     StatusBar.setStyle({style:Style.Light});
     StatusBar.setOverlaysWebView(options);
   }
+
+
 }

@@ -14,19 +14,29 @@
   <div class="main-content">
     <div class="checkout-text" style="display: flex;justify-content: flex-start;margin-left: 10px"><span class="checkout-text">User info</span></div>
     <form [formGroup]="form" >
-      <app-input placeholder="Name" inputType="text"
-                 additionalClass="settings-input-margin"
-                 formControlName="name"></app-input>
+<!--      <app-input placeholder="Name" inputType="text"-->
+<!--                 additionalClass="settings-input-margin"-->
+<!--                 formControlName="name"></app-input>-->
 
-      <app-input placeholder="Last Name" inputType="text"
-                 additionalClass="settings-input-marginr"
-                 formControlName="surname"></app-input>
+      <ion-item class="roundedInput1">
+        <ion-input  placeholder="Name" formControlName="name"></ion-input>
+      </ion-item>
 
-      <app-input placeholder="Email" inputType="text"
-                 additionalClass="settings-input-margin"
-                 formControlName="email"></app-input>
+<!--      <app-input placeholder="Last Name" inputType="text"-->
+<!--                 additionalClass="settings-input-marginr"-->
+<!--                 formControlName="surname"></app-input>-->
+      <ion-item class="roundedInput1">
+        <ion-input  placeholder="Last Name" formControlName="surname"></ion-input>
+      </ion-item>
+
+<!--      <app-input placeholder="Email" inputType="text"-->
+<!--                 additionalClass="settings-input-margin"-->
+<!--                 formControlName="email"></app-input>-->
+      <ion-item class="roundedInput1">
+        <ion-input  placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
     </form>
-    <ion-button fill="clear" color="secondary">
+    <ion-button fill="clear" color="secondary" (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list')">
       <ion-icon name="add" slot="start"></ion-icon>
       <span class="checkout-text"> Add payment method</span>
     </ion-button><br/>

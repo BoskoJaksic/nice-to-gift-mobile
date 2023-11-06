@@ -1,0 +1,34 @@
+.number-input{
+  margin-right: 6px;
+}
+.number-input-inline{
+  display: flex;
+  flex-direction: row;
+}
+.cvc-input{
+  width: 80px;
+}
+.roundedInput1 {
+  --border-color: var(--ion-color-light);
+  --border-radius: 12px;
+  --border-width: 1px;
+  --box-shadow: 2px gray;
+  --highlight-height: 0;
+  --background:  var(--ion-color-light);
+}
+.roundedInput1.ion-invalid.item-has-focus {
+
+  --border-color: var(--ion-color-secondary);
+}
+
+//.roundedInput1.ion-valid.item-has-focus {
+//  --border-color: var(--ion-color-success-shade);
+//}
+//
+//.roundedInput1.ion-invalid.ion-dirty {
+//  --border-color: var(--ion-color-danger-shade);
+//}
+//
+//.roundedInput1.ion-valid.ion-dirty {
+//  --border-color: var(--ion-color-success-shade);
+//}

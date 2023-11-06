@@ -55,5 +55,7 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+     <string>Need camera access for read credit card.</string>
 </dict>
 </plist>

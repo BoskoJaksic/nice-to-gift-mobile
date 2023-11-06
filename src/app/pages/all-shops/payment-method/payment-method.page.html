@@ -46,5 +46,5 @@
 
 <!--    </div>-->
   </div>
-  <app-checkout-button goTo="tabs/tabs/gift-tab" [isFromCheckout]="true" [amount]="amountService.getTotalAmountToPay()"></app-checkout-button>
+  <app-checkout-button goTo="tabs/tabs/gift-tab" [pay]="true" [isFromCheckout]="true" [amount]="amountService.getTotalAmount()"></app-checkout-button>
 </ion-content>

@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfileTabPageRoutingModule } from './profile-tab-routing.module';
+import { PaymentMethodListPageRoutingModule } from './payment-method-list-routing.module';
 
-import { ProfileTabPage } from './profile-tab.page';
+import { PaymentMethodListPage } from './payment-method-list.page';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        ProfileTabPageRoutingModule,
+        PaymentMethodListPageRoutingModule,
         NgOptimizedImage
     ],
-  declarations: [ProfileTabPage]
+  declarations: [PaymentMethodListPage]
 })
-export class ProfileTabPageModule {}
+export class PaymentMethodListPageModule {}
