@@ -1,6 +1,38 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from "../../../../services/common.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {environment} from "../../../../../environments/environment";
+import {StripeService} from "../../../../shared/services/stripe.service";
+import {StorageService} from "../../../../shared/services/storage.service";
+
+declare var Stripe: any;
+
+
+function setBrandIcon(brand: any) {
+  var cardBrandToPfClass = {
+    'visa': 'pf-visa',
+    'mastercard': 'pf-mastercard',
+    'amex': 'pf-american-express',
+    'discover': 'pf-discover',
+    'diners': 'pf-diners',
+    'jcb': 'pf-jcb',
+    'unknown': 'pf-credit-card',
+  }
+  var brandIconElement = document.getElementById('brand-icon');
+  var pfClass = 'pf-credit-card';
+  if (brand in cardBrandToPfClass) {
+    // @ts-ignore
+    pfClass = cardBrandToPfClass[brand];
+  }
+  // @ts-ignore
+  for (var i = brandIconElement.classList.length - 1; i >= 0; i--) {
+    // @ts-ignore
+    brandIconElement.classList.remove(brandIconElement.classList[i]);
+  }
+  // @ts-ignore
+  brandIconElement.classList.add('pf');
+  // @ts-ignore
+  brandIconElement.classList.add(pfClass);
+}
 
 @Component({
   selector: 'app-add-payment-method',
@@ -8,35 +40,103 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./add-payment-method.page.scss'],
 })
 export class AddPaymentMethodPage implements OnInit {
-  form: FormGroup;
+  stripe: any;
+  elements: any;
+  cardNumberElement: any;
+
 
   constructor(public commonService: CommonService,
-              private formBuilder: FormBuilder,
+              public stripeService: StripeService,
+              private storageService:StorageService
   ) {
-    this.form = this.formBuilder.group({
-      cardholderName: ['', Validators.required],
-      cardNum1: ['', Validators.required],
-      cardNum2: ['', Validators.required],
-      cardNum3: ['', Validators.required],
-      cardNum4: ['', Validators.required],
-      mm: ['', Validators.required],
-      yy: ['', Validators.required],
-      cvc: ['', Validators.required],
+    this.stripe = Stripe(environment.stripe.publishKey);
+    this.elements = this.stripe.elements();
+  }
+
+
+  async ngOnInit() {
+    var style = {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontSize: '16px',
+
+        '::placeholder': {
+          color: '#6d6d6d',
+        },
+      },
+    };
+    this.cardNumberElement = this.elements.create('cardNumber', {
+      style: style,
+      placeholder: 'Card number',
+    });
+    this.cardNumberElement.mount('#card-number-element');
+
+    var cardExpiryElement = this.elements.create('cardExpiry', {
+      style: style,
+      placeholder: 'Expiry date',
+    });
+    cardExpiryElement.mount('#card-expiry-element');
+
+    var cardCvcElement = this.elements.create('cardCvc', {
+      style: style,
+      placeholder: 'CVC',
+    });
+    cardCvcElement.mount('#card-cvc-element');
+
+    this.cardNumberElement.on('change', (event: any) => {
+      if (event.brand) {
+        setBrandIcon(event.brand);
+      }
+      this.setOutcome(event);
+    });
+
+  }
+
+
+  async setOutcome(result: any) {
+    var errorElement = document.querySelector('.error');
+    // @ts-ignore
+    errorElement.classList.remove('visible');
+    if (result.token) {
+      await this.createCard(result.token.id)
+    } else if (result.error) {
+      // @ts-ignore
+      errorElement.textContent = result.error.message;
+      // @ts-ignore
+      errorElement.classList.add('visible');
+    }
+  }
+
+  async onSubmit() {
+    // @ts-ignore
+    var name = document.getElementById('name').value;
+    if (!name) {
+      var errorElement = document.querySelector('.error');
+      // @ts-ignore
+      errorElement.textContent = "You must enter a name.";
+      // @ts-ignore
+      errorElement.classList.add('visible');
+      return;
+    }
+    var options = {
+      name: name,
+    };
+    this.stripe.createToken(this.cardNumberElement,options).then((result:any) => {
+      this.setOutcome(result);
     });
   }
 
-  ngOnInit() {
-  }
-
-  onSubmit() {
-    let objToSend = {
-      Number:`${this.form.value.cardNum1 + this.form.value.cardNum2 + this.form.value.cardNum3 + this.form.value.cardNum4} `,
-      ExpMonth: `${this.form.value.mm}§`,
-      ExpYear: `${this.form.value.yy}`,
-      Cvc: `${this.form.value.cvc}`,
+  async createCard(cardId: any) {
+    let userEmail = await this.storageService.getItem('userEmail')
+    let dataToSend = {
+      email: userEmail,
+      cardToken: cardId
     }
-
-    console.log('dd',objToSend)
-
+    this.stripeService.createCard(dataToSend).subscribe(r => {
+      this.commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list','false')
+    })
   }
 }

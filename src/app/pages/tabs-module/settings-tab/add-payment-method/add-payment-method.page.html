@@ -3,7 +3,7 @@
     <ion-row [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">
       <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
                              width="40" height="40"
-                             (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list')">
+                             (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list','false')">
       </ion-col>
       <ion-col>
         <div class="screen-card-text">Add new card</div>
@@ -13,76 +13,37 @@
 </ion-header>
 <ion-content>
   <div class="main-content">
-    <div class="card-details" style="display: flex;justify-content: flex-start;margin-left: 10px;margin-top: 34px;margin-bottom: 6px">
-      Cardholder name
-    </div>
-    <form [formGroup]="form">
-      <ion-item class="roundedInput1">
-        <ion-input formControlName="cardholderName" placeholder="Cardholder name"></ion-input>
-      </ion-item>
-      <div class="card-details" style="display: flex;justify-content: flex-start;margin-left: 10px;margin-top: 34px;margin-bottom:6px">
-        Card number
-      </div>
-      <div class="number-input-inline">
-        <div class="number-input">
-          <ion-item class="roundedInput1">
-            <ion-input maxlength="4" formControlName="cardNum1" inputmode="numeric"></ion-input>
-          </ion-item>
-        </div>
-        <div class="number-input">
-          <ion-item class="roundedInput1">
-            <ion-input maxlength="4" formControlName="cardNum2" inputmode="numeric"></ion-input>
-          </ion-item>
-        </div>
-        <div class="number-input">
-          <ion-item class="roundedInput1">
-            <ion-input maxlength="4" formControlName="cardNum3" inputmode="numeric"></ion-input>
-          </ion-item>
-        </div>
-        <div class="number-input">
+    <form id="payment-form" style="margin-top: 70px">
 
-          <ion-item class="roundedInput1">
-            <ion-input maxlength="4" formControlName="cardNum4" inputmode="numeric"></ion-input>
-          </ion-item>
+      <span class="text">Cardholder Name</span>
+      <input class="roundedInput1" placeholder="Cardholder name" id="name" style="margin-top: 0;margin-bottom: 20px"/>
 
-        </div>
-      </div>
-      <ion-row style="margin-top: 40px;margin-bottom: -6px">
+      <div class="text">Card number</div>
+      <div id="card-number-element" class="field" style="margin-bottom: 20px"></div>
+
+      <ion-row>
         <ion-col>
-          <div class="card-details" style="text-align: start;">Expiry date</div>
+          <label>
+            <span class="text">Expiry date</span>
+            <div id="card-expiry-element" class="field"></div>
+          </label>
         </ion-col>
-        <ion-col style="display: flex;justify-content: end;margin-right: 49px">
-          <div class="card-details" style="text-align: end;">CVC</div>
+        <ion-col>
+          <label>
+            <span class="text">CVC</span>
+            <div id="card-cvc-element" class="field"></div>
+          </label>
         </ion-col>
       </ion-row>
 
-      <ion-row style="margin-top: 6px">
-        <ion-col>
-          <div class="number-input-inline">
-            <div class="number-input">
-              <ion-item class="roundedInput1">
-                <ion-input maxlength="2" formControlName="mm" placeholder="MM" inputmode="numeric"></ion-input>
-              </ion-item>
-            </div>
-            <div class="number-input">
-              <ion-item class="roundedInput1">
-                <ion-input maxlength="2" formControlName="yy" placeholder="YY" inputmode="numeric"></ion-input>
-              </ion-item>
-            </div>
-          </div>
-        </ion-col>
-        <ion-col style="display: flex;justify-content: end">
-          <div class="number-input cvc-input">
-            <ion-item class="roundedInput1">
-              <ion-input maxlength="4" inputmode="numeric" formControlName="cvc"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
+
+      <div class="outcome">
+        <div class="error"></div>
+      </div>
     </form>
 
-    <div style="width: 100%;margin-top: 100px">
-      <app-secondary-button [disabled]="!form.valid" (onClick)="onSubmit()">
+    <div style="position: absolute;bottom: 10px;width: 91%;">
+      <app-secondary-button [disabled]="false" (onClick)="onSubmit()">
         <span class="button-text">Submit this card</span>
       </app-secondary-button>
     </div>

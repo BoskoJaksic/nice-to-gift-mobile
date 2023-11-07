@@ -1,34 +1,45 @@
-.number-input{
-  margin-right: 6px;
+
+.field {
+  border-color: var(--ion-color-light);
+  border-radius: 12px;
+  border-width: 1px;
+  background: var(--ion-color-light);
+  padding-left: 10px;
+  height: 60px;
+  padding-top: 5px;
 }
-.number-input-inline{
-  display: flex;
-  flex-direction: row;
+
+.error.visible {
+  display: inline;
 }
-.cvc-input{
-  width: 80px;
+
+.error {
+  display: none;
+  font-size: 13px;
+  color: #E4584C;
 }
+
 .roundedInput1 {
-  --border-color: var(--ion-color-light);
-  --border-radius: 12px;
-  --border-width: 1px;
-  --box-shadow: 2px gray;
-  --highlight-height: 0;
-  --background:  var(--ion-color-light);
-}
-.roundedInput1.ion-invalid.item-has-focus {
-
-  --border-color: var(--ion-color-secondary);
+  border: none;
+  border-color: var(--ion-color-light);
+  border-radius: 12px;
+  background: var(--ion-color-light);
+  margin-top: 17px;
+  line-height: 60px;
+  width: 100%;
 }
 
-//.roundedInput1.ion-valid.item-has-focus {
-//  --border-color: var(--ion-color-success-shade);
-//}
-//
-//.roundedInput1.ion-invalid.ion-dirty {
-//  --border-color: var(--ion-color-danger-shade);
-//}
-//
-//.roundedInput1.ion-valid.ion-dirty {
-//  --border-color: var(--ion-color-success-shade);
-//}
+textarea:focus, input:focus {
+  outline: none;
+}
+.text{
+  color: var(--ion-color-secondary);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+::placeholder {
+  color: #737373;
+  padding-left: 3px;
+}

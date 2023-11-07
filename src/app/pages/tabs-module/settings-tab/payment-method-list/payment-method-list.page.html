@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-row [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">
       <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
-                             width="40" height="40" (click)="commonService.goToRoute('tabs/tabs/settings-tab')">
+                             width="40" height="40" (click)="goTo()">
       </ion-col>
       <ion-col>
         <div class="screen-card-text">Payment Method</div>
@@ -13,21 +13,21 @@
 <ion-content>
   <div class="main-content">
     <div class="scrollable-content">
-      <div class="card-holder">
+      <div class="card-holder" *ngFor="let card of cards">
         <ion-row>
           <ion-col>
             <img src="./assets/images/card-sim.png" class="sim-card"/>
 
           </ion-col>
           <ion-col>
-            <img src="./assets/images/visa.png" class="visa"/>
-            <!--            <img *ngIf="mastercard" src="./assets/images/visa.png" class="visa"/> todo-->
+            <img *ngIf="card.brand === 'Visa'" src="./assets/images/visa.png" class="visa"/>
+            <img *ngIf="card.brand === 'MasterCard'" src="./assets/images/mastercard.png" class="visa"/>
           </ion-col>
         </ion-row>
         <ion-row style="margin-top: 20px">
           <ion-col>
             <div class="card-number">
-              **** &nbsp; **** &nbsp; **** &nbsp; 2345
+              **** &nbsp; **** &nbsp; **** &nbsp; {{card.last4}}
             </div>
           </ion-col>
         </ion-row>
@@ -48,13 +48,13 @@
         <ion-row style="margin-top: -10px">
           <ion-col size="7">
             <div class="cardholder-name">
-              Bosko Jaksic
+              {{card.cardholder}}
             </div>
           </ion-col>
 
           <ion-col>
             <div class="cardholder-name">
-              02/24
+              <span *ngIf="card.expMonth < 10">0</span>{{card.expMonth}}/{{card.expYear}}
             </div>
           </ion-col>
         </ion-row>
