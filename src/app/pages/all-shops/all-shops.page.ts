@@ -13,12 +13,12 @@ import {CheckoutService} from "../../shared/services/checkout.service";
 export class AllShopsPage implements OnInit {
   allShops: ShopModel[] = []
   page: number = 1
-
+  searchTerm = ''
 
   constructor(public commonService: CommonService, private shopApiService: ShopApiServices,
               private amountService: AmountService,
               private checkoutService: CheckoutService
-              ) {
+  ) {
   }
 
   ngOnInit() {
@@ -36,9 +36,29 @@ export class AllShopsPage implements OnInit {
     this.shopApiService.getAllShops(`Shop?Page=${page}&Size=10`).subscribe(
       (shops: any) => {
         // Append new shops to the existing allShops array
-        if (page === 1){
+        if (page === 1) {
           this.allShops = shops.data
-        }else{
+        } else {
+          this.allShops = [...this.allShops, ...shops.data];
+        }
+        // Handle the shops data returned from the service
+        console.log(shops);
+      },
+      (error: any) => {
+        // Handle errors if any
+        console.error(error);
+      }
+    );
+  }
+
+  searchShop() {
+    this.page = 1;
+    this.shopApiService.searchShop(`Shop?SearchTerm=${this.searchTerm}&Page=${this.page}&Size=10`).subscribe(
+      (shops: any) => {
+        // Append new shops to the existing allShops array
+        if ( this.page === 1) {
+          this.allShops = shops.data
+        } else {
           this.allShops = [...this.allShops, ...shops.data];
         }
         // Handle the shops data returned from the service
@@ -54,7 +74,6 @@ export class AllShopsPage implements OnInit {
   handleRefresh(event: any) {
     this.page = 1
     setTimeout(() => {
-      // Any calls to load data go here
       this.getAllShops(this.page);
       event.target.complete();
     }, 2000);

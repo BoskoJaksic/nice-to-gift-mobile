@@ -4,3 +4,12 @@
   margin-left: -36px;
   margin-top: 83px
 }
+.roundedInput1 {
+  --border-color: var(--ion-color-light);
+  --border-radius: 12px;
+  --border-width: 1px;
+  --box-shadow: 2px gray;
+  --highlight-height: 0;
+  --background:  var(--ion-color-light);
+  margin-top: 17px;
+}

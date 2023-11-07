@@ -1,0 +1,68 @@
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <ion-row [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">
+      <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
+                             width="40" height="40" (click)="goTo()">
+      </ion-col>
+      <ion-col>
+        <div class="screen-card-text">Payment Method</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="main-content">
+    <div class="scrollable-content">
+      <div class="card-holder" *ngFor="let card of cards">
+        <ion-row>
+          <ion-col>
+            <img src="./assets/images/card-sim.png" class="sim-card"/>
+
+          </ion-col>
+          <ion-col>
+            <img *ngIf="card.brand === 'Visa'" src="./assets/images/visa.png" class="visa"/>
+            <img *ngIf="card.brand === 'MasterCard'" src="./assets/images/mastercard.png" class="visa"/>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 20px">
+          <ion-col>
+            <div class="card-number">
+              **** &nbsp; **** &nbsp; **** &nbsp; {{card.last4}}
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin-top: 20px">
+          <ion-col size="7">
+            <div class="card-name">
+              Cardholder name
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="card-name">
+              Expiry date
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin-top: -10px">
+          <ion-col size="7">
+            <div class="cardholder-name">
+              {{card.cardholder}}
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div class="cardholder-name">
+              <span *ngIf="card.expMonth < 10">0</span>{{card.expMonth}}/{{card.expYear}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <ion-button fill="clear" color="secondary" (click)="commonService.goToRoute('tabs/tabs/settings-tab/add-payment-method')">
+      <ion-icon name="add" slot="start"></ion-icon>
+      <span class="checkout-text"> Add new card</span>
+    </ion-button>
+  </div>
+</ion-content>

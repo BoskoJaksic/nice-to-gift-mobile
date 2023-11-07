@@ -1,0 +1,45 @@
+
+.field {
+  border-color: var(--ion-color-light);
+  border-radius: 12px;
+  border-width: 1px;
+  background: var(--ion-color-light);
+  padding-left: 10px;
+  height: 60px;
+  padding-top: 5px;
+}
+
+.error.visible {
+  display: inline;
+}
+
+.error {
+  display: none;
+  font-size: 13px;
+  color: #E4584C;
+}
+
+.roundedInput1 {
+  border: none;
+  border-color: var(--ion-color-light);
+  border-radius: 12px;
+  background: var(--ion-color-light);
+  margin-top: 17px;
+  line-height: 60px;
+  width: 100%;
+}
+
+textarea:focus, input:focus {
+  outline: none;
+}
+.text{
+  color: var(--ion-color-secondary);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+::placeholder {
+  color: #737373;
+  padding-left: 3px;
+}

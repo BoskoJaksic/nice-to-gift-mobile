@@ -1,0 +1,51 @@
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <ion-row [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">
+      <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
+                             width="40" height="40"
+                             (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list','false')">
+      </ion-col>
+      <ion-col>
+        <div class="screen-card-text">Add new card</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="main-content">
+    <form id="payment-form" style="margin-top: 70px">
+
+      <span class="text">Cardholder Name</span>
+      <input class="roundedInput1" placeholder="Cardholder name" id="name" style="margin-top: 0;margin-bottom: 20px"/>
+
+      <div class="text">Card number</div>
+      <div id="card-number-element" class="field" style="margin-bottom: 20px"></div>
+
+      <ion-row>
+        <ion-col>
+          <label>
+            <span class="text">Expiry date</span>
+            <div id="card-expiry-element" class="field"></div>
+          </label>
+        </ion-col>
+        <ion-col>
+          <label>
+            <span class="text">CVC</span>
+            <div id="card-cvc-element" class="field"></div>
+          </label>
+        </ion-col>
+      </ion-row>
+
+
+      <div class="outcome">
+        <div class="error"></div>
+      </div>
+    </form>
+
+    <div style="position: absolute;bottom: 10px;width: 91%;">
+      <app-secondary-button [disabled]="false" (onClick)="onSubmit()">
+        <span class="button-text">Submit this card</span>
+      </app-secondary-button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,57 @@
+.card-holder {
+  width: 94%;
+  height: 217px;
+  background:
+    //linear-gradient(90deg, #4D338A 0.06%, #252857 98.88%)
+  //linear-gradient(90deg, #6947BD 0.01%, #252857 98.88%),
+  //linear-gradient(90deg, #885DF5 0.01%, #2E3670 98.88%),
+  linear-gradient(90deg, #885DF5 0%, #4551A6 99.43%);
+  //linear-gradient(90deg, #885DF5 -0.01%, #5C6BDB 99.41%),
+  //linear-gradient(90deg, #885DF5 0%, #6B7CFE 99.41%);
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.scrollable-content {
+  margin-top: 30px;
+  height: 60vh; /* Set the height to 100% of viewport height */
+  overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
+  position: relative;
+  padding-bottom: 60px;
+}
+
+.sim-card {
+  margin-left: 26px;
+  margin-top: 30px;
+}
+
+.visa {
+  margin-top: 30px;
+  float: right;
+  margin-right: 24px;
+}
+
+.card-number {
+  margin-left: 26px;
+  font-size: 24px;
+  color: #FFFFFF;
+  width: 100%;
+}
+
+.card-name {
+  margin-left: 26px;
+  color: #FFF;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.cardholder-name {
+  margin-left: 26px;
+  color: #FFF;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

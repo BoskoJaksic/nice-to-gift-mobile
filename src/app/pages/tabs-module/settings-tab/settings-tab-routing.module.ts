@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: SettingsTabPage
+  },
+  {
+    path: 'payment-method-list/:id',
+    loadChildren: () => import('./payment-method-list/payment-method-list.module').then( m => m.PaymentMethodListPageModule)
+  },
+  {
+    path: 'add-payment-method',
+    loadChildren: () => import('./add-payment-method/add-payment-method.module').then( m => m.AddPaymentMethodPageModule)
   }
 ];
 

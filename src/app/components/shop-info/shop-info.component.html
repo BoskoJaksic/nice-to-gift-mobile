@@ -1,0 +1,31 @@
+<div class="main-content content-style ion-content-scroll-host">
+  <div class="address-card" style="height: 127px">
+    <ion-row>
+      <ion-col>
+        <div class="cake-name">Address</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="9">
+        <div class="info-shop">{{shopDetails?.address}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+  <div class="address-card" style="height: 280px">
+    <ion-row>
+      <ion-col>
+        <div class="cake-name">Working hours</div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let x of shopDetails?.workingHours">
+      <ion-col>
+        <div class="working-hours">{{x.dayName}}</div>
+      </ion-col>
+      <ion-col style="text-align: end">
+        <div class="working-hours">{{x.openingTime}} - {{x.closingTime}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>

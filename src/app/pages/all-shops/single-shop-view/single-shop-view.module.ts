@@ -13,6 +13,7 @@ import {ShopProductsComponent} from "../../../components/shop-products/shop-prod
 import {ButtonsModule} from "../../../shared/ui/buttons/buttons.module";
 import {InputModule} from "../../../shared/ui/inputs/inputs.module";
 import {SharedModule} from "../../../shared/shared.module";
+import {ShopInfoComponent} from "../../../components/shop-info/shop-info.component";
 
 @NgModule({
     imports: [
@@ -27,7 +28,7 @@ import {SharedModule} from "../../../shared/shared.module";
         SharedModule
 
     ],
-  declarations: [SingleShopViewPage, ShopReviewsComponent, ShopProductsComponent]
+  declarations: [SingleShopViewPage, ShopReviewsComponent, ShopProductsComponent, ShopInfoComponent]
 })
 export class SingleShopViewPageModule {
 }

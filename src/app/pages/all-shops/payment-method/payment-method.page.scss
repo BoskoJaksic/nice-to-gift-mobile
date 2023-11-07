@@ -2,8 +2,29 @@
   height: 50vh; /* Set the height to 100% of viewport height */
   overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
   padding-bottom: 60px; /* Adjust the bottom padding to accommodate the fixed checkout-button button */
+  margin-top: 100px;
 }
 
 .payment-message {
   height: 115px;
+}
+.card-user{
+  height: 118px;
+  border-radius: 8px;
+  border: 1px solid var(--ion-color-secondary);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  flex-direction: row;
+  margin-top: 10px;
+}
+.card-user-clicked {
+  border-color: var(--ion-color-success);
+}
+.selected-icon {
+  position: absolute;
+  right: 16px;
+  color: green;
+  font-size: 24px;
 }

@@ -13,38 +13,23 @@
 <ion-content>
   <div class="main-content">
     <div class="content-wrapper">
-
+      <div class="card-user" *ngFor="let card of cards" (click)="onSelectCard(card)" [ngClass]="{'card-user-clicked': card === selectedCard}">
+        <img *ngIf="card.brand === 'MasterCard'" ngSrc="./assets/images/mastercard.png" alt="" height="36" width="55"/>
+        <img *ngIf="card.brand === 'Visa'" ngSrc="./assets/images/blue-visa.png" alt="" height="59" width="69"/>
+        <div style="margin-left: 34px">
+         <span class="credit-card-text">{{card.brand}}</span>  <br/>
+         <span class="card-details">**** &nbsp;**** &nbsp;
+           **** &nbsp;{{card.last4}}</span>
+        </div>
+        <ion-icon *ngIf="card === selectedCard" name="checkmark-circle-outline" class="selected-icon"></ion-icon>
+      </div>
     </div>
-<!--    <div class="payment-message">-->
-<!--      <div class="payment-text" style="margin-bottom: 24px">Payment</div>-->
-<!--      <ion-row>-->
-<!--        <ion-col><span class="typography-small">Item Total</span></ion-col>-->
-<!--        <ion-col>-->
-<!--          <div style="display: flex;justify-content: end">-->
-<!--            <span class="checkout-text">€ {{amountService.getTotalAmount()}}</span>-->
-<!--          </div>-->
-<!--        </ion-col>-->
-<!--      </ion-row>-->
-
-<!--      <ion-row>-->
-<!--        <ion-col><span class="typography-small">Fee {{amountService.getFeeAmount()}}%</span></ion-col>-->
-<!--        <ion-col>-->
-<!--          <div style="display: flex;justify-content: end">-->
-<!--            <span class="checkout-text">€ {{amountService.getFeeAmountCalc()}}</span>-->
-<!--          </div>-->
-<!--        </ion-col>-->
-<!--      </ion-row>-->
-<!--      <ion-item-divider mode="md" style="margin-top: -25px"></ion-item-divider>-->
-<!--      <ion-row>-->
-<!--        <ion-col><span class="typography-small">To Pay</span></ion-col>-->
-<!--        <ion-col>-->
-<!--          <div style="display: flex;justify-content: end">-->
-<!--            <span class="checkout-text">€ {{amountService.getTotalAmountToPay()}}</span>-->
-<!--          </div>-->
-<!--        </ion-col>-->
-<!--      </ion-row>-->
-
-<!--    </div>-->
+    <div style="display: flex;justify-content: center;margin-top: 38px">
+      <ion-fab-button color="primary" size="small" style="width: 47px;height: 47px" (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list','true')">
+        <ion-icon name="add-outline" style="color: white"></ion-icon>
+      </ion-fab-button>
+    </div>
   </div>
-  <app-checkout-button goTo="tabs/tabs/gift-tab" [isFromCheckout]="true" [amount]="amountService.getTotalAmountToPay()"></app-checkout-button>
+  <app-checkout-button goTo="tabs/tabs/gift-tab" [pay]="true" [isFromCheckout]="true" [cardObj]="selectedCard"
+                       [amount]="amountService.getTotalAmount()"></app-checkout-button>
 </ion-content>

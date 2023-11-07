@@ -25,6 +25,10 @@ export class ShopApiServices {
     return this.apiService.get(url);
   }
 
+  searchShop(url: string): Observable<ShopModel> {
+    return this.apiService.get(url);
+  }
+
   getSingleShopDetails(id: string): Observable<ShopModel> {
     return this.apiService.get(`Shop/${id}`);
   }

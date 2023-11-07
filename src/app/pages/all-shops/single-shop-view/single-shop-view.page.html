@@ -21,22 +21,15 @@
       </div>
     </div>
     <div class="main-content-shop">
-      <ion-row style="margin-bottom: 10px">
-        <ion-col size="6"><span class="typography-small">{{shopDetails?.address}}</span></ion-col>
-        <ion-col>
-          <div style="float: right">
-            <img src="./assets/icon/clock.svg" height="16" width="17"
-                 style="width: 16px;height: 16px;margin-right: 8px;margin-top: 3px">
-            <span>10 AM - 7 PM</span></div>
-
-        </ion-col>
-      </ion-row>
       <mat-tab-group>
         <mat-tab label="Menu items">
           <app-shop-products [shopId]="shopId"></app-shop-products>
         </mat-tab>
         <mat-tab label="Reviews">
           <app-shop-reviews [shopId]="shopId"></app-shop-reviews>
+        </mat-tab>
+        <mat-tab label="Info">
+          <app-shop-info [shopDetails]="shopDetails"></app-shop-info>
         </mat-tab>
       </mat-tab-group>
     </div>

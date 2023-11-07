@@ -132,7 +132,7 @@
   font-weight: 600;
   line-height: normal;
 }
-.eur-symbol{
+.card-details{
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -148,4 +148,29 @@
   font-weight: 500;
   line-height: 26px; /* 118.182% */
   letter-spacing: -0.24px;
+}
+.info-shop{
+  color: var(--ion-color-secondary);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+  letter-spacing: -0.24px;
+}
+.working-hours{
+  color: var(--ion-color-secondary);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.24px;
+}
+.credit-card-text{
+  color: var(--ion-color-secondary);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
