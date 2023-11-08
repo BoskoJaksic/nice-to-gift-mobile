@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-row [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">
       <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
-                             width="40" height="40" (click)="goTo()">
+                             width="40" height="40" (click)="commonService.goToRoute('tabs/tabs/settings-tab')">
       </ion-col>
       <ion-col>
         <div class="screen-card-text">Payment Method</div>
@@ -60,7 +60,7 @@
         </ion-row>
       </div>
     </div>
-    <ion-button fill="clear" color="secondary" (click)="commonService.goToRoute('tabs/tabs/settings-tab/add-payment-method')">
+    <ion-button fill="clear" color="secondary" (click)="commonService.goToRoute('tabs/tabs/settings-tab/add-payment-method','false')">
       <ion-icon name="add" slot="start"></ion-icon>
       <span class="checkout-text"> Add new card</span>
     </ion-button>

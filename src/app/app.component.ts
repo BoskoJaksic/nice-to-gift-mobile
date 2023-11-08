@@ -15,14 +15,13 @@ export class AppComponent {
     Stripe.initialize({
       publishableKey: environment.stripe.publishKey,
     });
-  }
-  ngOnInit() {
     const options = {
       overlay: true
     };
     StatusBar.setStyle({style:Style.Light});
     StatusBar.setOverlaysWebView(options);
   }
+  ngOnInit() {
 
-
+  }
 }

@@ -3,7 +3,7 @@
     <ion-row [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">
       <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
                              width="40" height="40"
-                             (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list','false')">
+                             (click)="goTo()">
       </ion-col>
       <ion-col>
         <div class="screen-card-text">Add new card</div>

@@ -9,11 +9,11 @@ const routes: Routes = [
     component: SettingsTabPage
   },
   {
-    path: 'payment-method-list/:id',
+    path: 'payment-method-list',
     loadChildren: () => import('./payment-method-list/payment-method-list.module').then( m => m.PaymentMethodListPageModule)
   },
   {
-    path: 'add-payment-method',
+    path: 'add-payment-method/:id',
     loadChildren: () => import('./add-payment-method/add-payment-method.module').then( m => m.AddPaymentMethodPageModule)
   }
 ];

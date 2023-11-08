@@ -14,6 +14,7 @@ import {StorageService} from "../../../shared/services/storage.service";
 export class PaymentMethodPage implements OnInit {
   selectedCard: any = null;
   cards: CardModel[] = [];
+  receivedMessage: string = ''
   constructor(public commonService: CommonService,
               public amountService: AmountService,
               private stripeService: StripeService,
@@ -26,7 +27,6 @@ export class PaymentMethodPage implements OnInit {
   ngOnInit() {
     this.route.url.subscribe(segments => {
       console.log('Navigirali ste na stranicu "details".');
-      //todo metoda za ucitati ostale kartice
       this.getUsersCards();
     });
   }
@@ -42,11 +42,18 @@ export class PaymentMethodPage implements OnInit {
     })
   }
   onSelectCard(card: any) {
-    this.selectedCard = card;
-    console.log(this.selectedCard); // Prikazuje kliknutu karticu u konzoli
+    if (this.selectedCard === card) {
+      this.selectedCard = null;
+    } else {
+      this.selectedCard = card;
+      console.log(this.selectedCard);
+    }
   }
-
   goBackToPrevPage() {
     this.commonService.goToRoute('all-shops/checkout');
+  }
+
+  receiveMessage(message: string) {
+    this.receivedMessage = message;
   }
 }
