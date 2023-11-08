@@ -6,6 +6,7 @@ import {Camera, CameraResultType} from '@capacitor/camera';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserApiServices} from "../../../shared/services/user.api.services";
 import {ToasterService} from "../../../shared/services/toaster.service";
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-settings-tab',
@@ -21,6 +22,7 @@ export class SettingsTabPage implements OnInit {
               private storageService: StorageService,
               private toasterService: ToasterService,
               private userApiServices: UserApiServices,
+              private loaderService: LoaderService,
               public commonService: CommonService) {
     this.avatarImg = ''
     this.form = this.formBuilder.group({
@@ -33,7 +35,7 @@ export class SettingsTabPage implements OnInit {
   }
 
   async ngOnInit() {
-    console.log('aaa', this.avatarImg)
+
     if (!this.avatarImg || this.avatarImg === '') {
       this.avatarImg = 'https://ionicframework.com/docs/img/demos/avatar.svg';
     }
@@ -47,10 +49,14 @@ export class SettingsTabPage implements OnInit {
   }
 
   async getUsersData() {
+    this.loaderService.showLoader();
+
     let userId = await this.storageService.getItem('userId')
     this.userApiServices.getUsersData(userId).subscribe(r => {
       this.avatarImg = r.base64Image
       this.form.patchValue({base64Image: this.avatarImg})
+      this.loaderService.hideLoader();
+
     })
   }
 

@@ -4,6 +4,7 @@ import {ShopApiServices} from "../../../shared/services/shop-api.services";
 import {ActivatedRoute} from "@angular/router";
 import {AmountService} from "../../../shared/services/ammount.service";
 import {CheckoutService} from "../../../shared/services/checkout.service";
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-gift-tab',
@@ -18,6 +19,7 @@ export class GiftTabPage implements OnInit {
   constructor(private shopApiService: ShopApiServices,
               private route: ActivatedRoute,
               private amountService: AmountService,
+              private loaderService: LoaderService,
               private checkoutService: CheckoutService
   ) {
     this.route.paramMap.subscribe(params => {
@@ -34,20 +36,22 @@ export class GiftTabPage implements OnInit {
     });
   }
 
+
   ngOnInit() {
     this.getShops();
-    this.getTopRatedShops();
   }
 
   getShops(): void {
+    this.loaderService.showLoader()
     this.shopApiService.get10Shops().subscribe(
       (shops: any) => {
         this.shops = shops.data
-        // Handle the shops data returned from the service
-        console.log(shops);
+        this.getTopRatedShops();
       },
       (error: any) => {
         // Handle errors if any
+        this.loaderService.hideLoader()
+
         console.error(error);
       }
     );
@@ -57,11 +61,12 @@ export class GiftTabPage implements OnInit {
     this.shopApiService.getTopRatedShops().subscribe(
       (shops: any) => {
         this.topRatedShops = shops.data
-        // Handle the shops data returned from the service
+        this.loaderService.hideLoader()
+
         console.log(shops);
       },
       (error: any) => {
-        // Handle errors if any
+        this.loaderService.hideLoader()
         console.error(error);
       }
     );

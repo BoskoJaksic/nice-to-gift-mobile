@@ -98,7 +98,7 @@ export class CheckoutComponent implements OnInit {
         this.goToRoute();
         this.loader = false
       }, error: (err) => {
-        this.messageEvent.emit(err.error.errorMessage);
+        this.messageEvent.emit(err.error.detail);
         console.log(err)
         this.loader = false
       }

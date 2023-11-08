@@ -3,6 +3,7 @@ import {register} from 'swiper/element/bundle';
 import {StatusBar, Style} from '@capacitor/status-bar';
 import { Stripe } from '@capacitor-community/stripe';
 import {environment} from "../environments/environment";
+import {LoaderService} from "./shared/services/loader.service";
 
 register();
 @Component({
@@ -11,7 +12,7 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {
+  constructor( public loaderService: LoaderService,) {
     Stripe.initialize({
       publishableKey: environment.stripe.publishKey,
     });

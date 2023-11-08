@@ -7,12 +7,14 @@ import {RouterLink} from "@angular/router";
 import {CheckoutComponent} from "../components/checkout-button/checkout.component";
 import {OrderConfirmedComponent} from "../components/order-confirmed/order-confirmed.component";
 import {ButtonsModule} from "./ui/buttons/buttons.module";
+import {CircleAnimationComponent} from "./ui/circle-animation/circle-animation.component";
 @NgModule({
   declarations: [
     HeaderComponent,
     HorizontalShopViewComponent,
     CheckoutComponent,
-    OrderConfirmedComponent
+    OrderConfirmedComponent,
+    CircleAnimationComponent
   ],
   imports: [
     IonicModule,
@@ -25,7 +27,8 @@ import {ButtonsModule} from "./ui/buttons/buttons.module";
     HeaderComponent,
     HorizontalShopViewComponent,
     CheckoutComponent,
-    OrderConfirmedComponent
+    OrderConfirmedComponent,
+    CircleAnimationComponent
   ]
 })
 export class SharedModule { }

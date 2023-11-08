@@ -4,6 +4,7 @@ import {ShopModel} from "../../shared/model/shops/shop.model";
 import {ShopApiServices} from "../../shared/services/shop-api.services";
 import {AmountService} from "../../shared/services/ammount.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
+import {LoaderService} from "../../shared/services/loader.service";
 
 @Component({
   selector: 'app-all-shops',
@@ -17,6 +18,7 @@ export class AllShopsPage implements OnInit {
 
   constructor(public commonService: CommonService, private shopApiService: ShopApiServices,
               private amountService: AmountService,
+              private loaderService: LoaderService,
               private checkoutService: CheckoutService
   ) {
   }
@@ -33,6 +35,7 @@ export class AllShopsPage implements OnInit {
   }
 
   getAllShops(page: number): void {
+    this.loaderService.showLoader()
     this.shopApiService.getAllShops(`Shop?Page=${page}&Size=10`).subscribe(
       (shops: any) => {
         // Append new shops to the existing allShops array
@@ -41,11 +44,11 @@ export class AllShopsPage implements OnInit {
         } else {
           this.allShops = [...this.allShops, ...shops.data];
         }
-        // Handle the shops data returned from the service
+        this.loaderService.hideLoader()
         console.log(shops);
       },
       (error: any) => {
-        // Handle errors if any
+        this.loaderService.hideLoader()
         console.error(error);
       }
     );

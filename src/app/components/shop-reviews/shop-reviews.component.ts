@@ -5,6 +5,7 @@ import {StorageService} from "../../shared/services/storage.service";
 import {GetShopReviewModel} from "../../shared/model/shops/get-shop-review.model";
 import {ActivatedRoute} from "@angular/router";
 import {ShopService} from "../../shared/services/shop.service";
+import {LoaderService} from "../../shared/services/loader.service";
 
 @Component({
   selector: 'app-shop-reviews',
@@ -23,6 +24,7 @@ export class ShopReviewsComponent implements OnInit {
               private toasterService: ToasterService,
               private route: ActivatedRoute,
               private shopService: ShopService,
+              private loaderService: LoaderService,
               private storageService: StorageService,
   ) {
   }
@@ -39,6 +41,7 @@ export class ShopReviewsComponent implements OnInit {
   }
 
   async getShopReviews(page: number) {
+    this.loaderService.showLoader()
     this.shopApiService.getShopReview(this.shopId, page).subscribe(r => {
       // @ts-ignore
       if (r.data.length > 0) {
@@ -60,6 +63,7 @@ export class ShopReviewsComponent implements OnInit {
           this.shopReviews = [...this.shopReviews, ...formattedReviews];
         }
       }
+      this.loaderService.hideLoader()
     });
   }
 
