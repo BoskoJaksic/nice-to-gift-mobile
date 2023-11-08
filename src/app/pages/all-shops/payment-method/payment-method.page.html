@@ -13,23 +13,38 @@
 <ion-content>
   <div class="main-content">
     <div class="content-wrapper">
-      <div class="card-user" *ngFor="let card of cards" (click)="onSelectCard(card)" [ngClass]="{'card-user-clicked': card === selectedCard}">
-        <img *ngIf="card.brand === 'MasterCard'" ngSrc="./assets/images/mastercard.png" alt="" height="36" width="55"/>
-        <img *ngIf="card.brand === 'Visa'" ngSrc="./assets/images/blue-visa.png" alt="" height="59" width="69"/>
-        <div style="margin-left: 34px">
-         <span class="credit-card-text">{{card.brand}}</span>  <br/>
-         <span class="card-details">**** &nbsp;**** &nbsp;
+      <div class="card-user" *ngFor="let card of cards" (click)="onSelectCard(card)"
+           [ngClass]="{'card-user-clicked': card === selectedCard}">
+        <ion-row style="width: 100%">
+          <ion-col size="3">
+            <img *ngIf="card.brand === 'MasterCard'" ngSrc="./assets/images/mastercard.png" alt="" height="36"
+                 width="55"/>
+            <img *ngIf="card.brand === 'Visa'" ngSrc="./assets/images/blue-visa.png" alt="" height="59" width="69"/>
+          </ion-col>
+          <ion-col size="7">
+            <div style="margin-left: 34px">
+              <span class="credit-card-text">{{card.brand}}</span> <br/>
+              <span class="card-details">**** &nbsp;**** &nbsp;
            **** &nbsp;{{card.last4}}</span>
-        </div>
-        <ion-icon *ngIf="card === selectedCard" name="checkmark-circle-outline" class="selected-icon"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon *ngIf="card === selectedCard" name="checkmark-circle-outline" class="selected-icon"></ion-icon>
+          </ion-col>
+
+        </ion-row>
       </div>
     </div>
+    <span class="error-text">{{receivedMessage}}</span>
     <div style="display: flex;justify-content: center;margin-top: 38px">
-      <ion-fab-button color="primary" size="small" style="width: 47px;height: 47px" (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list','true')">
-        <ion-icon name="add-outline" style="color: white"></ion-icon>
-      </ion-fab-button>
+      <ion-button fill="clear" color="secondary"
+                  (click)="commonService.goToRoute('tabs/tabs/settings-tab/add-payment-method','true')">
+        <ion-icon name="add" slot="start"></ion-icon>
+        <span class="checkout-text"> Add new card</span>
+      </ion-button>
     </div>
   </div>
   <app-checkout-button goTo="tabs/tabs/gift-tab" [pay]="true" [isFromCheckout]="true" [cardObj]="selectedCard"
+                       (messageEvent)="receiveMessage($event)"
                        [amount]="amountService.getTotalAmount()"></app-checkout-button>
 </ion-content>

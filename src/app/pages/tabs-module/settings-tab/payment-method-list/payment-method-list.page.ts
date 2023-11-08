@@ -11,7 +11,6 @@ import {CardModel} from "../../../../shared/model/payment/card.model";
   styleUrls: ['./payment-method-list.page.scss'],
 })
 export class PaymentMethodListPage implements OnInit {
-  goToCheckout: string = '';
   cards: CardModel[] = [];
 
   constructor(public commonService: CommonService,
@@ -22,15 +21,9 @@ export class PaymentMethodListPage implements OnInit {
   }
 
   ngOnInit() {
-    this._Activatedroute.params.subscribe(async params => {
-      const paramId = params['id'];
-      if (paramId === 'true') {
-        this.goToCheckout = 'true';
-      } else {
-        this.goToCheckout = 'false';
-      }
-      await this.getUsersCards();
-    })
+    this._Activatedroute.url.subscribe(segments => {
+      this.getUsersCards();
+    });
   }
 
 
@@ -43,13 +36,5 @@ export class PaymentMethodListPage implements OnInit {
 
       }
     })
-  }
-
-  goTo() {
-    if (this.goToCheckout === 'true') {
-      this.commonService.goToRoute('all-shops/payment-method')
-    } else {
-      this.commonService.goToRoute('tabs/tabs/settings-tab')
-    }
   }
 }
