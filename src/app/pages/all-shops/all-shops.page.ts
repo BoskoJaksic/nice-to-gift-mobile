@@ -35,7 +35,7 @@ export class AllShopsPage implements OnInit {
   }
 
   getAllShops(page: number): void {
-    this.loaderService.showLoader()
+    this.loaderService.showLoader();
     this.shopApiService.getAllShops(`Shop?Page=${page}&Size=10`).subscribe(
       (shops: any) => {
         // Append new shops to the existing allShops array
@@ -55,6 +55,7 @@ export class AllShopsPage implements OnInit {
   }
 
   searchShop() {
+    this.loaderService.showLoader()
     this.page = 1;
     this.shopApiService.searchShop(`Shop?SearchTerm=${this.searchTerm}&Page=${this.page}&Size=10`).subscribe(
       (shops: any) => {
@@ -64,12 +65,12 @@ export class AllShopsPage implements OnInit {
         } else {
           this.allShops = [...this.allShops, ...shops.data];
         }
-        // Handle the shops data returned from the service
-        console.log(shops);
+        this.loaderService.hideLoader()
       },
       (error: any) => {
         // Handle errors if any
         console.error(error);
+        this.loaderService.hideLoader()
       }
     );
   }
