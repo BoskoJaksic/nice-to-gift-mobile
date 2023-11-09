@@ -24,8 +24,8 @@
         <div class="working-hours">{{x.dayName}}</div>
       </ion-col>
       <ion-col style="text-align: end">
-        <div class="working-hours">{{x.openingTime}} - {{x.closingTime}}</div>
-      </ion-col>
+        <div class="working-hours" *ngIf="x.isOpened">{{x.openingTime}} - {{x.closingTime}}</div>
+        <div class="working-hours" *ngIf="!x.isOpened">Not working</div>      </ion-col>
     </ion-row>
   </div>
 </div>
