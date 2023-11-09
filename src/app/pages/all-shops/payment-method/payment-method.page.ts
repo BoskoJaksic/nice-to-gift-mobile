@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {StripeService} from "../../../shared/services/stripe.service";
 import {CardModel} from "../../../shared/model/payment/card.model";
 import {StorageService} from "../../../shared/services/storage.service";
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-payment-method',
@@ -18,6 +19,7 @@ export class PaymentMethodPage implements OnInit {
   constructor(public commonService: CommonService,
               public amountService: AmountService,
               private stripeService: StripeService,
+              private loaderService: LoaderService,
               private storageService: StorageService,
               private route: ActivatedRoute
   ) {
@@ -32,11 +34,15 @@ export class PaymentMethodPage implements OnInit {
   }
 
   async getUsersCards() {
+    this.loaderService.showLoader();
     let userEmail = await this.storageService.getItem('userEmail')
     this.stripeService.getCustomerCards(userEmail).subscribe({
       next: (r) => {
         this.cards = r;
+        this.loaderService.hideLoader();
+
       }, error: (err) => {
+        this.loaderService.hideLoader();
 
       }
     })

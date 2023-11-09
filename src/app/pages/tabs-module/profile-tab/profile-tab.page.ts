@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserApiServices} from "../../../shared/services/user.api.services";
 import {StorageService} from "../../../shared/services/storage.service";
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-profile-tab',
@@ -13,9 +14,11 @@ export class ProfileTabPage implements OnInit {
   surname: string = '';
 
   constructor( private userApiServices: UserApiServices,
+               private loaderService:LoaderService,
                private storageService: StorageService,) {
     this.avatarImg = ''
   }
+
 
   ngOnInit() {
     if (!this.avatarImg || this.avatarImg === '') {
@@ -24,11 +27,13 @@ export class ProfileTabPage implements OnInit {
     this.getUsersData();
   }
   async getUsersData() {
+    this.loaderService.showLoader()
     let userId = await this.storageService.getItem('userId')
     this.userApiServices.getUsersData(userId).subscribe(r => {
       this.avatarImg = r.base64Image
       this.userName = r.name
       this.surname = r.surname
+      this.loaderService.hideLoader();
     })
   }
 }

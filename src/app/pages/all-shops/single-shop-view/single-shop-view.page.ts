@@ -7,6 +7,7 @@ import {ShopModel} from "../../../shared/model/shops/shop.model";
 import {CheckoutService} from "../../../shared/services/checkout.service";
 import {StorageService} from "../../../shared/services/storage.service";
 import {ShopService} from "../../../shared/services/shop.service";
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-single-shop-view',
@@ -23,6 +24,7 @@ export class SingleShopViewPage implements OnInit {
               public checkoutService: CheckoutService,
               public storageService: StorageService,
               public shopService: ShopService,
+              private loaderService: LoaderService,
               private shopApiService: ShopApiServices,
               private commonService: CommonService) {
   }
@@ -41,15 +43,16 @@ export class SingleShopViewPage implements OnInit {
 
 
   getShopDetails() {
+    this.loaderService.showLoader()
    let shopId= this.shopService.getShopId();
     this.shopApiService.getSingleShopDetails(shopId).subscribe(
       (shopsDetails: ShopModel) => {
         this.shopDetails = shopsDetails
-        // Handle the shops data returned from the service
+        this.loaderService.hideLoader()
         console.log('shopDetails', this.shopDetails);
       },
       (error: any) => {
-        // Handle errors if any
+        this.loaderService.hideLoader()
         console.error(error);
       }
     );

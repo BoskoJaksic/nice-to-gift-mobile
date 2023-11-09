@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {StorageService} from "../../../shared/services/storage.service";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
 import {ShopModel} from "../../../shared/model/shops/shop.model";
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-home-tab',
@@ -12,7 +13,9 @@ export class HomeTabPage implements OnInit {
   shops: ShopModel[] = [];
   userName: string = ''
 
-  constructor(private storageService: StorageService, private shopApiService: ShopApiServices) {
+  constructor(private storageService: StorageService,
+              private loaderService: LoaderService,
+              private shopApiService: ShopApiServices) {
   }
 
   async ngOnInit() {
@@ -21,21 +24,22 @@ export class HomeTabPage implements OnInit {
   }
 
   getShops(): void {
+     this.loaderService.showLoader();
     this.shopApiService.get10Shops().subscribe(
       (shops: any) => {
         this.shops = shops.data
         console.log(shops);
+        this.loaderService.hideLoader();
       },
       (error: any) => {
-        // Handle errors if any
         console.error(error);
+        this.loaderService.hideLoader();
       }
     );
   }
 
   handleRefresh(event:any) {
     setTimeout(() => {
-      // Any calls to load data go here
       this.getShops()
       event.target.complete();
     }, 2000);
