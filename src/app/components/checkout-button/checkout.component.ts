@@ -7,7 +7,10 @@ import {ApiService} from "../../core/api.service";
 import {StripeService} from "../../shared/services/stripe.service";
 import {PaymentSheetEventsEnum, Stripe} from "@capacitor-community/stripe";
 import {first, lastValueFrom} from "rxjs";
-import {AmountService} from "../../shared/services/ammount.service";
+import {OrdersApiService} from "../../shared/services/orders-api.service";
+import {CheckoutService} from "../../shared/services/checkout.service";
+import {ProductModel, SelectedProducts} from "../../shared/model/product.model";
+import {ReceiverMessageService} from "../../shared/services/receiver-message.service";
 
 @Component({
   selector: 'app-checkout-button',
@@ -23,39 +26,96 @@ export class CheckoutComponent implements OnInit {
   @Input() loader: boolean = false;
   @Input() cardObj: any;
   @Output() messageEvent = new EventEmitter<string>();
-
+  receiverMessage = ''
   data: any = {};
+  orderProducts: ProductModel [] = []
+  orderId: string = ''
+  items: SelectedProducts[] = []
 
   constructor(public commonService: CommonService,
               private router: Router,
               private apiService: ApiService,
+              private ordersApiService: OrdersApiService,
+              private checkoutService: CheckoutService,
               private stripeService: StripeService,
+              private receiverMessageService: ReceiverMessageService,
               private storageService: StorageService,
               private http: HttpClient) {
   }
 
   async ngOnInit() {
+    this.receiverMessageService.getReceiverMessage().subscribe(message => {
+      this.receiverMessage = message;
+    });
     this.data.name = await this.storageService.getItem('userName')
     this.data.email = await this.storageService.getItem('userEmail')
   }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['pay']) {
       this.pay = true;
     }
   }
-  doPayment() {
-    this.data.amount = this.amount
-    this.data.currency = 'EUR'
-    let url = this.apiService.getApiUrl() + 'Orders/initiate-payment'
-    // let url = environment.baseURL + 'orders' todo use this instead of the line above
-    if (this.cardObj) {
-      this.doAutomaticPayment()
-    } else {
-      this.doManualPayment(url);
+
+  async makeOrder() {
+    let dataToSend = {
+      senderId: await this.storageService.getItem('userId'),
+      shopId: this.orderProducts[0].shopId,
+      items: this.items,
+      receiverComment: this.receiverMessage,
+      shopComment: ''
     }
+    this.ordersApiService.makeOrder(dataToSend).subscribe({
+      next: (r) => {
+        this.orderId = r.id;
+        this.data.amount = this.amount;
+        this.data.currency = 'EUR'
+        let url = this.apiService.getApiUrl() + 'Orders/initiate-payment'
+        // let url = environment.baseURL + 'orders' todo use this instead of the line above
+        if (this.cardObj) {
+          this.doAutomaticPayment()
+        } else {
+          this.doManualPayment(url);
+        }
+      }, error: (err) => {
+
+      }
+    })
   }
 
-  async doManualPayment(url:any) {
+  updateOrder() {
+    let dataToSend = {
+      id: this.orderId,
+      orderStatusEnum: 1
+    }
+    this.ordersApiService.updateOrder(dataToSend).subscribe({
+      next: (r) => {
+        console.log('update succeed')
+      }, error: (err) => {
+      }
+    })
+  }
+
+  doPayment() {
+    this.checkoutService.getAllProducts().subscribe(r => {
+      this.orderProducts = r.filter(p => p.quantity > 0);
+    });
+    console.log('op', this.orderProducts)
+    this.orderProducts.forEach(x => {
+      const existingItem = this.items.find(item => item.productId === x.id);
+      if (existingItem) {
+        existingItem.quantity = x.quantity;
+      } else {
+        this.items.push({
+          productId: x.id,
+          quantity: x.quantity
+        });
+      }
+    })
+    this.makeOrder();
+  }
+
+  async doManualPayment(url: any) {
     try {
       this.loader = true
       Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
@@ -79,6 +139,8 @@ export class CheckoutComponent implements OnInit {
       const result = await Stripe.presentPaymentSheet()
       console.log('result', result)
       if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
+        this.receiverMessageService.setReceiverMessage('')
+        this.updateOrder();
         this.pay = false
         this.goToRoute()
       }
@@ -93,10 +155,11 @@ export class CheckoutComponent implements OnInit {
     this.data.paymentMethodId = this.cardObj.id
     this.stripeService.initiatePayment(this.data).subscribe({
       next: (r) => {
-        console.log('placanje', r)
+        this.updateOrder();
         this.pay = false
         this.goToRoute();
-        this.loader = false
+        this.loader = false;
+        this.receiverMessageService.setReceiverMessage('')
       }, error: (err) => {
         this.messageEvent.emit(err.error.detail);
         console.log(err)

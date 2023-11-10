@@ -12,3 +12,7 @@ export interface ProductModel {
   quantity: number,
   total: number
 }
+export interface SelectedProducts{
+  productId: string;
+  quantity: number;
+}

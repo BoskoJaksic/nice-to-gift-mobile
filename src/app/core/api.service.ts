@@ -38,6 +38,9 @@ export class ApiService {
   put(path: string, data: any): Observable<any> {
     return this.http.put(this.baseUrl + path, data);
   }
+  patch(path: string, data: any): Observable<any> {
+    return this.http.patch(this.baseUrl + path, data);
+  }
 
   delete(path: string, data: any): Observable<any> {
     return this.http.delete(this.baseUrl + path, data);

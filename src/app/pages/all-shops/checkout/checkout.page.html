@@ -54,6 +54,8 @@
         <ion-col>
           <ion-textarea wrap="soft"
                         mode="ios"
+                        [(ngModel)]="receiverMessage"
+                        (ngModelChange)="onReceiverMessageChange()"
                         class="textarea"
                         placeholder="Write a message with the gift.."
           >
@@ -63,5 +65,7 @@
 
     </div>
   </div>
-  <app-checkout-button [amount]="amountService.getTotalAmount()" goTo="all-shops/payment-method"></app-checkout-button>
+  <app-checkout-button
+    [amount]="amountService.getTotalAmount()"
+    goTo="all-shops/payment-method"></app-checkout-button>
 </ion-content>

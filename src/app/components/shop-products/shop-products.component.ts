@@ -48,7 +48,7 @@ export class ShopProductsComponent implements OnInit {
 
   getAllProducts(page: number) {
     this.loaderService.showLoader()
-    this.productApiService.getAllShopProducts(`Product?ShopId=${this.shopId}&Page=${page}&Size=5`).subscribe(
+    this.productApiService.getAllShopProducts(`Products?ShopId=${this.shopId}&Page=${page}&Size=5`).subscribe(
       (products: any) => {
         // Mapirajte novopristigle proizvode
         // const newProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
