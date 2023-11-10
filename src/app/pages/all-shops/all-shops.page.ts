@@ -36,7 +36,7 @@ export class AllShopsPage implements OnInit {
 
   getAllShops(page: number): void {
     this.loaderService.showLoader();
-    this.shopApiService.getAllShops(`Shop?Page=${page}&Size=10`).subscribe(
+    this.shopApiService.getAllShops(`Shops?Page=${page}&Size=10`).subscribe(
       (shops: any) => {
         // Append new shops to the existing allShops array
         if (page === 1) {

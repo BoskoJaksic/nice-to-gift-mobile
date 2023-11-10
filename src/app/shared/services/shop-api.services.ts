@@ -14,11 +14,11 @@ export class ShopApiServices {
   }
 
   get10Shops(): Observable<ShopModel> {
-    return this.apiService.get('Shop?Page=1&Size=10');
+    return this.apiService.get('Shops?Page=1&Size=10');
   }
 
   getTopRatedShops(): Observable<ShopModel> {
-    return this.apiService.get('Shop?SortBy=averageRating&SortOrder=1&Page=1&Size=10&TotalItems=10');
+    return this.apiService.get('Shops?SortBy=averageRating&SortOrder=1&Page=1&Size=10&TotalItems=10');
   }
 
   getAllShops(url: string): Observable<ShopModel> {
@@ -30,7 +30,7 @@ export class ShopApiServices {
   }
 
   getSingleShopDetails(id: string): Observable<ShopModel> {
-    return this.apiService.get(`Shop/${id}`);
+    return this.apiService.get(`Shops/${id}`);
   }
 
   getFeeAmount(): Observable<any> {
@@ -38,10 +38,10 @@ export class ShopApiServices {
   }
 
   postShopReview(data: ShopReviewModel): Observable<ShopReviewModel> {
-    return this.apiService.post('Shop/review', data);
+    return this.apiService.post('Shops/review', data);
   }
 
   getShopReview(shopId: string,page:number): Observable<GetShopReviewModel> {
-    return this.apiService.get(`Shop/reviews?ShopId=${shopId}&Page=${page}&Size=10`);
+    return this.apiService.get(`Shops/reviews?ShopId=${shopId}&Page=${page}&Size=10`);
   }
 }
