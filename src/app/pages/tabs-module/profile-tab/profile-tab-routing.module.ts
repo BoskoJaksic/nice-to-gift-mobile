@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ProfileTabPage
+  },
+  {
+    path: 'gift-details/:imgSrc',
+    loadChildren: () => import('./gift-details/gift-details.module').then( m => m.GiftDetailsPageModule)
   }
 ];
 

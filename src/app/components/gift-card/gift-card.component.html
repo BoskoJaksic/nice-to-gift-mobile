@@ -1,0 +1,17 @@
+<div class="main-card-content"
+     (click)="goToGiftDetails()">
+  <ion-row>
+    <ion-col size="3">
+      <img [src]="giftObj.imgSrc" class="img-gift">
+    </ion-col>
+
+    <ion-col>
+      <div class="gift-name">Chocolate brownies</div>
+      <div class="gift-status" *ngIf="!giftObj.isReceived">At store</div>
+      <div class="gift-sentBy" *ngIf="giftObj.isReceived">Received on may 12</div>
+      <div class="gift-sentBy" *ngIf="giftObj.isReceived">Sent by Bosko jaksic</div>
+      <div class="gift-sentBy" *ngIf="!giftObj.isReceived">Sent to Bosko jaksic</div>
+      <div class="gift-address"><ion-icon name="navigate-outline" class="location-png"></ion-icon>Vukasina markovica bb</div>
+    </ion-col>
+  </ion-row>
+</div>

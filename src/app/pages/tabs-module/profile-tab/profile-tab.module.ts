@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ProfileTabPageRoutingModule } from './profile-tab-routing.module';
 
 import { ProfileTabPage } from './profile-tab.page';
+import {MatTabsModule} from "@angular/material/tabs";
+import {GiftCardComponent} from "../../../components/gift-card/gift-card.component";
 
 @NgModule({
     imports: [
@@ -14,8 +16,9 @@ import { ProfileTabPage } from './profile-tab.page';
         FormsModule,
         IonicModule,
         ProfileTabPageRoutingModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        MatTabsModule,
     ],
-  declarations: [ProfileTabPage]
+  declarations: [ProfileTabPage,GiftCardComponent]
 })
 export class ProfileTabPageModule {}

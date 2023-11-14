@@ -3,7 +3,7 @@
   src: url('../assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
 }
 
-h1, h2, p, div, ion-button, ion-label, ion-title, a, ion-item, span{
+h1, h2, p, div, ion-button, ion-label, ion-title, a, ion-item, span, *{
   font-family: 'Popins', sans-serif !important;
 }
 
@@ -11,3 +11,20 @@ h1, h2, p, div, ion-button, ion-label, ion-title, a, ion-item, span{
 ion-header, ion-toolbar{
   --background: var(--ion-color-primary);
 }
+
+.mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
+  --mdc-tab-indicator-active-indicator-color: var(--ion-color-primary) !important;
+  --mat-tab-header-disabled-ripple-color: rgba(0, 0, 0, 0.38);
+  --mat-tab-header-pagination-icon-color: #000;
+  --mat-tab-header-inactive-label-text-color: var(--ion-color-medium);
+  --mat-tab-header-active-label-text-color: var(--ion-color-secondary);
+  --mat-tab-header-active-ripple-color: var(--ion-color-secondary);;
+  --mat-tab-header-inactive-ripple-color: var(--ion-color-secondary);;
+  --mat-tab-header-inactive-focus-label-text-color: var(--ion-color-medium);
+  --mat-tab-header-inactive-hover-label-text-color: var(--ion-color-medium);
+  --mat-tab-header-active-focus-label-text-color: var(--ion-color-secondary);;
+  --mat-tab-header-active-hover-label-text-color: var(--ion-color-primary);
+  --mat-tab-header-active-focus-indicator-color: var(--ion-color-primary);
+  --mat-tab-header-active-hover-indicator-color: var(--ion-color-primary);
+}
+
