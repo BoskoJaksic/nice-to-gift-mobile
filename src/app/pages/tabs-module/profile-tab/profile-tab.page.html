@@ -1,11 +1,10 @@
-<ion-content [fullscreen]="true">
+<ion-content scroll-y="false">
   <div class="header">
     <ion-row style="padding-top: 50px">
       <ion-col size="3" class="main-content">
-        <img alt="" class="header-flower" height="119" ngSrc="assets/images/login.svg" width="119">
+        <img alt="" class="header-flower" src="assets/images/login.svg">
       </ion-col>
     </ion-row>
-
     <ion-row style="margin-top: -50px">
       <ion-col size="12" class="main-content">
         <ion-avatar style="width: 158px;height: 158px">
@@ -19,5 +18,25 @@
         <div class="typography-on-boarding">{{userName}} {{surname}}</div>
       </ion-col>
     </ion-row>
+  </div>
+  <br/>
+  <div class="main-content-profile">
+    <mat-tab-group>
+      <mat-tab label="Gift received">
+
+<!--        ngfor goes here todo-->
+        <div class="scroll-content">
+        <app-gift-card [giftObj]="gifts[0]" ></app-gift-card>
+        </div>
+      </mat-tab>
+      <mat-tab label="Gift given">
+        <div class="scroll-content">
+          <!--        ngfor goes here todo-->
+        <app-gift-card [giftObj]="gifts[1]"></app-gift-card>
+
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
   </div>
 </ion-content>

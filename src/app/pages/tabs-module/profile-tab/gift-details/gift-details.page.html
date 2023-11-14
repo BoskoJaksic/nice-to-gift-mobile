@@ -1,0 +1,31 @@
+<div class="header-details ion-padding-top"
+     [ngStyle]="{'background-image': 'url(' + imgSrc + ')', 'background-size': 'cover', 'width': '100%', 'height': '100%'}"
+>
+  <ion-row>
+    <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
+                           width="40" height="40" (click)="commonService.goToRoute('tabs/tabs/profile-tab','false')">
+    </ion-col>
+    <ion-col>
+      <div class="screen-card-text">Gift details</div>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div class="content-details">
+  <div class="content-center">
+    <img src="./assets/images/gift-details-status.png"/>
+  </div>
+  <div class="status-text">At the store!</div>
+  <div class="status-text">Cakeble</div>
+  <div style="display: flex;justify-content: center">
+    <div class="gift-address">Marco Polostraat 209 1057 WK Amsterdam</div>
+  </div>
+  <div style="justify-content: center;display: flex">
+    <div style="width: 200px;margin-top: 60px;">
+      <app-secondary-button [disabled]="false" (click)="shareLInk()">
+        <span class="button-text2">Share the pickup link</span></app-secondary-button>
+    </div>
+  </div>
+  <br/>
+  <br/>
+</div>

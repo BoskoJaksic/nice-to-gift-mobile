@@ -1,12 +1,14 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-tabs-module',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
-export class TabsPage {
+export class TabsPage implements OnInit {
   selectedTabIndex: number = 0;
+  profileId: string = 'false';
 
 
   iconTabs = [
@@ -23,6 +25,14 @@ export class TabsPage {
     'profile-tab',
     'settings-tab'
   ]
+
+  tabsRouting = [
+    'home-tab',
+    'gift-tab',
+    'maps-tab',
+    'profile-tab/false',
+    'settings-tab'
+  ]
   labels = [
     'Home',
     'Gift',
@@ -32,7 +42,11 @@ export class TabsPage {
   ]
 
 
-  constructor() {
+  constructor(private commonService: CommonService) {
+
+  }
+
+  ngOnInit() {
 
   }
 
@@ -44,5 +58,13 @@ export class TabsPage {
       this.selectedTabIndex = selectedIndex;
     }
   }
+
+  // getRouterLink(tab: string): string {
+  //   if (tab === 'profile-tab') {
+  //     return `/tabs/tabs/${tab}/${this.profileId}`;
+  //   } else {
+  //     return `/tabs/tabs/${tab}`;
+  //   }
+  // }
 
 }

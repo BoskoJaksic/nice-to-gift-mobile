@@ -1,6 +1,7 @@
 <ion-tabs (ionTabsWillChange)="ionTabsWillChange($event)">
   <ion-tab-bar slot="bottom">
-    <ion-tab-button *ngFor="let tab of tabs; let i = index" [tab]="tab" [routerLink]="'/tabs/tabs/' + tab">
+    <ion-tab-button *ngFor="let tab of tabsRouting; let i = index" [tab]="tab"
+                    [routerLink]="'/tabs/tabs/' + tab">
       <ion-icon [src]="iconTabs[i]"></ion-icon>
       <ng-container *ngIf="selectedTabIndex === i else showLabel">
         <ion-icon src="./assets/icon/icon-tab-dot.svg" style="width: 5px;height: 5px;margin-top: 10px"></ion-icon>
