@@ -52,7 +52,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ntg2-mobile'
+          app-name: 'ntg3-mobile'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6E3E01FB45A24668A1D94C946AD6D432 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F0C338166FA42F9AAC1E3BA48D00375 }}
           package: .
