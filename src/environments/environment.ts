@@ -13,7 +13,6 @@ export const environment = {
     publishKey:'pk_test_51O5wNKLfGHxlGY8I8qAxIcYowDovVM9eS16YNWOgaUTTThkPvJOqnsFcLL0qsZH6gE1W0JpCx5mf8uABkWEs2Z3H00RlciTA7F'
   },
   baseURL: 'https://localhost:7295/api/',
-  serverUrl: '',
   production: false
 };
 

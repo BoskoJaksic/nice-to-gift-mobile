@@ -14,8 +14,8 @@ export class KeycloakService {
   constructor(private readonly httpClient: HttpClient,private platform: Platform) {
   }
 
-  // private readonly baseUrl: string = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
-  private readonly baseUrl: string = `${this.getApiUrl()}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
+  private readonly baseUrl: string = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
+  // private readonly baseUrl: string = `${this.getApiUrl()}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
   private readonly tokenUrl: string = 'token';
 
   getApiUrl(): string {
