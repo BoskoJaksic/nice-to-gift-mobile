@@ -9,8 +9,8 @@ import {environment} from "../../environments/environment";
 })
 export class ApiService {
 
-  baseUrl = this.getApiUrl();
-  // baseUrl = environment.baseURL
+  // baseUrl = this.getApiUrl();
+  baseUrl = environment.baseURL
 
   constructor(private http: HttpClient, private platform: Platform) {
   }

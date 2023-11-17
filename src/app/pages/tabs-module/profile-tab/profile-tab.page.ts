@@ -11,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProfileTabPage implements OnInit {
   avatarImg: string | undefined;
+  idToShow: any
   userName: string = '';
   surname: string = '';
   gifts = [
@@ -36,7 +37,12 @@ export class ProfileTabPage implements OnInit {
     this.route.params.subscribe(async params => {
       const paramId = params['id'];
       console.log('iddd',paramId)
-      this.getUsersData();
+      if (paramId){
+        this.idToShow = paramId
+      }else{
+        this.idToShow = 1
+      }
+      await this.getUsersData();
       console.log('get metoda za poklone  sa loaderima ide ovdje');
       this.getGifts();
     })
@@ -47,14 +53,14 @@ export class ProfileTabPage implements OnInit {
   }
 
   async getUsersData() {
-    this.loaderService.showLoader()
-    let userId = await this.storageService.getItem('userId')
-    this.userApiServices.getUsersData(userId).subscribe(r => {
-      this.avatarImg = r.base64Image
-      this.userName = r.name
-      this.surname = r.surname
-      this.loaderService.hideLoader();
-    })
+    // this.loaderService.showLoader()
+    // let userId = await this.storageService.getItem('userId')
+    // this.userApiServices.getUsersData(userId).subscribe(r => {
+    //   this.avatarImg = r.base64Image
+    //   this.userName = r.name
+    //   this.surname = r.surname
+    //   this.loaderService.hideLoader();
+    // })
   }
 
   getGifts() {

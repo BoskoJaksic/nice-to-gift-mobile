@@ -11,6 +11,7 @@ import {OrdersApiService} from "../../shared/services/orders-api.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
 import {ProductModel, SelectedProducts} from "../../shared/model/product.model";
 import {ReceiverMessageService} from "../../shared/services/receiver-message.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-checkout-button',
@@ -70,8 +71,8 @@ export class CheckoutComponent implements OnInit {
         this.orderId = r.id;
         this.data.amount = this.amount;
         this.data.currency = 'EUR'
-        let url = this.apiService.getApiUrl() + 'Orders/initiate-payment'
-        // let url = environment.baseURL + 'orders' todo use this instead of the line above
+        // let url = this.apiService.getApiUrl() + 'Orders/initiate-payment'
+        let url = environment.baseURL + 'Orders/initiate-payment'
         if (this.cardObj) {
           this.doAutomaticPayment()
         } else {
