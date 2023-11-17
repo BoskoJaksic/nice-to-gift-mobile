@@ -49,10 +49,11 @@ export class AppComponent {
       this.ngZone.run(() => {
         // Example url: https://my-ionic.app/tabs/tab2
         // slug = /tabs/tab2
-        const slug = event.url.split(".net");
+        const slug = event.url.split(".net/#/");
         const appPath = slug.pop()
         console.log("appPath = ", appPath);
-        this.checkAppLaunchUrl();
+        console.log("event = ", event);
+        this.url = event.url
         if (appPath) {
           this.router.navigateByUrl(appPath);
         } else {
