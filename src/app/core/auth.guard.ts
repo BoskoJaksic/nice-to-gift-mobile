@@ -10,13 +10,15 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private storageService:StorageService) { }
 
   async canActivate(){
-    const isAuthenticated = await this.storageService.checkIfTokenExists();
-
-    if (isAuthenticated) {
-      return true;
-    } else {
-      await this.router.navigate(['']); // Redirect to the login page if not logged in
-      return false;
-    }
+    return true
   }
+  //   const isAuthenticated = await this.storageService.checkIfTokenExists();
+  //
+  //   if (isAuthenticated) {
+  //     return true;
+  //   } else {
+  //     await this.router.navigate(['']); // Redirect to the login page if not logged in
+  //     return false;
+  //   }
+  // }
 }

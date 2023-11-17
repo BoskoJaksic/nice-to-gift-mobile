@@ -114,12 +114,14 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.showSpinner = true;
-    console.log('form', this.form.value)
-    if (this.login) {
-      this.loginUser()
-    } else {
-      this.registerUser()
-    }
+    this.commonService.goToRoute('on-boarding')
+
+    // this.showSpinner = true;
+    // console.log('form', this.form.value)
+    // if (this.login) {
+    //   this.loginUser()
+    // } else {
+    //   this.registerUser()
+    // }
   }
 }
