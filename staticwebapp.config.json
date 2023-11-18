@@ -2,6 +2,9 @@
   "navigationFallback": {
     "rewrite": "/index.html"
   },
+  "mimeTypes": {
+    ".json": "text/json"
+  },
   "routes": [
     {
       "route": "/.well-known/:path*",
