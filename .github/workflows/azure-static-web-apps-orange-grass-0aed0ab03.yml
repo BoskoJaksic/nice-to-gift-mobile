@@ -25,10 +25,10 @@ jobs:
           node-version: '18.16.0' # Postavite odgovarajuću verziju Node.js-a
 
       - name: Install Ionic CLI
-        run: npm install --save-dev @angular/cli
+        run: npm install --save-dev @ionic/cli
       - name: Build
         run: |
-          ionic build --prod
+         npx ionic build --prod
       - name: Copy .well-known directory
         run: |
           cp -R .well-known www/.well-known  # Kopiranje .well-known direktorija u www direktorij
