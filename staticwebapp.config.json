@@ -1,6 +1,15 @@
 {
   "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/.well-known/*"]
-  }
+    "rewrite": "/index.html"
+  },
+  "routes": [
+    {
+      "route": "/.well-known/:path*",
+      "rewrite": "/.well-known/:path*"
+    },
+    {
+      "route": "/*",
+      "rewrite": "/index.html"
+    }
+  ]
 }
