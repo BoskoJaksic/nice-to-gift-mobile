@@ -19,6 +19,13 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.16.0' # Postavite odgovarajuću verziju Node.js-a
+
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
       - name: Build
         run: |
           ionic build --prod
