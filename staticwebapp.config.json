@@ -7,12 +7,12 @@
   },
   "routes": [
     {
-      "route": "/.well-known/:path*",
-      "rewrite": "/.well-known/:path*"
-    },
-    {
       "route": "/*",
       "rewrite": "/index.html"
+    },
+    {
+      "route": "/.well-known/:path*",
+      "rewrite": "/.well-known/:path*"
     }
   ]
 }
