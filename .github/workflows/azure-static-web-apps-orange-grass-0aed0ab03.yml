@@ -19,6 +19,12 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: Build
+        run: |
+          ionic build --prod
+      - name: Copy .well-known directory
+        run: |
+          cp -R .well-known www/.well-known  # Kopiranje .well-known direktorija u www direktorij
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
