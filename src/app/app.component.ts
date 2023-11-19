@@ -6,6 +6,8 @@ import {environment} from "../environments/environment";
 import {LoaderService} from "./shared/services/loader.service";
 import {App, URLOpenListenerEvent} from "@capacitor/app";
 import {Router} from '@angular/router';
+import {AppPathService} from "./services/app-path.service";
+import {CommonService} from "./services/common.service";
 
 register();
 
@@ -17,8 +19,15 @@ register();
 export class AppComponent {
 
 
-  constructor(public loaderService: LoaderService, private ngZone: NgZone, private router: Router) {
+  constructor(public loaderService: LoaderService,
+              public commonService: CommonService,
+              private appPathService: AppPathService,
+              private ngZone: NgZone, private router: Router) {
     this.initApp();
+    this.initStatusBar();
+  }
+
+  initStatusBar() {
     Stripe.initialize({
       publishableKey: environment.stripe.publishKey,
     });
@@ -46,11 +55,11 @@ export class AppComponent {
   initApp() {
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
       this.ngZone.run(() => {
-        // Example url: https://my-ionic.app/tabs/tab2
-        // slug = /tabs/tab2
         const slug = event.url.split(".net");
         const appPath = slug.pop()
+        // this.checkAppLaunchUrl();
         if (appPath) {
+          this.appPathService.setAppPath(appPath)
           this.router.navigateByUrl(appPath);
         }
         // If no match, do nothing - let regular routing

@@ -15,6 +15,9 @@ export class CommonService {
 
   }
 
+  determinePlatform(){
+    return this.platform.is('mobileweb');
+  }
   isIos() {
     return this.platform.is('ios');
   }

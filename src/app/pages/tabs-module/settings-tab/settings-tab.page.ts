@@ -49,7 +49,7 @@ export class SettingsTabPage implements OnInit {
   }
 
   async getUsersData() {
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader(); todo uncomment this
 
     let userId = await this.storageService.getItem('userId')
     this.userApiServices.getUsersData(userId).subscribe(r => {
