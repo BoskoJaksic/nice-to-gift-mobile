@@ -15,7 +15,7 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  url: any
+
 
   constructor(public loaderService: LoaderService, private ngZone: NgZone, private router: Router) {
     this.initApp();
@@ -36,7 +36,6 @@ export class AppComponent {
   checkAppLaunchUrl = () => {
     App.getLaunchUrl().then((url) => {
       console.log('Launch URL:', url);
-      this.url = url
       // Ovdje možete izvršiti dalje radnje s dobivenim URL-om
     }).catch((error) => {
       console.error('Error getting launch URL:', error);
@@ -49,15 +48,10 @@ export class AppComponent {
       this.ngZone.run(() => {
         // Example url: https://my-ionic.app/tabs/tab2
         // slug = /tabs/tab2
-        const slug = event.url.split(".net/#/");
+        const slug = event.url.split(".net");
         const appPath = slug.pop()
-        console.log("appPath = ", appPath);
-        console.log("event = ", event);
-        this.url = event.url
         if (appPath) {
           this.router.navigateByUrl(appPath);
-        } else {
-          this.router.navigateByUrl('on-boarding');
         }
         // If no match, do nothing - let regular routing
         // logic take over
