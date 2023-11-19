@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {Platform} from "@ionic/angular";
 import {Subject} from "rxjs";
+import {Capacitor} from "@capacitor/core";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CommonService {
   }
 
   determinePlatform(){
-   return !document.URL.startsWith('http')
+   return Capacitor.getPlatform();
   }
   isIos() {
     return this.platform.is('ios');
