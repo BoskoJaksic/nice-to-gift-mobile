@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import {Router} from "@angular/router";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {AmountService} from "../../shared/services/ammount.service";
+import {AppPathService} from "../../services/app-path.service";
 
 @Component({
   selector: 'app-login-register',
@@ -28,6 +29,7 @@ export class LoginRegisterComponent implements OnInit {
               private apiService: ApiService,
               private amountService: AmountService,
               private router: Router,
+              private appPathService: AppPathService,
               private toasterService: ToasterService
   ) {
     this.form = this.formBuilder.group({
@@ -66,14 +68,19 @@ export class LoginRegisterComponent implements OnInit {
     // @ts-ignore
     this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
 
-    // @ts-ignore
-    if (decodedToken.firstLogin) {
-      this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
-      this.commonService.goToRoute('on-boarding')
+    let path = this.appPathService.getAppPath()
+    if (path) {
+      this.router.navigateByUrl(path);
     } else {
-      this.commonService.goToRoute('tabs/tabs/home-tab')
+      // @ts-ignore
+      if (decodedToken.firstLogin) {
+        this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
+        this.commonService.goToRoute('on-boarding')
+      } else {
+        this.commonService.goToRoute('tabs/tabs/home-tab')
+      }
+      this.form.reset();
     }
-    this.form.reset();
   }
 
   loginUser() {
