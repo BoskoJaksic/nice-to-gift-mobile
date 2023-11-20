@@ -25,14 +25,26 @@ export class AppComponent {
               private ngZone: NgZone, private router: Router) {
     this.initApp();
     this.initStatusBar();
+    this.initStripe();
+    this.determinePlatform()
   }
 
-  initStatusBar() {
+  determinePlatform() {
+    let platform = this.commonService.determinePlatform()
+    if (platform === 'web') {
+      window.location.href = 'https://www.capacitor.com'; // Zamijenite ovu URL adresu sa vašim veb sajtom
+    }
+  }
+
+  initStripe() {
     Stripe.initialize({
       publishableKey: environment.stripe.publishKey,
     });
+  }
+
+  initStatusBar() {
     const options = {
-      overlay: true
+      overlay: false
     };
     StatusBar.setStyle({style: Style.Light});
     StatusBar.setOverlaysWebView(options);

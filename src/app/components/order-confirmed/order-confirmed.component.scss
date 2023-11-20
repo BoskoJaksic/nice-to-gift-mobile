@@ -35,11 +35,15 @@ ion-button {
 
 .text-img {
   display: flex;
-  margin-top: 36px;
   justify-content: center;
 }
 
 .col-style {
+  display: flex;
+  justify-content: center;
+}
+
+.col-style-x {
   display: flex;
   justify-content: flex-end;
 }
