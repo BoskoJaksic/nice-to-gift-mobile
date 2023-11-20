@@ -21,7 +21,6 @@ import {SharedModule} from "./shared/shared.module";
     BrowserAnimationsModule,
     HttpClientModule, SharedModule],
   providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     LoaderService
   ],
   bootstrap: [AppComponent],

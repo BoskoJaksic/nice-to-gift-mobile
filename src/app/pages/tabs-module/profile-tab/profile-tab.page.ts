@@ -43,7 +43,7 @@ export class ProfileTabPage implements OnInit {
         this.idToShow = 1
       }
       await this.getUsersData();
-      console.log('get metoda za poklone  sa loaderima ide ovdje');
+      console.log('get metoda za ordere  sa loaderima ide ovdje');
       this.getGifts();
     })
     if (!this.avatarImg || this.avatarImg === '') {
@@ -60,7 +60,7 @@ export class ProfileTabPage implements OnInit {
     //   this.userName = r.name
     //   this.surname = r.surname
     //   this.loaderService.hideLoader();
-    // })
+    // })todo uncoment this
   }
 
   getGifts() {
