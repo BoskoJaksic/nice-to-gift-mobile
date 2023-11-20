@@ -17,7 +17,7 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  isWebPlatform: boolean = true; //todo change to false
+  isWebPlatform: boolean = false;
 
 
   constructor(public loaderService: LoaderService,
@@ -31,7 +31,7 @@ export class AppComponent {
   }
 
   determinePlatform() {
-    // this.isWebPlatform = this.commonService.determinePlatform() === 'web';todo uncoment thjis
+    this.isWebPlatform = this.commonService.determinePlatform() === 'web';
   }
 
   initStripe() {
