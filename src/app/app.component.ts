@@ -17,6 +17,7 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  isWebPlatform: boolean = true; //todo change to false
 
 
   constructor(public loaderService: LoaderService,
@@ -30,10 +31,7 @@ export class AppComponent {
   }
 
   determinePlatform() {
-    let platform = this.commonService.determinePlatform()
-    if (platform === 'web') {
-      window.location.href = 'https://www.capacitor.com'; // Zamijenite ovu URL adresu sa vašim veb sajtom
-    }
+    // this.isWebPlatform = this.commonService.determinePlatform() === 'web';todo uncoment thjis
   }
 
   initStripe() {
