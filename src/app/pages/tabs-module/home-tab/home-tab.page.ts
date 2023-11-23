@@ -3,6 +3,7 @@ import {StorageService} from "../../../shared/services/storage.service";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
 import {ShopModel} from "../../../shared/model/shops/shop.model";
 import {LoaderService} from "../../../shared/services/loader.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-home-tab',
@@ -15,16 +16,19 @@ export class HomeTabPage implements OnInit {
 
   constructor(private storageService: StorageService,
               private loaderService: LoaderService,
+              private route: ActivatedRoute,
               private shopApiService: ShopApiServices) {
   }
 
   async ngOnInit() {
-    this.userName = await this.storageService.getItem('userName')
-    this.getShops()
+    this.route.paramMap.subscribe(async params => {
+      this.getShops()
+    });
   }
 
-  getShops(): void {
-     this.loaderService.showLoader();
+  async getShops() {
+    this.loaderService.showLoader();
+    this.userName = await this.storageService.getItem('userName')
     this.shopApiService.get10Shops().subscribe(
       (shops: any) => {
         this.shops = shops.data

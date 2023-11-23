@@ -27,9 +27,7 @@ export class GiftTabPage implements OnInit {
       this.amountService.setTotalAmount(0);
       this.checkoutService.setAllProducts([])
       if (state && state.isFromCheckout !== undefined) {
-        const isFromCheckout = state.isFromCheckout;
-        console.log('isFromCheckout:', isFromCheckout);
-        this.isFromCheckout = isFromCheckout
+        this.isFromCheckout = state.isFromCheckout
       } else {
         this.isFromCheckout = false;
       }

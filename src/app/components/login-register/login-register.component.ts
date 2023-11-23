@@ -57,30 +57,39 @@ export class LoginRegisterComponent implements OnInit {
 
   afterLoginRedirect(response: any) {
     const decodedToken = jwt_decode(response.access_token);
-    // @ts-ignore
-    this.storageService.setItem('userName', decodedToken.name)
-    // @ts-ignore
-    this.storageService.setItem('userSurname', decodedToken.lastname)
-    // @ts-ignore
-    this.storageService.setItem('userId', decodedToken.userId)
-    // @ts-ignore
-    this.storageService.setItem('userEmail', decodedToken.email)
-    // @ts-ignore
-    this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
-
-    let path = this.appPathService.getAppPath()
-    if (path) {
-      this.router.navigateByUrl(path);
-    } else {
+    const promises = [
       // @ts-ignore
-      if (decodedToken.firstLogin) {
-        this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
-        this.commonService.goToRoute('on-boarding')
-      } else {
-        this.commonService.goToRoute('tabs/tabs/home-tab')
-      }
-      this.form.reset();
-    }
+      this.storageService.setItem('userName', decodedToken.name),
+      // @ts-ignore
+      this.storageService.setItem('userSurname', decodedToken.lastname),
+      // @ts-ignore
+      this.storageService.setItem('userId', decodedToken.userId),
+      // @ts-ignore
+      this.storageService.setItem('userEmail', decodedToken.email),
+      // @ts-ignore
+      this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
+    ]
+
+    Promise.all(promises)
+      .then(() => {
+        let path = this.appPathService.getAppPath()
+        if (path && path !== '') {
+          this.router.navigateByUrl(path);
+          this.form.reset();
+        } else {
+          // @ts-ignore
+          if (decodedToken.firstLogin) {
+            this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
+            this.commonService.goToRoute('on-boarding')
+          } else {
+            this.commonService.goToRoute('tabs/tabs/home-tab')
+          }
+          this.form.reset();
+        }
+      })
+      .catch((error) => {
+        console.error('Greška pri postavljanju podataka u storageService:', error);
+      });
   }
 
   loginUser() {

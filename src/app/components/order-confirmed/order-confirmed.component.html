@@ -1,25 +1,24 @@
 <div class="header">
   <ion-row>
-    <ion-col class="col-style-x" >
+    <ion-col class="col-style-x" size="9" style="padding-top: 3em">
+    <img ngSrc="./assets/images/order-confirmed.png" height="166" width="166" alt=""/>
+    </ion-col>
+    <ion-col class="col-style-x" size="2">
       <ion-fab-button color="secondary" size="small" class="close-btn"  (click)="closeTab()">
         <ion-icon name="close" style="color: white"></ion-icon>
       </ion-fab-button>
-    </ion-col>
-  </ion-row>
-  <ion-row style="margin-top: -80px">
-    <ion-col class="col-style">
-    <img ngSrc="./assets/images/order-confirmed.png" height="166" width="166" alt=""/>
     </ion-col>
   </ion-row>
   <div class="cake-name text-img">Your order is confirmed!</div>
 </div>
 <div class="main-content" style="display: flex;justify-content: center">
   <div class="button-div">
-    <ion-button color="secondary" style="margin-bottom: 30px">
+    <ion-button color="secondary" style="margin-bottom: 30px" (click)="shareLInk()" [disabled]="isLoading">
+      <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
       <span class="button-text1" style="color: #FFF;margin-right: 10px">Share the pickup link</span>
       <ion-icon src="./assets/icon/share.svg" style="height: 16px"></ion-icon>
     </ion-button>
-    <ion-button fill="outline" color="secondary"><span class="button-text1" style="margin-right: 10px">Check gift status</span>
+    <ion-button (click)="commonService.goToRoute('tabs/tabs/profile-tab','false')" fill="outline" color="secondary"><span class="button-text1" style="margin-right: 10px" >Check gift status</span>
       <ion-icon src="./assets/icon/go-checkout.svg" style="height: 16px"></ion-icon>
     </ion-button>
 

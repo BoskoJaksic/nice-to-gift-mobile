@@ -1,4 +1,5 @@
 <ion-app>
+  <app-circle-animation [showLoader]="loaderService.loaderVisibility$ | async"></app-circle-animation>
   <ng-container *ngIf="isWebPlatform">
     <app-web-view></app-web-view>
   </ng-container>

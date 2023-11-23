@@ -43,7 +43,7 @@
     </form>
 
     <div style="position: absolute;bottom: 10px;width: 91%;">
-      <app-secondary-button [disabled]="false" (onClick)="onSubmit()">
+      <app-secondary-button [spinner]="showSpinner" [disabled]="false" (onClick)="onSubmit()">
         <span class="button-text">Submit this card</span>
       </app-secondary-button>
     </div>

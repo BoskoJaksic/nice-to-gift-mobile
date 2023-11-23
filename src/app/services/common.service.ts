@@ -29,7 +29,6 @@ export class CommonService {
     } else {
       this.router.navigate([whereTo])
     }
-    return
   }
 
 }

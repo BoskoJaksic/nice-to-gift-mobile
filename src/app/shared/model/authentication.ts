@@ -1,9 +1,9 @@
 export interface Authentication {
-  access_token: String
+  access_token: string
   expires_in: bigint
   refresh_expires_in: bigint
-  refresh_token: String;
-  scope: String;
-  session_state: String;
-  token_type: String;
+  refresh_token: string;
+  scope: string;
+  session_state: string;
+  token_type: string;
 }
