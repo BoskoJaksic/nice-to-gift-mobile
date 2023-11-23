@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import {Router} from "@angular/router";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {AmountService} from "../../shared/services/ammount.service";
+import {AppPathService} from "../../services/app-path.service";
 
 @Component({
   selector: 'app-login-register',
@@ -28,6 +29,7 @@ export class LoginRegisterComponent implements OnInit {
               private apiService: ApiService,
               private amountService: AmountService,
               private router: Router,
+              private appPathService: AppPathService,
               private toasterService: ToasterService
   ) {
     this.form = this.formBuilder.group({
@@ -55,25 +57,39 @@ export class LoginRegisterComponent implements OnInit {
 
   afterLoginRedirect(response: any) {
     const decodedToken = jwt_decode(response.access_token);
-    // @ts-ignore
-    this.storageService.setItem('userName', decodedToken.name)
-    // @ts-ignore
-    this.storageService.setItem('userSurname', decodedToken.lastname)
-    // @ts-ignore
-    this.storageService.setItem('userId', decodedToken.userId)
-    // @ts-ignore
-    this.storageService.setItem('userEmail', decodedToken.email)
-    // @ts-ignore
-    this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
+    const promises = [
+      // @ts-ignore
+      this.storageService.setItem('userName', decodedToken.name),
+      // @ts-ignore
+      this.storageService.setItem('userSurname', decodedToken.lastname),
+      // @ts-ignore
+      this.storageService.setItem('userId', decodedToken.userId),
+      // @ts-ignore
+      this.storageService.setItem('userEmail', decodedToken.email),
+      // @ts-ignore
+      this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
+    ]
 
-    // @ts-ignore
-    if (decodedToken.firstLogin) {
-      this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
-      this.commonService.goToRoute('on-boarding')
-    } else {
-      this.commonService.goToRoute('tabs/tabs/home-tab')
-    }
-    this.form.reset();
+    Promise.all(promises)
+      .then(() => {
+        let path = this.appPathService.getAppPath()
+        if (path && path !== '') {
+          this.router.navigateByUrl(path);
+          this.form.reset();
+        } else {
+          // @ts-ignore
+          if (decodedToken.firstLogin) {
+            this.apiService.put('Users/firstLogin', {email: this.form.value.email}).subscribe();
+            this.commonService.goToRoute('on-boarding')
+          } else {
+            this.commonService.goToRoute('tabs/tabs/home-tab')
+          }
+          this.form.reset();
+        }
+      })
+      .catch((error) => {
+        console.error('Greška pri postavljanju podataka u storageService:', error);
+      });
   }
 
   loginUser() {

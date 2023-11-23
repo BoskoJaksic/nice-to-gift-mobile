@@ -1,3 +1,4 @@
 <ion-button [disabled]="disabled"  (click)="onClick.emit()"  class="submit-button">
+  <ion-spinner name="crescent"  *ngIf="spinner"></ion-spinner>
   <ng-content></ng-content>
 </ion-button>

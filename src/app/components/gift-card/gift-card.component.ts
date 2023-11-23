@@ -8,6 +8,7 @@ import {CommonService} from "../../services/common.service";
 })
 export class GiftCardComponent implements OnInit {
   @Input() giftObj: any;
+  @Input() isReceived: boolean = false;
 
   constructor(private commonService: CommonService) {
   }
@@ -19,8 +20,8 @@ export class GiftCardComponent implements OnInit {
 
 
   goToGiftDetails() {
-    if (this.giftObj.isReceived) {
-      this.commonService.goToRoute('tabs/tabs/profile-tab/false/gift-details', this.giftObj.imgSrc)
+    if (!this.isReceived) {
+      this.commonService.goToRoute('tabs/tabs/profile-tab/false/gift-details', this.giftObj.id)
     }
   }
 }

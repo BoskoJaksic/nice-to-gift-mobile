@@ -19,6 +19,7 @@ export class ShopReviewsComponent implements OnInit {
   shopReviews: GetShopReviewModel[] = []
   page: number = 1
   @Input() shopId: string = ''
+  showSpinner: boolean = false
 
   constructor(private shopApiService: ShopApiServices,
               private toasterService: ToasterService,
@@ -84,6 +85,7 @@ export class ShopReviewsComponent implements OnInit {
   }
 
   async saveReview() {
+    this.showSpinner = true
     let userId = await this.storageService.getItem('userId')
     let data = {
       reviewerId: userId,
@@ -92,10 +94,13 @@ export class ShopReviewsComponent implements OnInit {
       comment: this.textRate
     }
     this.shopApiService.postShopReview(data).subscribe(() => {
+      this.showSpinner = false
       this.toasterService.presentToast('Review successfully added', 'success');
       this.ratingVisible = false;
       this.textRate = ''
       this.getShopReviews(this.page);
+    }, error => {
+      this.showSpinner = false
     })
 
   }

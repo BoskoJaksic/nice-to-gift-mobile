@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {CanActivate, Router} from '@angular/router';
 import {StorageService} from "../shared/services/storage.service";
 
 @Injectable({
@@ -7,9 +7,10 @@ import {StorageService} from "../shared/services/storage.service";
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private storageService:StorageService) { }
+  constructor(private router: Router, private storageService: StorageService) {
+  }
 
-  async canActivate(){
+  async canActivate() {
     const isAuthenticated = await this.storageService.checkIfTokenExists();
 
     if (isAuthenticated) {

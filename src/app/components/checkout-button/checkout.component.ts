@@ -3,14 +3,17 @@ import {CommonService} from "../../services/common.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {StorageService} from "../../shared/services/storage.service";
-import {ApiService} from "../../core/api.service";
 import {StripeService} from "../../shared/services/stripe.service";
 import {PaymentSheetEventsEnum, Stripe} from "@capacitor-community/stripe";
-import {first, lastValueFrom} from "rxjs";
+import {first, lastValueFrom, Subscription} from "rxjs";
 import {OrdersApiService} from "../../shared/services/orders-api.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
 import {ProductModel, SelectedProducts} from "../../shared/model/product.model";
 import {ReceiverMessageService} from "../../shared/services/receiver-message.service";
+import {environment} from "../../../environments/environment";
+import {KeyboardService} from "../../shared/services/keyboard.service";
+import {OrderIdService} from "../../shared/services/order-id.service";
+import {ApiService} from "../../core/api.service";
 
 @Component({
   selector: 'app-checkout-button',
@@ -31,16 +34,25 @@ export class CheckoutComponent implements OnInit {
   orderProducts: ProductModel [] = []
   orderId: string = ''
   items: SelectedProducts[] = []
+  keyboardSubscription: Subscription;
+  buttonVisible = true;
 
   constructor(public commonService: CommonService,
               private router: Router,
+              private orderIdService: OrderIdService,
               private apiService: ApiService,
               private ordersApiService: OrdersApiService,
               private checkoutService: CheckoutService,
               private stripeService: StripeService,
               private receiverMessageService: ReceiverMessageService,
               private storageService: StorageService,
+              private keyboardService: KeyboardService,
               private http: HttpClient) {
+    this.keyboardSubscription = this.keyboardService.keyboardVisible$.subscribe(
+      keyboardVisible => {
+        this.buttonVisible = !keyboardVisible;
+      }
+    );
   }
 
   async ngOnInit() {
@@ -70,8 +82,9 @@ export class CheckoutComponent implements OnInit {
         this.orderId = r.id;
         this.data.amount = this.amount;
         this.data.currency = 'EUR'
+        this.data.orderId = r.id
         let url = this.apiService.getApiUrl() + 'Orders/initiate-payment'
-        // let url = environment.baseURL + 'orders' todo use this instead of the line above
+        // let url = environment.baseURL + 'Orders/initiate-payment'
         if (this.cardObj) {
           this.doAutomaticPayment()
         } else {
@@ -85,8 +98,7 @@ export class CheckoutComponent implements OnInit {
 
   updateOrder() {
     let dataToSend = {
-      id: this.orderId,
-      orderStatusEnum: 1
+      orderId: this.orderId
     }
     this.ordersApiService.updateOrder(dataToSend).subscribe({
       next: (r) => {
@@ -178,10 +190,15 @@ export class CheckoutComponent implements OnInit {
         }
       };
       if (this.isFromCheckout) {
+        this.orderIdService.setID(this.orderId)
         this.router.navigate(['tabs/tabs/gift-tab'], navigationExtras);
       } else {
         this.commonService.goToRoute(this.goTo);
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.keyboardSubscription.unsubscribe();
   }
 }

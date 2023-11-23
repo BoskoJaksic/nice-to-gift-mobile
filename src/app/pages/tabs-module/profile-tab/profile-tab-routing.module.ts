@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ProfileTabPage
   },
   {
-    path: 'gift-details/:imgSrc',
+    path: 'gift-details/:orderId',
     loadChildren: () => import('./gift-details/gift-details.module').then( m => m.GiftDetailsPageModule)
   }
 ];

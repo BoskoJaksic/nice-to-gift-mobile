@@ -7,6 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class SecondaryButtonComponent  implements OnInit {
   @Input() disabled: boolean = true;
+  @Input() spinner: boolean = false;
 
   @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
   constructor() { }

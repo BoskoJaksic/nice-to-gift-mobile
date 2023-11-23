@@ -31,15 +31,20 @@
   margin-top: 10px;
 }
 
-.gift-address {
-  color: var(--ion-color-secondary);
+.typo-prod {
+  color: var(--grey, #7E7E7E);
+  text-align: center;
   font-feature-settings: 'clig' off, 'liga' off;
-  font-size: 12px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 166.667% */
+  line-height: 20px; /* 125% */
   letter-spacing: -0.24px;
-  text-align: center;
+}
+
+.prod-class {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   margin-top: 10px;
-  max-width: 200px;
 }

@@ -14,24 +14,15 @@
   <div class="main-content">
     <div class="checkout-text" style="display: flex;justify-content: flex-start;margin-left: 10px"><span class="checkout-text">User info</span></div>
     <form [formGroup]="form" >
-<!--      <app-input placeholder="Name" inputType="text"-->
-<!--                 additionalClass="settings-input-margin"-->
-<!--                 formControlName="name"></app-input>-->
 
       <ion-item class="roundedInput1">
         <ion-input  placeholder="Name" formControlName="name"></ion-input>
       </ion-item>
 
-<!--      <app-input placeholder="Last Name" inputType="text"-->
-<!--                 additionalClass="settings-input-marginr"-->
-<!--                 formControlName="surname"></app-input>-->
       <ion-item class="roundedInput1">
         <ion-input  placeholder="Last Name" formControlName="surname"></ion-input>
       </ion-item>
 
-<!--      <app-input placeholder="Email" inputType="text"-->
-<!--                 additionalClass="settings-input-margin"-->
-<!--                 formControlName="email"></app-input>-->
       <ion-item class="roundedInput1">
         <ion-input  placeholder="Email" formControlName="email"></ion-input>
       </ion-item>
@@ -46,7 +37,7 @@
     </ion-button>
 
     <div style="position: absolute;bottom: 10px;width: 91%;">
-      <app-secondary-button [disabled]="!form.valid" (onClick)="onSubmit()">
+      <app-secondary-button [spinner]="showSpinner" [disabled]="!form.valid" (onClick)="onSubmit()">
         <span class="button-text">Save</span>
       </app-secondary-button>
     </div>
