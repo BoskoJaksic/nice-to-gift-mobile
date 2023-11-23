@@ -13,6 +13,7 @@
 <ion-content>
   <div class="main-content">
     <div class="content-wrapper">
+      <div *ngIf="cards.length > 0">
       <div class="card-user" *ngFor="let card of cards" (click)="onSelectCard(card)"
            [ngClass]="{'card-user-clicked': card === selectedCard}">
         <ion-row style="width: 100%">
@@ -33,6 +34,14 @@
           </ion-col>
 
         </ion-row>
+      </div>
+      </div>
+      <div *ngIf="cards.length === 0">
+        <div class="not-found">
+          <img src="./assets/images/not-found.png"/>
+          <br/>
+          <div class="info-shop">You have no added any card  yet.</div>
+        </div>
       </div>
     </div>
     <span class="error-text">{{receivedMessage}}</span>

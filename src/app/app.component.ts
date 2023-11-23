@@ -52,28 +52,15 @@ export class AppComponent {
 
   }
 
-  checkAppLaunchUrl = () => {
-    App.getLaunchUrl().then((url) => {
-      console.log('Launch URL:', url);
-      // Ovdje možete izvršiti dalje radnje s dobivenim URL-om
-    }).catch((error) => {
-      console.error('Error getting launch URL:', error);
-      // Obrada greške ako je potrebno
-    });
-  };
-
   initApp() {
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
       this.ngZone.run(() => {
         const slug = event.url.split(".net");
         const appPath = slug.pop()
-        // this.checkAppLaunchUrl();
         if (appPath) {
           this.appPathService.setAppPath(appPath)
           this.router.navigateByUrl(appPath);
         }
-        // If no match, do nothing - let regular routing
-        // logic take over
       });
     });
   }

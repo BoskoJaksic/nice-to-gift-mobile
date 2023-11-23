@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserApiServices} from "../../../shared/services/user.api.services";
 import {ToasterService} from "../../../shared/services/toaster.service";
 import {LoaderService} from "../../../shared/services/loader.service";
+import {AppPathService} from "../../../services/app-path.service";
 
 @Component({
   selector: 'app-settings-tab',
@@ -16,15 +17,16 @@ import {LoaderService} from "../../../shared/services/loader.service";
 export class SettingsTabPage implements OnInit {
   avatarImg: string | undefined;
   form: FormGroup;
-
+  showSpinner:boolean = false;
   constructor(private keycloakService: KeycloakService,
               private formBuilder: FormBuilder,
               private storageService: StorageService,
               private toasterService: ToasterService,
               private userApiServices: UserApiServices,
               private loaderService: LoaderService,
+              private appPathService: AppPathService,
               public commonService: CommonService) {
-    this.avatarImg = ''
+    this.avatarImg = 'https://ionicframework.com/docs/img/demos/avatar.svg'
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
       name: ['', Validators.required],
@@ -35,10 +37,6 @@ export class SettingsTabPage implements OnInit {
   }
 
   async ngOnInit() {
-
-    if (!this.avatarImg || this.avatarImg === '') {
-      this.avatarImg = 'https://ionicframework.com/docs/img/demos/avatar.svg';
-    }
     let userEmail = await this.storageService.getItem('userEmail')
     let userName = await this.storageService.getItem('userName')
     let userSurname = await this.storageService.getItem('userSurname')
@@ -49,14 +47,14 @@ export class SettingsTabPage implements OnInit {
   }
 
   async getUsersData() {
-    // this.loaderService.showLoader(); todo uncomment this
-
+    this.loaderService.showLoader();
     let userId = await this.storageService.getItem('userId')
     this.userApiServices.getUsersData(userId).subscribe(r => {
-      this.avatarImg = r.base64Image
+      if (r.base64Image){
+        this.avatarImg = r.base64Image
+      }
       this.form.patchValue({base64Image: this.avatarImg})
       this.loaderService.hideLoader();
-
     })
   }
 
@@ -79,17 +77,23 @@ export class SettingsTabPage implements OnInit {
       this.storageService.removeToken('userSurname')
       this.storageService.removeToken('userId')
       this.storageService.removeToken('userEmail')
+      this.storageService.removeToken('keycloak_id')
+      this.appPathService.setAppPath('');
       this.commonService.goToRoute('/')
     })
   }
 
   async onSubmit() {
-    console.log('dd', this.form.value)
+    this.showSpinner = true;
     let userId = await this.storageService.getItem('userId')
     let authId = await this.storageService.getItem('keycloak_id')
     this.form.patchValue({authId: authId})
     this.userApiServices.updateUser(userId, this.form.value).subscribe(r => {
-      this.toasterService.presentToast('User successfully updated', 'success')
+      this.toasterService.presentToast('User successfully updated', 'success');
+      this.showSpinner = false;
+    },error => {
+      this.toasterService.presentToast('Something went wrong', 'danger');
+      this.showSpinner = false;
     })
   }
 }

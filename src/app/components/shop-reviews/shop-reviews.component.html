@@ -34,7 +34,8 @@
       <div style="margin-top: 10px">
         <ion-row>
           <ion-col size="7">
-            <app-secondary-button (onClick)="saveReview()" [disabled]="false"><span class="button-text">Save</span>
+            <app-secondary-button (onClick)="saveReview()" [spinner]="showSpinner" [disabled]="false"><span
+              class="button-text">Save</span>
             </app-secondary-button>
           </ion-col>
           <ion-col>
@@ -50,7 +51,9 @@
       <ion-row>
         <ion-col size="3">
           <ion-avatar>
-            <img alt="Silhouette of a person's head" [src]="x.reviewerBase64Image"/>
+            <img alt="Silhouette of a person's head"
+                 [src]="x.reviewerBase64Image ? x.reviewerBase64Image : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+            />
           </ion-avatar>
         </ion-col>
         <ion-col size="7"><span class="screen-card-text-medium">{{x.reviewerName}}</span>

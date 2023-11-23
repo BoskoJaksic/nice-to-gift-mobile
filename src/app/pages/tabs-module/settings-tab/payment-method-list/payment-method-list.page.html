@@ -13,7 +13,8 @@
 <ion-content>
   <div class="main-content">
     <div class="scrollable-content">
-      <div class="card-holder" *ngFor="let card of cards">
+      <div *ngIf="cards.length > 0">
+      <div  class="card-holder" *ngFor="let card of cards">
         <ion-row>
           <ion-col>
             <img src="./assets/images/card-sim.png" class="sim-card"/>
@@ -58,6 +59,14 @@
             </div>
           </ion-col>
         </ion-row>
+      </div>
+      </div>
+      <div *ngIf="cards.length === 0">
+        <div class="not-found">
+          <img src="./assets/images/not-found.png"/>
+          <br/>
+          <div class="info-shop">You have no added any card  yet.</div>
+        </div>
       </div>
     </div>
     <ion-button fill="clear" color="secondary" (click)="commonService.goToRoute('tabs/tabs/settings-tab/add-payment-method','false')">

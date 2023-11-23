@@ -1,8 +1,10 @@
 .header {
   background-color: var(--ion-color-primary);
-  height: 250px;
-  border-radius: 0 0 180px 180px;
+  height: 200px;
+  border-radius: 0 0 500px 500px;
   margin-bottom: 37px;
+  margin-left: -23px;
+  width: 116%;
 }
 
 .header-flower {
@@ -23,8 +25,17 @@
 
 .scroll-content {
   margin-top: 30px;
-  height: 37vh; /* Set the height to 100% of viewport height */
-  overflow-y: auto; /* Enable vertical scrolling within the content wrapper */
+  height: 37vh;
+  overflow-y: auto;
   position: relative;
   padding-bottom: 60px;
 }
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+  text-align: center;
+}
+

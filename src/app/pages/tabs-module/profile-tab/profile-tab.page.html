@@ -1,6 +1,6 @@
 <ion-content scroll-y="false">
   <div class="header">
-    <ion-row style="padding-top: 50px">
+    <ion-row>
       <ion-col size="3" class="main-content">
         <img alt="" class="header-flower" src="assets/images/login.svg">
       </ion-col>
@@ -15,7 +15,7 @@
     </ion-row>
     <ion-row style="margin-top: 16px">
       <ion-col>
-        <div class="typography-on-boarding">{{userName}} {{surname}} {{idToShow}}</div>
+        <div class="typography-on-boarding">{{userName}} {{surname}}</div>
       </ion-col>
     </ion-row>
   </div>
@@ -23,19 +23,24 @@
   <div class="main-content-profile">
     <mat-tab-group>
       <mat-tab label="Gift received">
-
-<!--        ngfor goes here todo-->
-        <div class="scroll-content">
-        <app-gift-card [giftObj]="gifts[0]" ></app-gift-card>
-        <app-gift-card [giftObj]="gifts[0]" ></app-gift-card>
-        <app-gift-card [giftObj]="gifts[0]" ></app-gift-card>
+        <div *ngIf="receivedOrders?.length === 0" class="not-found">
+          <img src="./assets/images/not-found.png"/>
+          <br/>
+          <div class="info-shop">You have no received gifts yet.</div>
+        </div>
+        <div class="scroll-content" *ngIf="receivedOrders?.length > 0">
+          <app-gift-card *ngFor="let ro of receivedOrders" [giftObj]="ro" [isReceived]=true></app-gift-card>
         </div>
       </mat-tab>
       <mat-tab label="Gift given">
-        <div class="scroll-content">
-          <!--        ngfor goes here todo-->
-        <app-gift-card [giftObj]="gifts[1]"></app-gift-card>
 
+        <div *ngIf="givenOrders?.length === 0" class="not-found">
+          <img src="./assets/images/not-found.png"/>
+          <br/>
+          <div class="info-shop">You haven't sent any gifts yet.</div>
+        </div>
+        <div class="scroll-content" *ngIf="givenOrders?.length > 0">
+          <app-gift-card *ngFor="let go of givenOrders" [giftObj]="go" [isReceived]=false>></app-gift-card>
         </div>
       </mat-tab>
 

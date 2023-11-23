@@ -20,11 +20,11 @@ export class StorageService {
     this.storage = await this.storage.create();
   }
 
-   public async setItem(key: string, value: any) {
+   public async setItem(key: string, value: string) {
     this.storage?.set(key, value);
   }
   public async getItem(value: any) {
-    return await this.storage?.get(value);
+    return this.storage?.get(value);
   }
 
   public async checkIfTokenExists() {
@@ -77,7 +77,7 @@ export class StorageService {
         (response) => {
           this.setItem('token', response.access_token);
           this.setItem('refresh_token', response.refresh_token);
-          resolve(); // Resolve the promise after successfully setting the tokens
+          resolve();
         },
         (error) => {
           console.error('Error occurred while refreshing token:', error);

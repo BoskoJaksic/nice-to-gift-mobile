@@ -19,6 +19,7 @@ export class AddPaymentMethodPage implements OnInit {
   elements: any;
   cardNumberElement: any;
   goToCheckout: string = '';
+  showSpinner:boolean = false;
 
 
   constructor(public commonService: CommonService,
@@ -113,6 +114,7 @@ export class AddPaymentMethodPage implements OnInit {
   }
 
   async createCard(cardId: any) {
+    this.showSpinner = true;
     let userEmail = await this.storageService.getItem('userEmail')
     let dataToSend = {
       email: userEmail,
@@ -120,9 +122,11 @@ export class AddPaymentMethodPage implements OnInit {
     }
     this.stripeService.createCard(dataToSend).subscribe( {
       next:()=>{
-        this.toasterService.presentToast('Card successfully added','success')
+        this.toasterService.presentToast('Card successfully added','success');
+        this.showSpinner = false;
         this.goTo();
       },error:(err)=>{
+        this.showSpinner = false;
         this.toasterService.presentToast('Something went wrong','danger')
       }
     })

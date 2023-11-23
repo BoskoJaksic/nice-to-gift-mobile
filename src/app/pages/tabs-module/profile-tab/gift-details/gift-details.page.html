@@ -1,5 +1,6 @@
 <div class="header-details ion-padding-top"
-     [ngStyle]="{'background-image': 'url(' + imgSrc + ')', 'background-size': 'cover', 'width': '100%', 'height': '100%'}"
+     [ngStyle]="{'background-image': 'url(' + orderDetails?.shopImageUri + ')',
+      'background-size': 'cover', 'width': '100%', 'height': '300px '}"
 >
   <ion-row>
     <ion-col size="4"><img ngSrc="./assets/icon/go-back.svg"
@@ -15,10 +16,12 @@
   <div class="content-center">
     <img src="./assets/images/gift-details-status.png"/>
   </div>
-  <div class="status-text">At the store!</div>
-  <div class="status-text">Cakeble</div>
-  <div style="display: flex;justify-content: center">
-    <div class="gift-address">Marco Polostraat 209 1057 WK Amsterdam</div>
+  <div class="status-text">{{orderDetails?.orderStatus}}!</div>
+  <div class="status-text">{{orderDetails?.shopName}}</div>
+  <div class="prod-class">
+    <div *ngFor="let item of orderDetails?.items">
+      <div class="typo-prod">{{item.quantity}}x {{item.itemName}}</div>
+    </div>
   </div>
   <div style="justify-content: center;display: flex">
     <div style="width: 200px;margin-top: 60px;">
