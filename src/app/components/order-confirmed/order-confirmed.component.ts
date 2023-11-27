@@ -32,6 +32,7 @@ export class OrderConfirmedComponent implements OnInit {
         console.log('single order details from checkout', r)
         this.orderDetails = r
         await Share.share({
+          title:'Nice to gift',
           text: this.orderDetails.receiverComment,
           url: `https://orange-grass-0aed0ab03.4.azurestaticapps.net/tabs/tabs/profile-tab/${orderId}`,
           dialogTitle: 'Nice To Gift',

@@ -20,7 +20,7 @@ export class ApiService {
       // 192.168.0.17 real device
       // 10.0.2.2 emulator
       // return 'https://10.0.2.2:7295/api/';
-      return 'https://192.168.0.17:7295/api/';
+      return 'https://10.0.2.2:7295/api/';
     } else if (this.platform.is('ios')) {
       return 'https://localhost:7295/api/';
     } else {

@@ -40,12 +40,11 @@ export class AppComponent {
     });
   }
 
+
   initStatusBar() {
-    const options = {
-      overlay: false
-    };
     StatusBar.setStyle({style: Style.Light});
-    StatusBar.setOverlaysWebView(options);
+    StatusBar.setOverlaysWebView({ overlay: true });
+
   }
 
   ngOnInit() {
