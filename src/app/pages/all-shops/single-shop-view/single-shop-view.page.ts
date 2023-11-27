@@ -8,6 +8,7 @@ import {CheckoutService} from "../../../shared/services/checkout.service";
 import {StorageService} from "../../../shared/services/storage.service";
 import {ShopService} from "../../../shared/services/shop.service";
 import {LoaderService} from "../../../shared/services/loader.service";
+import {GeocodingService} from "../../../shared/services/geo.service";
 
 @Component({
   selector: 'app-single-shop-view',
@@ -25,6 +26,7 @@ export class SingleShopViewPage implements OnInit {
               public storageService: StorageService,
               public shopService: ShopService,
               private loaderService: LoaderService,
+              private geocodingService: GeocodingService,
               private shopApiService: ShopApiServices,
               private commonService: CommonService) {
   }
@@ -38,13 +40,57 @@ export class SingleShopViewPage implements OnInit {
         this.shopService.setShopId(shopId)
       }
       this.getShopDetails();
+      this.getAddress();
+
     })
+  }
+
+  getAddress() {
+    let address = 'Bulevar Revolucije 22, 81000 Podgorica, Crna Gora'
+    let address2 = 'Vukasina Markovica 224, 81000 Podgorica, Crna Gora'
+    this.geocodingService.getCoordinatesFromAddress(address).subscribe(
+      (data: any[]) => {
+        if (data && data.length > 0) {
+          const latitude = data[0].lat;
+          const longitude = data[0].lon;
+          console.log('Latitude:', latitude);
+          console.log('Longitude:', longitude);
+          this.geocodingService.getCoordinatesFromAddress(address2).subscribe(
+            (data: any[]) => {
+              if (data && data.length > 0) {
+                const latitude2 = data[0].lat;
+                const longitude2 = data[0].lon;
+                console.log('Latitude:', latitude);
+                console.log('Longitude:', longitude);
+                const distance = this.geocodingService.calculateDistance(latitude, longitude, latitude2, longitude2);
+                console.log('Udaljenost između tačaka je:', distance.toFixed(2), 'kilometara');
+
+                // Handle coordinates here
+              } else {
+                console.error('No coordinates found for the address.');
+              }
+            },
+            error => {
+              console.error('Error fetching coordinates:', error);
+            }
+          );
+
+
+          // Handle coordinates here
+        } else {
+          console.error('No coordinates found for the address.');
+        }
+      },
+      error => {
+        console.error('Error fetching coordinates:', error);
+      }
+    );
   }
 
 
   getShopDetails() {
     this.loaderService.showLoader()
-   let shopId= this.shopService.getShopId();
+    let shopId = this.shopService.getShopId();
     this.shopApiService.getSingleShopDetails(shopId).subscribe(
       (shopsDetails: ShopModel) => {
         this.shopDetails = shopsDetails

@@ -29,7 +29,7 @@ export class StorageService {
 
   public async checkIfTokenExists() {
     try {
-      let token = await this.storage?.get("token");
+      let token = this.getItem('token');
       return !!token;
     } catch (error) {
       console.error('Error occurred while getting token:', error);

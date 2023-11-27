@@ -50,28 +50,18 @@ export class ShopProductsComponent implements OnInit {
     this.loaderService.showLoader()
     this.productApiService.getAllShopProducts(`Products?ShopId=${this.shopId}&Page=${page}&Size=5`).subscribe(
       (products: any) => {
-        // Mapirajte novopristigle proizvode
-        // const newProducts = products.data.map((product: any) => ({...product, quantity: 0, total: 0}));
         const newProducts = products.data.map((product: any) => {
           const fee = parseFloat(this.amountService.getFeeAmount());
-          // Izračunajte novu vrijednost amount s dodatkom 3%
           const newAmount = product.amount * (1 + fee / 100);
-          // Dodajte quantity i total polja, te novu vrijednost amount u proizvod
-          return {...product, quantity: 0, total: 0, amount: newAmount};
+          return {...product, quantity: 0, total: 0, amount: newAmount.toFixed(2)};
         });
 
-        // Provjerite je li svaki novi proizvod već prisutan u this.allProducts
         const uniqueNewProducts = newProducts.filter((newProduct:ProductModel) => {
           return !this.allProducts.some((existingProduct) => existingProduct.id === newProduct.id);
         });
 
-        // Dodajte samo jedinstvene proizvode na listu
         this.allProducts = this.allProducts.concat(uniqueNewProducts);
-
-        // Postavite sve proizvode u servis za naplatu
         this.checkoutService.setAllProducts(this.allProducts);
-
-        // Dobavite sve proizvode iz servisa za naplatu
         this.checkoutService.getAllProducts().subscribe(r => {
           this.allProducts = r;
         });

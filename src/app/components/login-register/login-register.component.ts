@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {AmountService} from "../../shared/services/ammount.service";
 import {AppPathService} from "../../services/app-path.service";
+import {ShopApiServices} from "../../shared/services/shop-api.services";
 
 @Component({
   selector: 'app-login-register',
@@ -30,6 +31,7 @@ export class LoginRegisterComponent implements OnInit {
               private amountService: AmountService,
               private router: Router,
               private appPathService: AppPathService,
+              private shopApiServices: ShopApiServices,
               private toasterService: ToasterService
   ) {
     this.form = this.formBuilder.group({
@@ -48,16 +50,21 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   getFeeAmount() {
-// this.shopApiServices.getFeeAmount().subscribe(r => {
-    //   this.feeAmount = r;
-    // this.calculateTotalToPay()
-    // }) todo set this inside subscribe
-    this.amountService.setFeeAmount('3')
+    this.shopApiServices.getFeeAmount().subscribe({
+      next: (r) => {
+        let fee = r.feePercentRate.toString()
+        this.amountService.setFeeAmount(fee)
+      }
+    })
   }
+
 
   afterLoginRedirect(response: any) {
     const decodedToken = jwt_decode(response.access_token);
     const promises = [
+      this.storageService.setItem('token', response.access_token),
+      // @ts-ignore
+      this.storageService.setItem('refresh_token', response.refresh_token),
       // @ts-ignore
       this.storageService.setItem('userName', decodedToken.name),
       // @ts-ignore
@@ -94,8 +101,6 @@ export class LoginRegisterComponent implements OnInit {
 
   loginUser() {
     this.keycloakService.login(this.form.value.email, this.form.value.password).subscribe(r => {
-      this.storageService.setItem('token', r.access_token)
-      this.storageService.setItem('refresh_token', r.refresh_token)
       this.showSpinner = false;
       this.afterLoginRedirect(r)
     }, error => {

@@ -34,7 +34,7 @@ export class ShopApiServices {
   }
 
   getFeeAmount(): Observable<any> {
-    return this.apiService.get('shops/fee');
+    return this.apiService.get('Shops/fee');
   }
 
   postShopReview(data: ShopReviewModel): Observable<ShopReviewModel> {
