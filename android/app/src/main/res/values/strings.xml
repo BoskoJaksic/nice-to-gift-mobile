@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">NiceToGift-Mobile-App</string>
-    <string name="title_activity_main">NiceToGift-Mobile-App</string>
+    <string name="app_name">NiceToGift</string>
+    <string name="title_activity_main">NiceToGift</string>
     <string name="package_name">com.android.niceToGift</string>
     <string name="custom_url_scheme">com.niceToGift.myapp</string>
 </resources>

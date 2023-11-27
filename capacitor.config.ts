@@ -1,8 +1,8 @@
 import {CapacitorConfig} from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'NiceToGift-Mobile-App',
+  appId: 'com.android.niceToGift',
+  appName: 'NiceToGift',
   webDir: 'www',
   server: {
     androidScheme: 'https'
@@ -12,13 +12,13 @@ const config: CapacitorConfig = {
       launchShowDuration: 2000,
       launchAutoHide: true,
       launchFadeOutDuration: 2000,
-      backgroundColor: "#ffffffff",
+      backgroundColor: "#CAC7EF",
       androidSplashResourceName: "splash",
       // androidScaleType: "CENTER_CROP",
       showSpinner: true,
       androidSpinnerStyle: "large",
       iosSpinnerStyle: "small",
-      spinnerColor: "#999999",
+      spinnerColor: "#1A3957",
       splashFullScreen: true,
       splashImmersive: true,
       layoutName: "launch_screen",

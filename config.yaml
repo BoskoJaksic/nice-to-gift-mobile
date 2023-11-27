@@ -1,0 +1,3 @@
+platforms:
+  android:
+    packageName: com.android.niceToGift
