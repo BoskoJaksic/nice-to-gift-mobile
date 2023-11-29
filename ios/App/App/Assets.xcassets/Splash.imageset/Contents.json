@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Default@1x~universal~anyany.png",
+      "filename" : "LaunchImage~iphone-320x480.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,11 +12,12 @@
           "value" : "dark"
         }
       ],
+      "filename" : "LaunchImage~iphone-320x480 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Default@2x~universal~anyany.png",
+      "filename" : "LaunchImage-568h@2x~iphone_640x1136.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -27,11 +28,12 @@
           "value" : "dark"
         }
       ],
+      "filename" : "LaunchImage-568h@2x~iphone_640x1136 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Default@3x~universal~anyany.png",
+      "filename" : "LaunchImage-1792@2x~iphoneXr-landscape_1792x828.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -42,6 +44,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "LaunchImage-1792@2x~iphoneXr-landscape_1792x828 1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
