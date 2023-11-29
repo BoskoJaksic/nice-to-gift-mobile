@@ -9,6 +9,7 @@ import {StorageService} from "../../../shared/services/storage.service";
 import {ShopService} from "../../../shared/services/shop.service";
 import {LoaderService} from "../../../shared/services/loader.service";
 import {GeocodingService} from "../../../shared/services/geo.service";
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-single-shop-view',
@@ -40,14 +41,18 @@ export class SingleShopViewPage implements OnInit {
         this.shopService.setShopId(shopId)
       }
       this.getShopDetails();
-      this.getAddress();
+      await this.getAddress();
 
     })
   }
 
-  getAddress() {
+  async getAddress() {
     let address = 'Bulevar Revolucije 22, 81000 Podgorica, Crna Gora'
     let address2 = 'Vukasina Markovica 224, 81000 Podgorica, Crna Gora'
+
+    const coordinates = await Geolocation.getCurrentPosition();
+    console.log('Current position:', coordinates);
+
     this.geocodingService.getCoordinatesFromAddress(address).subscribe(
       (data: any[]) => {
         if (data && data.length > 0) {

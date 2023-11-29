@@ -8,6 +8,7 @@ import {App, URLOpenListenerEvent} from "@capacitor/app";
 import {Router} from '@angular/router';
 import {AppPathService} from "./services/app-path.service";
 import {CommonService} from "./services/common.service";
+import {StorageService} from "./shared/services/storage.service";
 
 register();
 
@@ -23,6 +24,7 @@ export class AppComponent {
   constructor(public loaderService: LoaderService,
               public commonService: CommonService,
               private appPathService: AppPathService,
+              private storageService: StorageService,
               private ngZone: NgZone, private router: Router) {
     this.initApp();
     this.initStatusBar();
@@ -53,12 +55,17 @@ export class AppComponent {
 
   initApp() {
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-      this.ngZone.run(() => {
+      this.ngZone.run(async () => {
         const slug = event.url.split(".net");
         const appPath = slug.pop()
         if (appPath) {
           this.appPathService.setAppPath(appPath)
-          this.router.navigateByUrl(appPath);
+          const isAuthenticated = await this.storageService.checkIfTokenExists();
+          if (isAuthenticated) {
+            await this.router.navigateByUrl(appPath);
+          } else {
+            await this.router.navigate(['']); // Redirect to the login page if not logged in
+          }
         }
       });
     });

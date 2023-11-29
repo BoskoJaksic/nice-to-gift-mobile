@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {CommonModule, DatePipe, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 import {IonicModule} from '@ionic/angular';
@@ -8,6 +8,8 @@ import {HomeTabPageRoutingModule} from './home-tab-routing.module';
 
 import {HomeTabPage} from './home-tab.page';
 import {SharedModule} from "../../../shared/shared.module";
+import {HomeGiftCardComponent} from "../../../components/home-gift-card/home-gift-card.component";
+import {HomeGiftCardNoneComponent} from "../../../components/home-gift-card-none/home-gift-card-none.component";
 
 @NgModule({
   imports: [
@@ -18,10 +20,14 @@ import {SharedModule} from "../../../shared/shared.module";
     NgOptimizedImage,
     SharedModule
   ],
+  providers: [
+    DatePipe,
+
+  ],
   exports: [
 
   ],
-  declarations: [HomeTabPage]
+  declarations: [HomeTabPage, HomeGiftCardComponent, HomeGiftCardNoneComponent]
 })
 export class HomeTabPageModule {
 }

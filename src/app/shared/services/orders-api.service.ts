@@ -34,4 +34,7 @@ export class OrdersApiService {
   getSingleOrder(orderId: any): Observable<any> {
     return this.apiService.get(`Orders/${orderId}`);
   }
+  getLastOrUpcoming(receiverId: any): Observable<any> {
+    return this.apiService.get(`Orders/last-or-upcoming/${receiverId}`);
+  }
 }
