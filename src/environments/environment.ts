@@ -7,7 +7,7 @@ export const environment = {
     url: 'http://localhost:28081',
     realm: 'nice-to-gift',
     clientId: 'new-bosko',
-    client_secret:'kSBV4yQDEJL54P7NJUbivzwhS52zYs5q'
+    client_secret:'13kzaDBxLU2P8SJKrR6Tiko4pL5frYqo'
   },
   stripe:{
     publishKey:'pk_test_51O5wNKLfGHxlGY8I8qAxIcYowDovVM9eS16YNWOgaUTTThkPvJOqnsFcLL0qsZH6gE1W0JpCx5mf8uABkWEs2Z3H00RlciTA7F'

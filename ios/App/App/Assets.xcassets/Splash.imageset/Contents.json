@@ -47,6 +47,54 @@
       "filename" : "LaunchImage-1792@2x~iphoneXr-landscape_1792x828 1.png",
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "filename" : "LaunchImage-568h@2x~iphone_640x1136 2.png",
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "LaunchImage~iphone-320x480 2.png",
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "LaunchImage-568h@2x~iphone_640x1136 3.png",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "LaunchImage-568h@2x~iphone_640x1136 4.png",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "LaunchImage-1792@2x~iphoneXr-landscape_1792x828 2.png",
+      "idiom" : "iphone",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "LaunchImage-1792@2x~iphoneXr-landscape_1792x828 3.png",
+      "idiom" : "iphone",
+      "scale" : "3x"
     }
   ],
   "info" : {

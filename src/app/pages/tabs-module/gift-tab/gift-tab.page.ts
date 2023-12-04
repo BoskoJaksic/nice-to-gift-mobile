@@ -23,6 +23,7 @@ export class GiftTabPage implements OnInit {
               private checkoutService: CheckoutService
   ) {
     this.route.paramMap.subscribe(params => {
+      this.getShops();
       const state = window.history.state;
       this.amountService.setTotalAmount(0);
       this.checkoutService.setAllProducts([])
@@ -36,7 +37,6 @@ export class GiftTabPage implements OnInit {
 
 
   ngOnInit() {
-    this.getShops();
   }
 
   getShops(): void {

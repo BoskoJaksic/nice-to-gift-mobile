@@ -2,7 +2,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CommonService} from "../../services/common.service";
 import {Share} from "@capacitor/share";
 import {OrdersApiService} from "../../shared/services/orders-api.service";
-import {LoaderService} from "../../shared/services/loader.service";
 import {OrderIdService} from "../../shared/services/order-id.service";
 
 @Component({
@@ -29,7 +28,7 @@ export class OrderConfirmedComponent implements OnInit {
     let orderId = this.orderIdService.getID()
     this.ordersApiService.getSingleOrder(orderId).subscribe({
       next: async (r) => {
-        console.log('single order details from checkout', r)
+        this.isLoading = false;
         this.orderDetails = r
         await Share.share({
           title:'Nice to gift',
@@ -37,7 +36,6 @@ export class OrderConfirmedComponent implements OnInit {
           url: `https://orange-grass-0aed0ab03.4.azurestaticapps.net/tabs/tabs/profile-tab/${orderId}`,
           dialogTitle: 'Nice To Gift',
         });
-        this.isLoading = false;
       }, error: (err) => {
         this.isLoading = false;
       }

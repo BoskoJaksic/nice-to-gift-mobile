@@ -5,6 +5,7 @@ import {LoaderService} from "../../../shared/services/loader.service";
 import {ActivatedRoute} from "@angular/router";
 import {OrdersApiService} from "../../../shared/services/orders-api.service";
 import {ToasterService} from "../../../shared/services/toaster.service";
+import {LocalStorageService} from "../../../shared/services/local-storage.service";
 
 @Component({
   selector: 'app-profile-tab',
@@ -24,7 +25,8 @@ export class ProfileTabPage implements OnInit {
               private ordersApiService: OrdersApiService,
               private toasterService: ToasterService,
               private route: ActivatedRoute,
-              private storageService: StorageService,) {
+              private localStorageService: LocalStorageService,
+             ) {
     this.avatarImg = 'https://ionicframework.com/docs/img/demos/avatar.svg';
   }
 
@@ -33,22 +35,23 @@ export class ProfileTabPage implements OnInit {
     this.route.params.subscribe(async params => {
       this.loaderService.showLoader();
       const paramId = params['id'];
-      console.log('iddd', paramId)
       if (paramId !== 'false') {
         await this.updateReceiver(paramId)
       }
       await this.getUsersData();
       await this.getGivenOrders();
       await this.getReceivedOrders();
-      this.loaderService.hideLoader();
-
+      setTimeout(()=>{
+        this.loaderService.hideLoader();
+      },300)
     })
   }
 
+
   async getUsersData() {
-    let userId = await this.storageService.getItem('userId')
+    let userId = this.localStorageService.getUserId();
     this.userApiServices.getUsersData(userId).subscribe(r => {
-      if (r.base64Image){
+      if (r.base64Image) {
         this.avatarImg = r.base64Image
       }
       this.userName = r.name
@@ -58,10 +61,10 @@ export class ProfileTabPage implements OnInit {
 
   async updateReceiver(orderId: any) {
     this.loaderService.showLoader();
-    let receiver = await this.storageService.getItem('userEmail')
+    // let receiver =  this.localStorageService.getUserEmail()
     let dataToSend = {
       orderId: orderId,
-      receiverEmail: receiver
+      receiverEmail: this.localStorageService.getUserEmail()
     }
     this.ordersApiService.updateOrderReceiver(dataToSend).subscribe({
       next: async (r) => {
@@ -76,7 +79,9 @@ export class ProfileTabPage implements OnInit {
   }
 
   async getGivenOrders() {
-    let senderId = await this.storageService.getItem('userId')
+    // let senderId = await this.storageService.getItem('userId')
+    let senderId = this.localStorageService.getUserId();
+
     this.ordersApiService.getGivenOrders(senderId).subscribe({
       next: (r) => {
         this.givenOrders = r.data
@@ -87,8 +92,10 @@ export class ProfileTabPage implements OnInit {
   }
 
   async getReceivedOrders() {
-    let senderId = await this.storageService.getItem('userId')
-    this.ordersApiService.getReceivedOrders(senderId).subscribe({
+    // let receiverId = await this.storageService.getItem('userId')
+    let receiverId = this.localStorageService.getUserId();
+
+    this.ordersApiService.getReceivedOrders(receiverId).subscribe({
       next: (r) => {
         this.receivedOrders = r.data
       }, error: (err) => {

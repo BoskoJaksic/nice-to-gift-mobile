@@ -5,15 +5,16 @@ import {HttpClient} from "@angular/common/http";
 import {StorageService} from "../../shared/services/storage.service";
 import {StripeService} from "../../shared/services/stripe.service";
 import {PaymentSheetEventsEnum, Stripe} from "@capacitor-community/stripe";
-import {first, lastValueFrom, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {OrdersApiService} from "../../shared/services/orders-api.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
 import {ProductModel, SelectedProducts} from "../../shared/model/product.model";
 import {ReceiverMessageService} from "../../shared/services/receiver-message.service";
-import {environment} from "../../../environments/environment";
 import {KeyboardService} from "../../shared/services/keyboard.service";
 import {OrderIdService} from "../../shared/services/order-id.service";
 import {ApiService} from "../../core/api.service";
+import {ToasterService} from "../../shared/services/toaster.service";
+import {LoaderService} from "../../shared/services/loader.service";
 
 @Component({
   selector: 'app-checkout-button',
@@ -26,7 +27,6 @@ export class CheckoutComponent implements OnInit {
   @Input() goTo: string = '';
   @Input() isFromCheckout: boolean = false;
   @Input() pay: boolean = false;
-  @Input() loader: boolean = false;
   @Input() cardObj: any;
   @Output() messageEvent = new EventEmitter<string>();
   receiverMessage = ''
@@ -44,9 +44,11 @@ export class CheckoutComponent implements OnInit {
               private ordersApiService: OrdersApiService,
               private checkoutService: CheckoutService,
               private stripeService: StripeService,
+              private toasterService: ToasterService,
               private receiverMessageService: ReceiverMessageService,
               private storageService: StorageService,
               private keyboardService: KeyboardService,
+              private loaderService: LoaderService,
               private http: HttpClient) {
     this.keyboardSubscription = this.keyboardService.keyboardVisible$.subscribe(
       keyboardVisible => {
@@ -70,40 +72,67 @@ export class CheckoutComponent implements OnInit {
   }
 
   async makeOrder() {
+    this.loaderService.showLoader();
     let dataToSend = {
-      senderId: await this.storageService.getItem('userId'),
-      shopId: this.orderProducts[0].shopId,
-      items: this.items,
-      receiverComment: this.receiverMessage,
-      shopComment: ''
+      orderRequest: {
+        senderId: await this.storageService.getItem('userId'),
+        shopId: this.orderProducts[0].shopId,
+        items: this.items,
+        receiverComment: this.receiverMessage,
+        shopComment: '',
+      },
+      paymentRequest: {
+        email: this.data.email,
+        amount: this.amount,
+        currency: "EUR",
+        paymentMethodId: null
+      }
+    }
+    if (this.cardObj) {
+      dataToSend.paymentRequest.paymentMethodId = this.cardObj.id
+    } else {
+      dataToSend.paymentRequest.paymentMethodId = null
     }
     this.ordersApiService.makeOrder(dataToSend).subscribe({
       next: (r) => {
-        this.orderId = r.id;
-        this.data.amount = this.amount;
-        this.data.currency = 'EUR'
-        this.data.orderId = r.id
-        let url = this.apiService.getApiUrl() + 'Orders/initiate-payment'
-        // let url = environment.baseURL + 'Orders/initiate-payment'
+        this.orderId = r.orderId
         if (this.cardObj) {
-          this.doAutomaticPayment()
+          this.pay = false
+          this.goToRoute();
+          this.receiverMessageService.setReceiverMessage('')
         } else {
-          this.doManualPayment(url);
+          let keys = {
+            paymentIntentClientSecret: r.paymentResponse.paymentIntent,
+            customerId: r.paymentResponse.customer,
+            customerEphemeralKeySecret: r.paymentResponse.ephemeralKey,
+          }
+          this.doManualPayment(keys, r.orderId)
         }
-      }, error: (err) => {
 
+        // paymentResponse.paymentStatus = 'succeed'
+        // this.updateOrder(r.orderId, true) todo check if thi is needed here, probably not
+
+      }, error: (err) => {
+        this.loaderService.hideLoader();
+        this.toasterService.presentToast('Something went wrong', 'danger')
+        this.messageEvent.emit(err.error.detail);
       }
     })
   }
 
-  updateOrder() {
+
+  updateOrder(orderId: any, isPaymentSuccessful: boolean) {
     let dataToSend = {
-      orderId: this.orderId
+      orderId: orderId,
+      isPaymentSuccessful: isPaymentSuccessful
     }
+
     this.ordersApiService.updateOrder(dataToSend).subscribe({
       next: (r) => {
         console.log('update succeed')
+        this.pay = !isPaymentSuccessful;
       }, error: (err) => {
+        this.pay = true;
       }
     })
   }
@@ -127,58 +156,35 @@ export class CheckoutComponent implements OnInit {
     this.makeOrder();
   }
 
-  async doManualPayment(url: any) {
+  async doManualPayment(keys: any, orderId: any) {
     try {
-      this.loader = true
       Stripe.addListener(PaymentSheetEventsEnum.Completed, () => {
         console.log('PaymentSheetEventsEnum.Completed');
       });
-      const data$ = this.http.post<{
-        paymentIntent: string;
-        ephemeralKey: string;
-        customer: string;
-      }>(url, this.data).pipe(first())
-      // @ts-ignore
-      const {paymentIntent, ephemeralKey, customer} = await lastValueFrom(data$)
-      this.loader = false
       await Stripe.createPaymentSheet({
-        paymentIntentClientSecret: paymentIntent,
-        customerId: customer,
-        customerEphemeralKeySecret: ephemeralKey,
+        paymentIntentClientSecret: keys.paymentIntentClientSecret,
+        customerId: keys.customerId,
+        customerEphemeralKeySecret: keys.customerEphemeralKeySecret,
         merchantDisplayName: 'NiceToGift',
       });
-
-      const result = await Stripe.presentPaymentSheet()
+      const result = await Stripe.presentPaymentSheet();
       console.log('result', result)
       if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
         this.receiverMessageService.setReceiverMessage('')
-        this.updateOrder();
-        this.pay = false
+        this.updateOrder(orderId, true);
+        this.pay = false;
         this.goToRoute()
+      } else {
+        this.updateOrder(orderId, false);
+        this.loaderService.hideLoader();
       }
     } catch (e) {
       console.log('err', e)
-      this.loader = false
+      this.loaderService.hideLoader();
+      this.updateOrder(orderId, false);
     }
   }
 
-  doAutomaticPayment() {
-    this.loader = true
-    this.data.paymentMethodId = this.cardObj.id
-    this.stripeService.initiatePayment(this.data).subscribe({
-      next: (r) => {
-        this.updateOrder();
-        this.pay = false
-        this.goToRoute();
-        this.loader = false;
-        this.receiverMessageService.setReceiverMessage('')
-      }, error: (err) => {
-        this.messageEvent.emit(err.error.detail);
-        console.log(err)
-        this.loader = false
-      }
-    })
-  }
 
   goToRoute() {
     if (this.pay) {
@@ -195,6 +201,8 @@ export class CheckoutComponent implements OnInit {
       } else {
         this.commonService.goToRoute(this.goTo);
       }
+      this.loaderService.hideLoader();
+
     }
   }
 

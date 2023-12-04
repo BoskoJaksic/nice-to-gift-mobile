@@ -23,7 +23,7 @@ export class KeycloakService {
       return 'http://10.0.2.2:28081';
       // return 'http://192.168.0.17:28081';
     } else if (this.platform.is('ios')) {
-      return 'http://localhost:28081';
+      return 'http://192.168.0.17:28081';
     } else {
       // Default URL for other platforms or when running in the browser
       return 'https://localhost:28081';
@@ -40,7 +40,7 @@ export class KeycloakService {
     return this.sendUrlEncodedRequest<Authentication>(body, this.tokenUrl);
   }
 
-  public refreshToken(refreshToken: string): Observable<Authentication> {
+  public refreshToken(refreshToken: any): Observable<Authentication> {
     const body = new URLSearchParams();
     body.set('client_id', environment.keycloak.clientId);
     body.set('client_secret', environment.keycloak.client_secret);
