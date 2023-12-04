@@ -8,6 +8,9 @@ import {App, URLOpenListenerEvent} from "@capacitor/app";
 import {Router} from '@angular/router';
 import {AppPathService} from "./services/app-path.service";
 import {CommonService} from "./services/common.service";
+import {StorageService} from "./shared/services/storage.service";
+import {Geolocation} from "@capacitor/geolocation";
+import {GeocodingService} from "./shared/services/geo.service";
 
 register();
 
@@ -23,11 +26,18 @@ export class AppComponent {
   constructor(public loaderService: LoaderService,
               public commonService: CommonService,
               private appPathService: AppPathService,
+              private geocodingService: GeocodingService,
               private ngZone: NgZone, private router: Router) {
     this.initApp();
     this.initStatusBar();
     this.initStripe();
-    this.determinePlatform()
+    this.determinePlatform();
+    this.getCurrentLocation();
+  }
+
+  async getCurrentLocation() {
+    const coordinates = await Geolocation.getCurrentPosition();
+    this.geocodingService.setCoordinates(coordinates);
   }
 
   determinePlatform() {
@@ -43,7 +53,7 @@ export class AppComponent {
 
   initStatusBar() {
     StatusBar.setStyle({style: Style.Light});
-    StatusBar.setOverlaysWebView({ overlay: true });
+    StatusBar.setOverlaysWebView({overlay: true});
 
   }
 
@@ -58,7 +68,7 @@ export class AppComponent {
         const appPath = slug.pop()
         if (appPath) {
           this.appPathService.setAppPath(appPath)
-          this.router.navigateByUrl(appPath);
+          this.router.navigate(['']);
         }
       });
     });

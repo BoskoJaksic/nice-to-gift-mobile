@@ -6,8 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GeocodingService {
+  private coordinates: any;
+
   constructor(private http: HttpClient) {}
 
+  setCoordinates(coords: any) {
+    this.coordinates = coords;
+  }
+
+  getCoordinates() {
+    return this.coordinates;
+  }
   getCoordinatesFromAddress(address: string): Observable<any> {
     const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
     return this.http.get(apiUrl);

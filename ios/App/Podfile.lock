@@ -11,6 +11,8 @@ PODS:
     - StripeIdentity (~> 23.17.1)
     - StripePaymentSheet (~> 23.17.1)
   - CapacitorCordova (5.4.2)
+  - CapacitorGeolocation (5.0.6):
+    - Capacitor
   - CapacitorHaptics (5.0.6):
     - Capacitor
   - CapacitorKeyboard (5.0.6):
@@ -55,6 +57,7 @@ DEPENDENCIES:
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCommunityStripe (from `../../node_modules/@capacitor-community/stripe`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
@@ -84,6 +87,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor-community/stripe"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
+  CapacitorGeolocation:
+    :path: "../../node_modules/@capacitor/geolocation"
   CapacitorHaptics:
     :path: "../../node_modules/@capacitor/haptics"
   CapacitorKeyboard:
@@ -103,6 +108,7 @@ SPEC CHECKSUMS:
   CapacitorCamera: 084b0b228bba7d00587910337b1c89e93b1d32ab
   CapacitorCommunityStripe: 2fac7716e3810fcb021dd57cd46538c81942f37c
   CapacitorCordova: cfcc06b698481da655415985eeb2b8da363f8451
+  CapacitorGeolocation: 7be5f77abc205c0efe319fff8587a7183e7b0240
   CapacitorHaptics: 1fffc1217c7e64a472d7845be50fb0c2f7d4204c
   CapacitorKeyboard: b978154b024a5f65e044908e37d15b7de58b9d12
   CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
@@ -118,6 +124,6 @@ SPEC CHECKSUMS:
   StripePaymentsUI: 3032f37b5523509d3cf5a0ac8de6efdadcce3048
   StripeUICore: 700b63cb313429df67e461b82c6151b1dd5e4721
 
-PODFILE CHECKSUM: 5bc323749f89a0227189f984deeff176c9a88efd
+PODFILE CHECKSUM: dd2c98fbcf607ae3e70ca80b45f89b5c12fd5fca
 
 COCOAPODS: 1.12.1

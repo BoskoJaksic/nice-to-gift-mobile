@@ -10,6 +10,7 @@ import {ToasterService} from "../../shared/services/toaster.service";
 import {AmountService} from "../../shared/services/ammount.service";
 import {AppPathService} from "../../services/app-path.service";
 import {ShopApiServices} from "../../shared/services/shop-api.services";
+import {LocalStorageService} from "../../shared/services/local-storage.service";
 
 @Component({
   selector: 'app-login-register',
@@ -28,11 +29,11 @@ export class LoginRegisterComponent implements OnInit {
               private keycloakService: KeycloakService,
               private storageService: StorageService,
               private apiService: ApiService,
-              private amountService: AmountService,
               private router: Router,
               private appPathService: AppPathService,
-              private shopApiServices: ShopApiServices,
-              private toasterService: ToasterService
+              private toasterService: ToasterService,
+              private localStorageService: LocalStorageService,
+
   ) {
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -46,21 +47,12 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getFeeAmount();
-  }
-
-  getFeeAmount() {
-    this.shopApiServices.getFeeAmount().subscribe({
-      next: (r) => {
-        let fee = r.feePercentRate.toString()
-        this.amountService.setFeeAmount(fee)
-      }
-    })
   }
 
 
   afterLoginRedirect(response: any) {
     const decodedToken = jwt_decode(response.access_token);
+    // @ts-ignore
     const promises = [
       this.storageService.setItem('token', response.access_token),
       // @ts-ignore
@@ -74,7 +66,18 @@ export class LoginRegisterComponent implements OnInit {
       // @ts-ignore
       this.storageService.setItem('userEmail', decodedToken.email),
       // @ts-ignore
-      this.storageService.setItem('keycloak_id', decodedToken.keycloak_id)
+      this.storageService.setItem('keycloak_id', decodedToken.keycloak_id),
+      // @ts-ignore
+      this.localStorageService.setUserName(decodedToken.name),
+      // @ts-ignore
+      this.localStorageService.setUserEmail(decodedToken.email),
+      // @ts-ignore
+      this.localStorageService.setUserId(decodedToken.userId),
+      // @ts-ignore
+      this.localStorageService.setUserToken(response.access_token),
+      // @ts-ignore
+      this.localStorageService.setUserRefreshToken(response.refresh_token),
+
     ]
 
     Promise.all(promises)

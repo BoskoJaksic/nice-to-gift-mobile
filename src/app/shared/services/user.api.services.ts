@@ -13,7 +13,7 @@ export class UserApiServices {
   constructor(private apiService: ApiService) {
   }
 
-  getUsersData(userId: string): Observable<UserModel> {
+  getUsersData(userId: any): Observable<UserModel> {
     return this.apiService.get(`Users/${userId}`);
   }
 

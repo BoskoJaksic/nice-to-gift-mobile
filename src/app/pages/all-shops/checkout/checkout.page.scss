@@ -7,7 +7,7 @@
 .card-checkout {
   border-radius: 20px;
   background-color: var(--ion-color-light);
-  height: 113px;
+  min-height: 113px;
   margin-top: 11px;
 }
 
@@ -36,7 +36,7 @@ ion-textarea.textarea {
 }
 .img-style{
   width: 79px;
-  height: 76px;
+  min-height: 76px;
   border-radius: 20px;
   margin: 17px 0 20px 13px;
 }
