@@ -8,7 +8,6 @@ import {HomeTabPageRoutingModule} from './home-tab-routing.module';
 
 import {HomeTabPage} from './home-tab.page';
 import {SharedModule} from "../../../shared/shared.module";
-import {HomeGiftCardComponent} from "../../../components/home-gift-card/home-gift-card.component";
 import {HomeGiftCardNoneComponent} from "../../../components/home-gift-card-none/home-gift-card-none.component";
 
 @NgModule({
@@ -27,7 +26,7 @@ import {HomeGiftCardNoneComponent} from "../../../components/home-gift-card-none
   exports: [
 
   ],
-  declarations: [HomeTabPage, HomeGiftCardComponent, HomeGiftCardNoneComponent]
+  declarations: [HomeTabPage, HomeGiftCardNoneComponent]
 })
 export class HomeTabPageModule {
 }

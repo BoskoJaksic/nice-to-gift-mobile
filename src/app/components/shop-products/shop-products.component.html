@@ -4,21 +4,23 @@
 
     <ion-row style="padding-left: 10px">
       <ion-col><span class="cake-name">{{product.name}}</span></ion-col>
-      <ion-col>
-        <div style="display: flex;justify-content: end;">
-          <ion-fab-button color="primary" size="small" style="width: 30px;height: 30px" (click)="decreaseQuantity(product); updateTotal(product)">
-            <ion-icon name="remove-outline" style="color: white"></ion-icon>
-          </ion-fab-button>
-          <p style="margin-top: 10px" class="product-quantity">{{product.quantity}}</p>
-          <ion-fab-button color="primary" size="small" style="width: 30px;height: 30px" (click)="increaseQuantity(product); updateTotal(product)">
-            <ion-icon name="add-outline" style="color: white"></ion-icon>
-          </ion-fab-button>
-        </div>
-      </ion-col>
     </ion-row>
     <ion-row style="padding-left: 10px">
       <ion-col>
-        <p class="typography-small" style="margin-top: -30px;float: left">€ {{product.amount}}</p>
+        <div class="typography-small" style="float: left">€ {{product.amount}}</div>
+      </ion-col>
+      <ion-col>
+        <div style="display: flex;justify-content: end;">
+          <ion-fab-button color="primary" size="small" style="width: 30px;height: 30px"
+                          (click)="decreaseQuantity(product); updateTotal(product)">
+            <ion-icon name="remove-outline" style="color: white"></ion-icon>
+          </ion-fab-button>
+          <p style="margin-top: 10px" class="product-quantity">{{product.quantity}}</p>
+          <ion-fab-button color="primary" size="small" style="width: 30px;height: 30px"
+                          (click)="increaseQuantity(product); updateTotal(product)">
+            <ion-icon name="add-outline" style="color: white"></ion-icon>
+          </ion-fab-button>
+        </div>
       </ion-col>
     </ion-row>
   </div>

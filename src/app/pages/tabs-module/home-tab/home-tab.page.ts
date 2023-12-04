@@ -6,6 +6,11 @@ import {LoaderService} from "../../../shared/services/loader.service";
 import {ActivatedRoute} from "@angular/router";
 import {OrdersApiService} from "../../../shared/services/orders-api.service";
 import {DatePipe} from '@angular/common';
+import {GeocodingService} from "../../../shared/services/geo.service";
+import {Subscription} from "rxjs";
+import {AmountService} from "../../../shared/services/ammount.service";
+import {LocalStorageService} from "../../../shared/services/local-storage.service";
+
 
 @Component({
   selector: 'app-home-tab',
@@ -14,23 +19,60 @@ import {DatePipe} from '@angular/common';
 })
 export class HomeTabPage implements OnInit {
   shops: ShopModel[] = [];
-  userName: string = ''
+  userName:any
   giftData: any;
   daysLeftToPickup: any;
-  variable = false;
+  variable = true;
+  distanceToShow:any
+  private routeSubscription!: Subscription;
+
   constructor(private storageService: StorageService,
               private loaderService: LoaderService,
               private route: ActivatedRoute,
               private ordersApiService: OrdersApiService,
+              private geocodingService: GeocodingService,
               private datePipe: DatePipe,
+              private shopApiServices: ShopApiServices,
+              private amountService: AmountService,
+              private localStorageService: LocalStorageService,
               private shopApiService: ShopApiServices) {
   }
 
   async ngOnInit() {
-    this.route.paramMap.subscribe(async params => {
+    this.routeSubscription = this.route.paramMap.subscribe(async params => {
       await this.getShops()
       await this.getLastOrUpcoming();
+      this.getFeeAmount();
     });
+  }
+
+  getFeeAmount() {
+    this.shopApiServices.getFeeAmount().subscribe(r => {
+      let fee = r.feePercentRate.toString()
+      this.amountService.setFeeAmount(fee)
+    })
+  }
+
+  async calculateDistance() {
+    let currenLocation = this.geocodingService.getCoordinates();
+    console.log('currenLocation',currenLocation.coords)
+    let shopAddress =   this.giftData.street + ' ' + this.giftData.streetNumber + ', ' + this.giftData.postalCode + ' ' + this.giftData.city + ', ' + this.giftData.country
+    this.geocodingService.getCoordinatesFromAddress(shopAddress).subscribe(
+      (data: any[]) => {
+        if (data && data.length > 0) {
+          const latitude = data[0].lat;
+          const longitude = data[0].lon;
+          console.log('Latitude:', latitude);
+          console.log('Longitude:', longitude);
+          this.distanceToShow = this.geocodingService.calculateDistance(latitude,longitude,currenLocation.coords.latitude,currenLocation.coords.longitude).toFixed(2)
+        } else {
+          console.error('No coordinates found for the address.');
+        }
+      },
+      error => {
+        console.error('Error fetching coordinates:', error);
+      }
+    );
   }
 
   getFormattedDate(dateString: string): string {
@@ -56,19 +98,20 @@ export class HomeTabPage implements OnInit {
   }
 
   async getLastOrUpcoming() {
-    let receiverId = await this.storageService.getItem('userId')
+    let receiverId =  this.localStorageService.getUserId()
     this.ordersApiService.getLastOrUpcoming(receiverId).subscribe({
       next: (r) => {
         console.log('last or up', r)
         this.giftData = r
-        this.daysLeftToPickup = this.calculateDaysLeft(r?.creationDate, r?.pickupTimeSpan)
+        this.daysLeftToPickup = this.calculateDaysLeft(r?.creationDate, r?.pickupTimeSpan);
+        this.calculateDistance()
       }
     })
   }
 
   async getShops() {
     this.loaderService.showLoader();
-    this.userName = await this.storageService.getItem('userName')
+    this.userName = this.localStorageService.getUserName()
     this.shopApiService.get10Shops().subscribe(
       (shops: any) => {
         this.shops = shops.data
@@ -88,4 +131,11 @@ export class HomeTabPage implements OnInit {
       event.target.complete();
     }, 2000);
   }
+
+  ngOnDestroy() {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+  }
+
 }

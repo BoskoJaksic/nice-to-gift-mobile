@@ -8,6 +8,7 @@ import {UserApiServices} from "../../../shared/services/user.api.services";
 import {ToasterService} from "../../../shared/services/toaster.service";
 import {LoaderService} from "../../../shared/services/loader.service";
 import {AppPathService} from "../../../services/app-path.service";
+import {LocalStorageService} from "../../../shared/services/local-storage.service";
 
 @Component({
   selector: 'app-settings-tab',
@@ -24,6 +25,7 @@ export class SettingsTabPage implements OnInit {
               private toasterService: ToasterService,
               private userApiServices: UserApiServices,
               private loaderService: LoaderService,
+              private localStorageService: LocalStorageService,
               private appPathService: AppPathService,
               public commonService: CommonService) {
     this.avatarImg = 'https://ionicframework.com/docs/img/demos/avatar.svg'
@@ -55,6 +57,8 @@ export class SettingsTabPage implements OnInit {
       }
       this.form.patchValue({base64Image: this.avatarImg})
       this.loaderService.hideLoader();
+    },error => {
+      this.loaderService.hideLoader();
     })
   }
 
@@ -68,8 +72,10 @@ export class SettingsTabPage implements OnInit {
     this.form.patchValue({base64Image: this.avatarImg})
   };
 
+
+
   async logOut() {
-    const refreshToken = await this.storageService.getToken('refresh_token')
+    const refreshToken = await this.storageService.getRefreshToken('refresh_token')
     this.keycloakService.logout(refreshToken, 'logout').subscribe(r => {
       this.storageService.removeToken('token')
       this.storageService.removeToken('refresh_token')
@@ -78,6 +84,7 @@ export class SettingsTabPage implements OnInit {
       this.storageService.removeToken('userId')
       this.storageService.removeToken('userEmail')
       this.storageService.removeToken('keycloak_id')
+      this.localStorageService.clearLocalStorage();
       this.appPathService.setAppPath('');
       this.commonService.goToRoute('/')
     })

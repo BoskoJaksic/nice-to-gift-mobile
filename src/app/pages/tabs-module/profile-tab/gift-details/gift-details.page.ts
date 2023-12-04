@@ -4,6 +4,7 @@ import {CommonService} from "../../../../services/common.service";
 import {Share} from "@capacitor/share";
 import {OrdersApiService} from "../../../../shared/services/orders-api.service";
 import {LoaderService} from "../../../../shared/services/loader.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-gift-details',
@@ -14,12 +15,13 @@ export class GiftDetailsPage implements OnInit {
   orderId = ''
   orderDetails: any
   textColorClass: string = '';
+  private routeSubscription!: Subscription;
 
   constructor(private route: ActivatedRoute,
               public commonService: CommonService,
               public ordersApiService: OrdersApiService,
               private loaderService: LoaderService,
-              private renderer: Renderer2, private el: ElementRef
+              // private renderer: Renderer2, private el: ElementRef
   ) {
   }
 
@@ -32,7 +34,7 @@ export class GiftDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(async params => {
+    this.routeSubscription = this.route.params.subscribe(async params => {
       // @ts-ignore
       this.orderId = params['orderId'];
       this.getGiftDetails();
@@ -82,10 +84,10 @@ export class GiftDetailsPage implements OnInit {
       next: (r) => {
         console.log('single order details', r)
         this.orderDetails = r
-        const imageSrc = this.orderDetails?.shopImageUri;
-        this.getImageBrightness(imageSrc, (brightness) => {
-          this.textColorClass = brightness > 125 ? 'dark-text' : 'light-text';
-        });
+        // const imageSrc = this.orderDetails?.shopImageUri;
+        // this.getImageBrightness(imageSrc, (brightness) => {
+        //   this.textColorClass = brightness > 125 ? 'dark-text' : 'light-text';
+        // });
         this.loaderService.hideLoader()
       }, error: (err) => {
         this.loaderService.hideLoader()
@@ -132,5 +134,11 @@ export class GiftDetailsPage implements OnInit {
       console.error('Error loading image:', error);
       // Handle error if image fails to load
     };
+  }
+
+  ngOnDestroy() {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   }
 }

@@ -22,6 +22,7 @@ import {WebViewComponent} from "./components/web-view/web-view.component";
     BrowserAnimationsModule,
     HttpClientModule, SharedModule, NgOptimizedImage],
   providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     LoaderService
   ],
   bootstrap: [AppComponent],
