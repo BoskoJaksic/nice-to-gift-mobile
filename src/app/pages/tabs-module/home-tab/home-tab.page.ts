@@ -128,6 +128,7 @@ export class HomeTabPage implements OnInit {
   handleRefresh(event: any) {
     setTimeout(() => {
       this.getShops()
+      this.getLastOrUpcoming();
       event.target.complete();
     }, 2000);
   }

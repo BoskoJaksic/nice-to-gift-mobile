@@ -20,8 +20,8 @@ export class KeycloakService {
 
   getApiUrl(): string {
     if (this.platform.is('android')) {
-      return 'http://10.0.2.2:28081';
-      // return 'http://192.168.0.17:28081';
+      // return 'http://10.0.2.2:28081';
+      return 'http://192.168.0.17:28081';
     } else if (this.platform.is('ios')) {
       return 'http://192.168.0.17:28081';
     } else {

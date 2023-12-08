@@ -7,11 +7,11 @@
 
     <ion-col>
       <div class="gift-name">{{giftObj.shop.name}}</div>
-      <div class="gift-status" *ngIf="!isReceived">{{giftObj.orderStatus}}</div>
-      <div class="gift-sentBy" *ngIf="isReceived">Received on may 12</div>
+      <div class="gift-status" *ngIf="!isReceived">{{getFormattedStatus()}}</div>
+      <div class="gift-sentBy" *ngIf="isReceived">Received on {{getFormattedDate(giftObj?.creationDate)}}</div>
       <div class="gift-sentBy" *ngIf="!isReceived">Sent to {{giftObj.receiver?.name}}&nbsp;{{giftObj.receiver?.surname}}</div>
       <div class="gift-sentBy" *ngIf="isReceived">Sent by {{giftObj.sender?.name}}&nbsp;{{giftObj.sender?.surname}}</div>
-      <div class="gift-address"><ion-icon name="navigate-outline" class="location-png"></ion-icon>{{giftObj.shop.address}}</div>
+      <div class="gift-address"><ion-icon name="navigate-outline" class="location-png"></ion-icon>{{giftObj.shop.streetNumber}} {{giftObj.shop.street}}</div>
     </ion-col>
   </ion-row>
 </div>

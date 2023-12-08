@@ -5,9 +5,7 @@ import {ProductApiService} from "../../shared/services/product-api.service";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
 import {ActivatedRoute} from "@angular/router";
-import {StorageService} from "../../shared/services/storage.service";
 import {ShopService} from "../../shared/services/shop.service";
-import {LoaderService} from "../../shared/services/loader.service";
 
 @Component({
   selector: 'app-shop-products',
@@ -24,7 +22,6 @@ export class ShopProductsComponent implements OnInit {
               private toasterService: ToasterService,
               private storageService: AmountService,
               private shopService: ShopService,
-              private loaderService: LoaderService,
               public checkoutService: CheckoutService,
               private route: ActivatedRoute,
               private productApiService: ProductApiService) {
@@ -47,7 +44,6 @@ export class ShopProductsComponent implements OnInit {
 
 
   getAllProducts(page: number) {
-    this.loaderService.showLoader()
     this.productApiService.getAllShopProducts(`Products?ShopId=${this.shopId}&Page=${page}&Size=5`).subscribe(
       (products: any) => {
         const newProducts = products.data.map((product: any) => {
@@ -66,11 +62,9 @@ export class ShopProductsComponent implements OnInit {
           this.allProducts = r;
         });
 
-        this.loaderService.hideLoader()
         console.log('products', this.allProducts);
       },
       (error: any) => {
-        this.loaderService.hideLoader()
         console.error(error);
       }
     );

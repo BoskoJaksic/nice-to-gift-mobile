@@ -6,13 +6,24 @@
   <div class="main-content">
     <p class="screen-card-text">Hello, {{userName}}!</p>
     <p class="screen-card-text">My Gifts</p>
-    <div class="gift-card" *ngIf="variable">
+    <div class="gift-card" *ngIf="!giftData?.hasNoOrders">
       <ion-grid>
         <ion-row>
-          <ion-col size="8">
+          <ion-col size="9">
             <span class="screen-card-text">Gift received</span><br/>
             <span class="screen-card-text-small">{{getFormattedDate(giftData?.creationDate)}}</span><br/>
-            <span class="screen-card-text-medium">{{daysLeftToPickup}} days left to pickup</span>
+            <span *ngIf="!giftData?.isPickedUp" class="screen-card-text-medium">{{daysLeftToPickup}} days left to pickup</span>
+
+          </ion-col>
+          <ion-col size="3">
+            <img ngSrc="assets/images/home-gift-card.svg" height="78" width="78"
+                 style="float: right;margin-top: -10px;margin-right: -13px" alt="">
+<!--            <p class="screen-card-text-small" style="float: right;margin-top: 40px">{{distanceToShow}} km away</p> todo future versions-->
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
             <div style="margin-top: 25px">
               <div style="flex-direction: column">
                 <ion-icon src="assets/icon/home-gift-card-map.svg" style="margin-right: 5px"></ion-icon>
@@ -20,18 +31,12 @@
               </div>
             </div>
           </ion-col>
-          <ion-col size="4">
-            <img ngSrc="assets/images/home-gift-card.svg" height="78" width="78"
-                 style="float: right;margin-top: -10px;margin-right: -13px" alt="">
-            <p class="screen-card-text-small" style="float: right;margin-top: 40px">{{distanceToShow}} km away</p>
-
-          </ion-col>
         </ion-row>
 
       </ion-grid>
     </div>
 
-    <app-home-gift-card-none *ngIf="!variable"></app-home-gift-card-none>
+    <app-home-gift-card-none *ngIf="giftData?.hasNoOrders"></app-home-gift-card-none>
     <app-horizontal-shop-view [shops]="shops" [title]="'Shops'"></app-horizontal-shop-view>
   </div>
 </ion-content>

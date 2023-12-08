@@ -6,15 +6,15 @@ import {ToasterService} from "./toaster.service";
   providedIn: 'root'
 })
 export class CheckoutService {
-
   private allProductsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-  constructor(private toasterService:ToasterService) {
+  constructor(private toasterService: ToasterService) {
   }
 
   setAllProducts(products: any[]): void {
     this.allProductsSubject.next(products);
   }
+
 
   getAllProducts(): Observable<any[]> {
     return this.allProductsSubject.asObservable();
@@ -39,7 +39,6 @@ export class CheckoutService {
       }
       return p;
     });
-
     this.setAllProducts(updatedProducts);
   }
 }

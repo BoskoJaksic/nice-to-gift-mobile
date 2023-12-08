@@ -12,6 +12,13 @@
 </ion-header>
 <ion-content>
   <div class="main-content">
+    <div style="display: flex;justify-content: center;margin-top: 38px">
+      <ion-button fill="clear" color="secondary"
+                  (click)="commonService.goToRoute('tabs/tabs/settings-tab/add-payment-method','true')">
+        <ion-icon name="add" slot="start"></ion-icon>
+        <span class="checkout-text"> Add new card</span>
+      </ion-button>
+    </div>
     <div class="content-wrapper">
       <div *ngIf="cards.length > 0">
       <div class="card-user" *ngFor="let card of cards" (click)="onSelectCard(card)"
@@ -40,18 +47,11 @@
         <div class="not-found">
           <img src="./assets/images/not-found.png"/>
           <br/>
-          <div class="info-shop">You have no added any card  yet.</div>
+          <div class="info-shop">You have no added any card yet.</div>
         </div>
       </div>
     </div>
     <span class="error-text">{{receivedMessage}}</span>
-    <div style="display: flex;justify-content: center;margin-top: 38px">
-      <ion-button fill="clear" color="secondary"
-                  (click)="commonService.goToRoute('tabs/tabs/settings-tab/add-payment-method','true')">
-        <ion-icon name="add" slot="start"></ion-icon>
-        <span class="checkout-text"> Add new card</span>
-      </ion-button>
-    </div>
   </div>
   <app-checkout-button goTo="tabs/tabs/gift-tab" [pay]="true" [isFromCheckout]="true" [cardObj]="selectedCard"
                        (messageEvent)="receiveMessage($event)"
