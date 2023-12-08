@@ -42,6 +42,6 @@ export class ShopApiServices {
   }
 
   getShopReview(shopId: string,page:number): Observable<GetShopReviewModel> {
-    return this.apiService.get(`Shops/reviews?ShopId=${shopId}&Page=${page}&Size=10`);
+    return this.apiService.get(`Shops/reviews?ShopId=${shopId}&Page=${page}&Size=10&sortBy=CreatedAt&sortOrder=1`);
   }
 }

@@ -9,7 +9,7 @@
       </div>
       <div class="content-container">
         <ion-row class="bottom-row">
-          <ion-col><span class="card-name text-position">dsd</span></ion-col>
+          <ion-col><span class="card-name text-position">{{shopDetails?.name}}</span></ion-col>
           <ion-col>
             <div style="float: right;margin-right: 13px">
               <img src="./assets/icon/star-white.svg" height="16" width="17"
@@ -26,7 +26,7 @@
           <app-shop-products [shopId]="shopId"></app-shop-products>
         </mat-tab>
         <mat-tab label="Reviews">
-          <app-shop-reviews [shopId]="shopId"></app-shop-reviews>
+          <app-shop-reviews [shopId]="shopId" (doRefresh)="handleChildEvent($event)"></app-shop-reviews>
         </mat-tab>
         <mat-tab label="Info">
           <app-shop-info [shopDetails]="shopDetails"></app-shop-info>

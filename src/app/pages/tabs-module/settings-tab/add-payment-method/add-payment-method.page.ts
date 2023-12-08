@@ -63,7 +63,7 @@ export class AddPaymentMethodPage implements OnInit {
 
     var cardExpiryElement = this.elements.create('cardExpiry', {
       style: style,
-      placeholder: 'Expiry date',
+      placeholder: 'MM/YY',
     });
     cardExpiryElement.mount('#card-expiry-element');
 

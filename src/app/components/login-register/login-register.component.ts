@@ -11,6 +11,7 @@ import {AmountService} from "../../shared/services/ammount.service";
 import {AppPathService} from "../../services/app-path.service";
 import {ShopApiServices} from "../../shared/services/shop-api.services";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-login-register',
@@ -108,8 +109,9 @@ export class LoginRegisterComponent implements OnInit {
       this.afterLoginRedirect(r)
     }, error => {
       console.log('err', error)
+      this.errorMessage = error.message
       this.showSpinner = false;
-      if (error.status === 401) {
+      if (error.status === 400) {
         this.errorMessage = 'Invalid user credentials'
       }
     })

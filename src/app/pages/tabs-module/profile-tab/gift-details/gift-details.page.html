@@ -16,7 +16,7 @@
   <div class="content-center">
     <img src="./assets/images/gift-details-status.png"/>
   </div>
-  <div class="status-text">{{orderDetails?.orderStatus}}!</div>
+  <div class="status-text">{{getFormattedStatus()}}!</div>
   <div class="status-text">{{orderDetails?.shopName}}</div>
   <div class="prod-class">
     <div *ngFor="let item of orderDetails?.items">
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div style="justify-content: center;display: flex">
-    <div style="width: 200px;margin-top: 60px;">
+    <div style="width: 200px;margin-top: 60px;" *ngIf="orderDetails?.orderStatus !== 'PickedUp'">
       <app-secondary-button [disabled]="false" (click)="shareLInk()">
         <span class="button-text2">Share the pickup link</span></app-secondary-button>
     </div>
