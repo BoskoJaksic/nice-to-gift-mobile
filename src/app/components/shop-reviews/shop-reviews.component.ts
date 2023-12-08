@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ShopApiServices} from "../../shared/services/shop-api.services";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {StorageService} from "../../shared/services/storage.service";
@@ -20,12 +20,11 @@ export class ShopReviewsComponent implements OnInit {
   page: number = 1
   @Input() shopId: string = ''
   showSpinner: boolean = false
-
+  @Output() doRefresh = new EventEmitter<any>();
   constructor(private shopApiService: ShopApiServices,
               private toasterService: ToasterService,
               private route: ActivatedRoute,
               private shopService: ShopService,
-              private loaderService: LoaderService,
               private storageService: StorageService,
   ) {
   }
@@ -42,7 +41,6 @@ export class ShopReviewsComponent implements OnInit {
   }
 
   async getShopReviews(page: number) {
-    this.loaderService.showLoader()
     this.shopApiService.getShopReview(this.shopId, page).subscribe(r => {
       // @ts-ignore
       if (r.data.length > 0) {
@@ -64,7 +62,6 @@ export class ShopReviewsComponent implements OnInit {
           this.shopReviews = [...this.shopReviews, ...formattedReviews];
         }
       }
-      this.loaderService.hideLoader()
     });
   }
 
@@ -98,7 +95,8 @@ export class ShopReviewsComponent implements OnInit {
       this.toasterService.presentToast('Review successfully added', 'success');
       this.ratingVisible = false;
       this.textRate = ''
-      this.getShopReviews(this.page);
+      this.getShopReviews(1);
+      this.doRefresh.emit(true);
     }, error => {
       this.showSpinner = false
     })

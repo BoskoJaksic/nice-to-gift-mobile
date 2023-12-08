@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {CommonModule, DatePipe, NgOptimizedImage} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -19,6 +19,10 @@ import {GiftCardComponent} from "../../../components/gift-card/gift-card.compone
         NgOptimizedImage,
         MatTabsModule,
     ],
+  providers: [
+    DatePipe,
+
+  ],
   declarations: [ProfileTabPage,GiftCardComponent]
 })
 export class ProfileTabPageModule {}

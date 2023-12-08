@@ -14,7 +14,6 @@ export class ApiService {
 
   constructor(private http: HttpClient, private platform: Platform) {
   }
-
   getApiUrl(): string {
     if (this.platform.is('android')) {
       // 192.168.0.17 real device

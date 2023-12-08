@@ -36,6 +36,7 @@ export class CheckoutComponent implements OnInit {
   items: SelectedProducts[] = []
   keyboardSubscription: Subscription;
   buttonVisible = true;
+  goodToGo = false;
 
   constructor(public commonService: CommonService,
               private router: Router,
@@ -185,7 +186,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-
   goToRoute() {
     if (this.pay) {
       this.doPayment();
@@ -199,7 +199,12 @@ export class CheckoutComponent implements OnInit {
         this.orderIdService.setID(this.orderId)
         this.router.navigate(['tabs/tabs/gift-tab'], navigationExtras);
       } else {
-        this.commonService.goToRoute(this.goTo);
+
+        if ((this.goTo === 'all-shops/checkout' && this.amount === 0) || (this.goTo === 'all-shops/payment-method' && this.amount === 0)) {
+          this.toasterService.presentToast('Add at least one product to cart', 'warning')
+        } else {
+          this.commonService.goToRoute(this.goTo);
+        }
       }
       this.loaderService.hideLoader();
 

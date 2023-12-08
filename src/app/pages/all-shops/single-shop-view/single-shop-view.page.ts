@@ -43,7 +43,9 @@ export class SingleShopViewPage implements OnInit {
       this.getShopDetails();
     })
   }
-
+  handleChildEvent(eventData: any){
+    this.getShopDetails();
+  }
   getShopDetails() {
     this.loaderService.showLoader()
     let shopId = this.shopService.getShopId();

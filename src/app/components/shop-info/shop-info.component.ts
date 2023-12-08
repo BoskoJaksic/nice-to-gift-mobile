@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-shop-info',
@@ -8,6 +8,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 export class ShopInfoComponent implements OnInit, OnChanges {
   @Input() shopDetails: any
   days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 
   constructor() {
   }
