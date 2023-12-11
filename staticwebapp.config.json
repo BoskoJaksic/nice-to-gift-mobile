@@ -1,16 +1,11 @@
 {
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/.well-known/*.{json}"]
+  },
   "routes": [
     {
       "route": "/.well-known/:path*"
     }
-  ],
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/.well-known/*"]
-  },
-  "mimeTypes": {
-    ".json": "application/json",
-    ".txt": "text/plain",
-    ".well-known/*": "application/json"
-  }
+  ]
 }
