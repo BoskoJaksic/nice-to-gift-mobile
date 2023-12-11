@@ -18,7 +18,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18.16.0' # Postavite odgovarajuću verziju Node.js-a
+          node-version: '18.16.0' 
 
       - name: Install Ionic CLI
         run: npm install --save-dev @ionic/cli
