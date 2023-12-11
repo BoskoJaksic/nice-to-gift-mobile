@@ -5,10 +5,5 @@
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/.well-known/*.{json}"]
-  },
-  "mimeTypes": {
-    ".json": "text/json"
-  }
+    "rewrite": "/index.html"}
 }
