@@ -1,7 +1,7 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": [".well-known/*.{json}"]
+    "exclude": ["/.well-known/*.{json}"]
   },
   "globalHeaders": {
     "content-type": "application/json"
