@@ -5,7 +5,7 @@
   },
   "routes": [
     {
-      "route": "/.well-known/:path*"
+      "route": "/.well-known/*"
     }
   ]
 }
