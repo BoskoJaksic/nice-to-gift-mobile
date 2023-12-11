@@ -109,10 +109,11 @@ export class LoginRegisterComponent implements OnInit {
       this.afterLoginRedirect(r)
     }, error => {
       console.log('err', error)
-      this.errorMessage = error.message
       this.showSpinner = false;
       if (error.status === 400) {
-        this.errorMessage = 'Invalid user credentials'
+        this.toasterService.presentToast('Invalid user credentials','warning')
+      }else{
+        this.toasterService.presentToast('Something went wrong','danger')
       }
     })
   }
@@ -132,10 +133,12 @@ export class LoginRegisterComponent implements OnInit {
     }, error => {
       console.log('err reg', error)
       this.showSpinner = false;
-
       if (error.status === 400) {
-        this.errorMessage = "Can't login with this credentials"
+        this.toasterService.presentToast("Can't sign up with this credentials",'warning')
+      }else{
+        this.toasterService.presentToast('Something went wrong','danger')
       }
+
     })
   }
 
