@@ -1,5 +1,5 @@
 [{
   "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.niceToGift.myapp",
+  "target" : { "namespace": "android_app", "package_name": "com.android.niceToGift",
     "sha256_cert_fingerprints": ["1C:B5:C4:38:F7:C1:0E:66:CA:A4:2F:CF:C1:20:15:89:04:80:52:59:F9:66:15:B5:8D:F1:E0:85:65:87:F6:D6"] }
 }]
