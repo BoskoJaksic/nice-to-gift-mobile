@@ -5,5 +5,7 @@
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html"}
+    "rewrite": "/index.html",
+    "exclude": ["/.well-known/*.{json}"]
+  }
 }
