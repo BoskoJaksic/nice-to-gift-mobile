@@ -30,7 +30,7 @@ export class GiftDetailsPage implements OnInit {
     await Share.share({
       title: 'Nice To Gift',
       text: this.orderDetails.receiverComment,
-      url: `https://orange-grass-0aed0ab03.4.azurestaticapps.net/tabs/tabs/profile-tab/${this.orderId}`,
+      url: `https://nicetogiftmobile.azurewebsites.net/tabs/tabs/profile-tab/${this.orderId}`,
       dialogTitle: 'Nice To Gift',
     });
   }
