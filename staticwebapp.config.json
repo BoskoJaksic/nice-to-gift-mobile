@@ -5,7 +5,7 @@
   },
   "routes": [
     {
-      "route": "/.well-known/*"
+      "route": "/.well-known/assetlinks.json"
     }
   ]
 }
