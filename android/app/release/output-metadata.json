@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.android.niceToGift",
+  "applicationId": "com.niceToGift.myapp",
   "variantName": "release",
   "elements": [
     {
