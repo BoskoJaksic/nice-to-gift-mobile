@@ -65,6 +65,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'NiceToGiftMobile'
-          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_18556A383BB3458D9A64EE055A9A013E }}
           package: ./www
