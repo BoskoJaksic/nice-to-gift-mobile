@@ -24,6 +24,8 @@ jobs:
           
       - name: Install npm
         run: npm install 
+      - name: Install Angular CLI
+        run: npm install --save-dev @angular/cli
       - name: Install Ionic CLI
         run: npm install --save-dev @ionic/cli
       - name: Build
