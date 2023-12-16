@@ -1,13 +1,13 @@
 export const environment = {
   keycloak: {
-    url: 'https://login-wedosync.azurewebsites.net',
+    url: 'https://nicetogift-keycloak.azurewebsites.net',
     realm: 'nice-to-gift',
-    clientId: 'new-bosko',
-    client_secret:'kSBV4yQDEJL54P7NJUbivzwhS52zYs5q'
+    clientId: 'nice-to-gift-mobile',
+    client_secret:'Lf0m2SaEHDR8ywLgQlnKpnQJ7v9KKXEk'
   },
   stripe:{
-    publishKey:'pk_test_51O5wNKLfGHxlGY8I8qAxIcYowDovVM9eS16YNWOgaUTTThkPvJOqnsFcLL0qsZH6gE1W0JpCx5mf8uABkWEs2Z3H00RlciTA7F'
+    publishKey:'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'
   },
-  baseURL: 'https://nicetogift-staging.azurewebsites.net/api/',
+  baseURL: 'https://nicetogift-api.azurewebsites.net/api/',
   production: true
 };

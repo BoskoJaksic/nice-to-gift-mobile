@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {StorageService} from "../../../shared/services/storage.service";
 import {ShopApiServices} from "../../../shared/services/shop-api.services";
 import {ShopModel} from "../../../shared/model/shops/shop.model";
 import {LoaderService} from "../../../shared/services/loader.service";
@@ -10,6 +9,7 @@ import {GeocodingService} from "../../../shared/services/geo.service";
 import {Subscription} from "rxjs";
 import {AmountService} from "../../../shared/services/ammount.service";
 import {LocalStorageService} from "../../../shared/services/local-storage.service";
+import {UserApiServices} from "../../../shared/services/user.api.services";
 
 
 @Component({
@@ -19,14 +19,14 @@ import {LocalStorageService} from "../../../shared/services/local-storage.servic
 })
 export class HomeTabPage implements OnInit {
   shops: ShopModel[] = [];
-  userName:any
+  userName: any
   giftData: any;
   daysLeftToPickup: any;
   variable = true;
-  distanceToShow:any
+  distanceToShow: any
   private routeSubscription!: Subscription;
 
-  constructor(private storageService: StorageService,
+  constructor(public userApiService: UserApiServices,
               private loaderService: LoaderService,
               private route: ActivatedRoute,
               private ordersApiService: OrdersApiService,
@@ -40,9 +40,11 @@ export class HomeTabPage implements OnInit {
 
   async ngOnInit() {
     this.routeSubscription = this.route.paramMap.subscribe(async params => {
-      await this.getShops()
-      await this.getLastOrUpcoming();
-      this.getFeeAmount();
+      if (this.userApiService.isUserLoggedIn()) {
+        await this.getShops()
+        await this.getLastOrUpcoming();
+        this.getFeeAmount();
+      }
     });
   }
 
@@ -55,8 +57,8 @@ export class HomeTabPage implements OnInit {
 
   async calculateDistance() {
     let currenLocation = this.geocodingService.getCoordinates();
-    console.log('currenLocation',currenLocation.coords)
-    let shopAddress =   this.giftData.street + ' ' + this.giftData.streetNumber + ', ' + this.giftData.postalCode + ' ' + this.giftData.city + ', ' + this.giftData.country
+    console.log('currenLocation', currenLocation.coords)
+    let shopAddress = this.giftData.street + ' ' + this.giftData.streetNumber + ', ' + this.giftData.postalCode + ' ' + this.giftData.city + ', ' + this.giftData.country
     this.geocodingService.getCoordinatesFromAddress(shopAddress).subscribe(
       (data: any[]) => {
         if (data && data.length > 0) {
@@ -64,7 +66,7 @@ export class HomeTabPage implements OnInit {
           const longitude = data[0].lon;
           console.log('Latitude:', latitude);
           console.log('Longitude:', longitude);
-          this.distanceToShow = this.geocodingService.calculateDistance(latitude,longitude,currenLocation.coords.latitude,currenLocation.coords.longitude).toFixed(2)
+          this.distanceToShow = this.geocodingService.calculateDistance(latitude, longitude, currenLocation.coords.latitude, currenLocation.coords.longitude).toFixed(2)
         } else {
           console.error('No coordinates found for the address.');
         }
@@ -81,7 +83,7 @@ export class HomeTabPage implements OnInit {
     return transformedDate ? transformedDate.toUpperCase() : '';
   }
 
-   calculateDaysLeft(creationDate: string, pickupTimeSpan: string): number {
+  calculateDaysLeft(creationDate: string, pickupTimeSpan: string): number {
     const currentDate = new Date(); // Trenutni datum i vreme
     const createdDate = new Date(creationDate); // Datum kada je kreiran objekat
 
@@ -98,7 +100,7 @@ export class HomeTabPage implements OnInit {
   }
 
   async getLastOrUpcoming() {
-    let receiverId =  this.localStorageService.getUserId()
+    let receiverId = this.localStorageService.getUserId()
     this.ordersApiService.getLastOrUpcoming(receiverId).subscribe({
       next: (r) => {
         console.log('last or up', r)

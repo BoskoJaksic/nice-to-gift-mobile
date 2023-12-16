@@ -17,12 +17,10 @@ const routes: Routes = [
   },
   {
     path: 'on-boarding',
-    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/on-boarding/on-boarding.module').then(m => m.OnBoardingPageModule)
   },
   {
     path: 'tabs',
-    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/tabs-module/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
@@ -32,7 +30,6 @@ const routes: Routes = [
   },
   {
     path: 'all-shops',
-    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/all-shops/all-shops.module').then(m => m.AllShopsPageModule)
   },
   {

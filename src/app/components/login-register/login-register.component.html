@@ -7,7 +7,7 @@
     <p class="typography-small">Welcome to the world of unique <br>and heartfelt gift ideas.</p>
   </div>
 
-  <form [formGroup]="form" style="margin-top: 40px">
+  <form [formGroup]="form" style="margin-top: 40px" class="form-content">
     <app-input *ngIf="currentRoute ==='/register'" placeholder="Name" inputType="text"
                formControlName="name"></app-input>
 
@@ -26,7 +26,6 @@
       <app-secondary-button [disabled]="!form.valid && showSpinner" (onClick)="onSubmit()">
         <span class="button-text" style="margin-right: 5px">{{ login ? 'Log In' : 'Sign Up' }}</span>
         <ion-spinner *ngIf="showSpinner" style="color: white"></ion-spinner>
-
       </app-secondary-button>
     </p>
     <p class="typography-small">
@@ -36,5 +35,6 @@
       <span
         (click)="commonService.goToRoute(login ? 'register' : 'login-register')">{{ login ? "Sign Up" : "Login" }}</span>
     </p>
+    <p *ngIf="currentRoute !=='/register' && showGuestLogin" class="signup-text" (click)="redirectToGiftTab()">Continue as guest</p>
   </form>
 </div>

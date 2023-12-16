@@ -33,7 +33,7 @@ export class OrderConfirmedComponent implements OnInit {
         await Share.share({
           title:'Nice to gift',
           text: this.orderDetails.receiverComment,
-          url: `https://orange-grass-0aed0ab03.4.azurestaticapps.net/tabs/tabs/profile-tab/${orderId}`,
+          url: `https://nicetogiftmobile.azurewebsites.net/tabs/tabs/profile-tab/${orderId}`,
           dialogTitle: 'Nice To Gift',
         });
       }, error: (err) => {

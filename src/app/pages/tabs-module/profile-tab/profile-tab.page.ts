@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {UserApiServices} from "../../../shared/services/user.api.services";
-import {StorageService} from "../../../shared/services/storage.service";
 import {LoaderService} from "../../../shared/services/loader.service";
 import {ActivatedRoute} from "@angular/router";
 import {OrdersApiService} from "../../../shared/services/orders-api.service";
 import {ToasterService} from "../../../shared/services/toaster.service";
 import {LocalStorageService} from "../../../shared/services/local-storage.service";
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-profile-tab',
@@ -20,30 +20,34 @@ export class ProfileTabPage implements OnInit {
   receivedOrders: any;
 
 
-  constructor(private userApiServices: UserApiServices,
-              private loaderService: LoaderService,
-              private ordersApiService: OrdersApiService,
-              private toasterService: ToasterService,
-              private route: ActivatedRoute,
-              private localStorageService: LocalStorageService,
-             ) {
+  constructor(
+    private loaderService: LoaderService,
+    private ordersApiService: OrdersApiService,
+    private toasterService: ToasterService,
+    private route: ActivatedRoute,
+    public userApiServices: UserApiServices,
+    public commonService: CommonService,
+    private localStorageService: LocalStorageService,
+  ) {
     this.avatarImg = 'https://ionicframework.com/docs/img/demos/avatar.svg';
   }
 
 
   ngOnInit() {
     this.route.params.subscribe(async params => {
-      this.loaderService.showLoader();
-      const paramId = params['id'];
-      if (paramId !== 'false') {
-        await this.updateReceiver(paramId)
+      if (this.userApiServices.isUserLoggedIn()) {
+        this.loaderService.showLoader();
+        const paramId = params['id'];
+        if (paramId !== 'false') {
+          await this.updateReceiver(paramId)
+        }
+        await this.getUsersData();
+        await this.getGivenOrders();
+        await this.getReceivedOrders();
+        setTimeout(() => {
+          this.loaderService.hideLoader();
+        }, 300)
       }
-      await this.getUsersData();
-      await this.getGivenOrders();
-      await this.getReceivedOrders();
-      setTimeout(()=>{
-        this.loaderService.hideLoader();
-      },300)
     })
   }
 

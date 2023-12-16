@@ -9,18 +9,20 @@ import { SettingsTabPageRoutingModule } from './settings-tab-routing.module';
 import { SettingsTabPage } from './settings-tab.page';
 import {InputModule} from "../../../shared/ui/inputs/inputs.module";
 import {ButtonsModule} from "../../../shared/ui/buttons/buttons.module";
+import {SharedModule} from "../../../shared/shared.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    SettingsTabPageRoutingModule,
-    NgOptimizedImage,
-    ReactiveFormsModule,
-    InputModule,
-    ButtonsModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        SettingsTabPageRoutingModule,
+        NgOptimizedImage,
+        ReactiveFormsModule,
+        InputModule,
+        ButtonsModule,
+        SharedModule
+    ],
   declarations: [SettingsTabPage]
 })
 export class SettingsTabPageModule {}
