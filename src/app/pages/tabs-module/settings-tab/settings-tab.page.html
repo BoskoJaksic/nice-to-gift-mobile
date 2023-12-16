@@ -1,45 +1,69 @@
 <ion-header mode="ios" [translucent]="true">
   <ion-toolbar>
-    <div class="screen-card-text" style="margin-left: 13px" [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">Settings</div>
+    <div class="screen-card-text" style="margin-left: 13px"
+         [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">Settings
+    </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div style="display: flex;justify-content: center">
-    <ion-avatar style="width: 110px;height: 110px">
-      <img alt="User profile"
-           [src]="avatarImg" height="110px" width="110px"/>
-    </ion-avatar>
-    <ion-icon src="./assets/icon/camera.svg" class="camera-img" (click)="takePicture()"></ion-icon>
-  </div>
-  <div class="main-content">
-    <div class="checkout-text" style="display: flex;justify-content: flex-start;margin-left: 10px"><span class="checkout-text">User info</span></div>
-    <form [formGroup]="form" >
-
-      <ion-item class="roundedInput1">
-        <ion-input  placeholder="Name" formControlName="name"></ion-input>
-      </ion-item>
-
-      <ion-item class="roundedInput1">
-        <ion-input  placeholder="Last Name" formControlName="surname"></ion-input>
-      </ion-item>
-
-      <ion-item class="roundedInput1">
-        <ion-input  placeholder="Email" formControlName="email"></ion-input>
-      </ion-item>
-    </form>
-    <ion-button fill="clear" color="secondary" (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list')">
-      <ion-icon name="add" slot="start"></ion-icon>
-      <span class="checkout-text"> Add payment method</span>
-    </ion-button><br/>
-    <ion-button fill="clear" color="secondary" (click)="logOut()">
-      <ion-icon name="add" slot="start"></ion-icon>
-      <span class="checkout-text"> Logout</span>
-    </ion-button>
-
-    <div style="position: absolute;bottom: 10px;width: 91%;">
-      <app-secondary-button [spinner]="showSpinner" [disabled]="!form.valid" (onClick)="onSubmit()">
-        <span class="button-text">Save</span>
-      </app-secondary-button>
+  <div *ngIf="userApiServices.isUserLoggedIn()">
+    <div style="display: flex;justify-content: center">
+      <ion-avatar style="width: 110px;height: 110px">
+        <img alt="User profile"
+             [src]="avatarImg" height="110px" width="110px"/>
+      </ion-avatar>
+      <ion-icon src="./assets/icon/camera.svg" class="camera-img" (click)="takePicture()"></ion-icon>
     </div>
+    <div class="main-content">
+      <div class="checkout-text" style="display: flex;justify-content: flex-start;margin-left: 10px"><span
+        class="checkout-text">User info</span></div>
+      <form [formGroup]="form">
+
+        <ion-item class="roundedInput1">
+          <ion-input placeholder="Name" formControlName="name"></ion-input>
+        </ion-item>
+
+        <ion-item class="roundedInput1">
+          <ion-input placeholder="Last Name" formControlName="surname"></ion-input>
+        </ion-item>
+
+        <ion-item class="roundedInput1">
+          <ion-input placeholder="Email" formControlName="email"></ion-input>
+        </ion-item>
+      </form>
+      <ion-button fill="clear" color="secondary"
+                  (click)="commonService.goToRoute('tabs/tabs/settings-tab/payment-method-list')">
+        <ion-icon name="add" slot="start"></ion-icon>
+        <span class="checkout-text"> Add payment method</span>
+      </ion-button>
+      <br/>
+      <ion-button fill="clear" color="secondary" (click)="logOut()">
+        <ion-icon name="add" slot="start"></ion-icon>
+        <span class="checkout-text"> Logout</span>
+      </ion-button>
+      <br/>
+
+      <ion-button fill="clear" color="secondary" id="present-alert">
+        <ion-icon name="trash" slot="start"></ion-icon>
+        <span class="checkout-text"> Delete account</span>
+      </ion-button>
+      <ion-alert
+        trigger="present-alert"
+        header="Alert!"
+        subHeader="By doing this you are going to delete your account and all it's data!"
+        message="This includes profile data, payment methods, reviews you posted etc..."
+        [buttons]="alertButtons"
+        (didDismiss)="deleteAccount($event)"
+      ></ion-alert>
+
+      <div style="position: absolute;bottom: 10px;width: 91%;">
+        <app-secondary-button [spinner]="showSpinner" [disabled]="!form.valid" (onClick)="onSubmit()">
+          <span class="button-text">Save</span>
+        </app-secondary-button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!userApiServices.isUserLoggedIn()">
+    <app-not-logged-in-state></app-not-logged-in-state>
   </div>
 </ion-content>

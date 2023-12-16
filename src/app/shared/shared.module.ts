@@ -8,13 +8,15 @@ import {CheckoutComponent} from "../components/checkout-button/checkout.componen
 import {OrderConfirmedComponent} from "../components/order-confirmed/order-confirmed.component";
 import {ButtonsModule} from "./ui/buttons/buttons.module";
 import {CircleAnimationComponent} from "./ui/circle-animation/circle-animation.component";
+import {NotLoggedInStateComponent} from "../components/not-logged-in-state/not-logged-in-state.component";
 @NgModule({
   declarations: [
     HeaderComponent,
     HorizontalShopViewComponent,
     CheckoutComponent,
     OrderConfirmedComponent,
-    CircleAnimationComponent
+    CircleAnimationComponent,
+    NotLoggedInStateComponent
   ],
   imports: [
     IonicModule,
@@ -28,7 +30,8 @@ import {CircleAnimationComponent} from "./ui/circle-animation/circle-animation.c
     HorizontalShopViewComponent,
     CheckoutComponent,
     OrderConfirmedComponent,
-    CircleAnimationComponent
+    CircleAnimationComponent,
+    NotLoggedInStateComponent
   ]
 })
 export class SharedModule { }

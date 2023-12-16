@@ -3,6 +3,7 @@ import {ApiService} from "../../core/api.service";
 import {Observable} from "rxjs";
 import {UserModel} from "../model/users/user.model";
 import {UpdateUserModel} from "../model/users/updateUser.model";
+import {LocalStorageService} from "./local-storage.service";
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import {UpdateUserModel} from "../model/users/updateUser.model";
 })
 export class UserApiServices {
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private localStorageService: LocalStorageService) {
   }
 
   getUsersData(userId: any): Observable<UserModel> {
@@ -21,4 +22,13 @@ export class UserApiServices {
     return this.apiService.put(`Users/${userId}`, data);
   }
 
+  deleteAccount(userId: any): Observable<any> {
+    return this.apiService.delete(`Users/regular-user/${userId}`,'');
+  }
+
+
+  isUserLoggedIn() {
+    let userEmail = this.localStorageService.getUserEmail()
+    return !!userEmail;
+  }
 }

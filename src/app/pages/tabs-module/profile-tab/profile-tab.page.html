@@ -1,49 +1,61 @@
+<ion-header mode="ios" [translucent]="true" *ngIf="!userApiServices.isUserLoggedIn()">
+  <ion-toolbar>
+    <div class="screen-card-text" style="margin-left: 13px"
+         [ngStyle]="{'margin-top': commonService.isIos() ? '0' : '2em'}">Profile
+    </div>
+  </ion-toolbar>
+</ion-header>
 <ion-content scroll-y="false">
-  <div class="header">
-    <ion-row>
-      <ion-col size="3" class="main-content">
-        <img alt="" class="header-flower" src="assets/images/login.svg">
-      </ion-col>
-    </ion-row>
-    <ion-row style="margin-top: -50px">
-      <ion-col size="12" class="main-content">
-        <ion-avatar style="width: 158px;height: 158px">
-          <img [src]="avatarImg"
-               alt="User profile" height="110px" width="110px"/>
-        </ion-avatar>
-      </ion-col>
-    </ion-row>
-    <ion-row style="margin-top: 16px">
-      <ion-col>
-        <div class="typography-on-boarding">{{userName}} {{surname}}</div>
-      </ion-col>
-    </ion-row>
+  <div *ngIf="userApiServices.isUserLoggedIn()">
+    <div class="header">
+      <ion-row>
+        <ion-col size="3" class="main-content">
+          <img alt="" class="header-flower" src="assets/images/login.svg">
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: -50px">
+        <ion-col size="12" class="main-content">
+          <ion-avatar style="width: 158px;height: 158px">
+            <img [src]="avatarImg"
+                 alt="User profile" height="110px" width="110px"/>
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 16px">
+        <ion-col>
+          <div class="typography-on-boarding">{{ userName }} {{ surname }}</div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <br/>
+    <div class="main-content-profile">
+      <mat-tab-group>
+        <mat-tab label="Gift received">
+          <div *ngIf="receivedOrders?.length === 0" class="not-found">
+            <img src="./assets/images/not-found.png"/>
+            <br/>
+            <div class="info-shop">You have no received gifts yet.</div>
+          </div>
+          <div class="scroll-content" *ngIf="receivedOrders?.length > 0">
+            <app-gift-card *ngFor="let ro of receivedOrders" [giftObj]="ro" [isReceived]=true></app-gift-card>
+          </div>
+        </mat-tab>
+        <mat-tab label="Gift given">
+
+          <div *ngIf="givenOrders?.length === 0" class="not-found">
+            <img src="./assets/images/not-found.png"/>
+            <br/>
+            <div class="info-shop">You haven't sent any gifts yet.</div>
+          </div>
+          <div class="scroll-content" *ngIf="givenOrders?.length > 0">
+            <app-gift-card *ngFor="let go of givenOrders" [giftObj]="go" [isReceived]=false>></app-gift-card>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
   </div>
-  <br/>
-  <div class="main-content-profile">
-    <mat-tab-group>
-      <mat-tab label="Gift received">
-        <div *ngIf="receivedOrders?.length === 0" class="not-found">
-          <img src="./assets/images/not-found.png"/>
-          <br/>
-          <div class="info-shop">You have no received gifts yet.</div>
-        </div>
-        <div class="scroll-content" *ngIf="receivedOrders?.length > 0">
-          <app-gift-card *ngFor="let ro of receivedOrders" [giftObj]="ro" [isReceived]=true></app-gift-card>
-        </div>
-      </mat-tab>
-      <mat-tab label="Gift given">
-
-        <div *ngIf="givenOrders?.length === 0" class="not-found">
-          <img src="./assets/images/not-found.png"/>
-          <br/>
-          <div class="info-shop">You haven't sent any gifts yet.</div>
-        </div>
-        <div class="scroll-content" *ngIf="givenOrders?.length > 0">
-          <app-gift-card *ngFor="let go of givenOrders" [giftObj]="go" [isReceived]=false>></app-gift-card>
-        </div>
-      </mat-tab>
-
-    </mat-tab-group>
+  <div *ngIf="!userApiServices.isUserLoggedIn()">
+    <app-not-logged-in-state></app-not-logged-in-state>
   </div>
 </ion-content>

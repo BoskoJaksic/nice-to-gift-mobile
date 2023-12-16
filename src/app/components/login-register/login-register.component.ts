@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CommonService} from "../../services/common.service";
 import {KeycloakService} from "../../core/keycloack/keycloack.service";
@@ -7,11 +7,10 @@ import {ApiService} from "../../core/api.service";
 import jwt_decode from "jwt-decode";
 import {Router} from "@angular/router";
 import {ToasterService} from "../../shared/services/toaster.service";
-import {AmountService} from "../../shared/services/ammount.service";
 import {AppPathService} from "../../services/app-path.service";
-import {ShopApiServices} from "../../shared/services/shop-api.services";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
-import {environment} from "../../../environments/environment";
+import {Subscription} from "rxjs";
+import {Platform} from "@ionic/angular";
 
 @Component({
   selector: 'app-login-register',
@@ -21,9 +20,13 @@ import {environment} from "../../../environments/environment";
 export class LoginRegisterComponent implements OnInit {
   form: FormGroup;
   @Input() login: boolean = true;
+  @ViewChild('formContent') formContent!: ElementRef;
+  showGuestLogin = true;
   errorMessage: String = ''
   currentRoute = ''
   showSpinner: boolean = false;
+  keyboardShowSubscription: Subscription;
+  keyboardHideSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               public commonService: CommonService,
@@ -34,8 +37,16 @@ export class LoginRegisterComponent implements OnInit {
               private appPathService: AppPathService,
               private toasterService: ToasterService,
               private localStorageService: LocalStorageService,
-
+              private platform: Platform
   ) {
+    this.keyboardShowSubscription = this.platform.keyboardDidShow.subscribe((ev: any) => {
+      const {keyboardHeight} = ev;
+      this.adjustFormOnKeyboardShow(keyboardHeight);
+    });
+
+    this.keyboardHideSubscription = this.platform.keyboardDidHide.subscribe(() => {
+      this.resetFormOnKeyboardHide();
+    });
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -48,8 +59,34 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    let path = this.appPathService.getAppPath();
+    this.showGuestLogin = !(path && path !== '');
   }
 
+  adjustFormOnKeyboardShow(keyboardHeight: number) {
+    const formContent = document.querySelector('.form-content') as HTMLElement;
+    if (formContent) {
+      formContent.style.marginBottom = `${keyboardHeight}px`;
+      // You might want to adjust other elements as well, e.g., scrolling the focused input into view.
+      const activeElement = document.activeElement;
+      if (activeElement) {
+        activeElement.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
+      }
+    }
+  }
+
+  resetFormOnKeyboardHide() {
+    const formContent = document.querySelector('.form-content') as HTMLElement;
+    if (formContent) {
+      formContent.style.marginBottom = '0';
+      // Reset any other adjustments made when the keyboard was active.
+    }
+    if (this.formContent) {
+      const formContentEl: HTMLElement = this.formContent.nativeElement;
+      formContentEl.style.marginBottom = '0';
+      // Reset any other adjustments made when the keyboard was active.
+    }
+  }
 
   afterLoginRedirect(response: any) {
     const decodedToken = jwt_decode(response.access_token);
@@ -83,6 +120,7 @@ export class LoginRegisterComponent implements OnInit {
 
     Promise.all(promises)
       .then(() => {
+        this.errorMessage = '';
         let path = this.appPathService.getAppPath()
         if (path && path !== '') {
           this.router.navigateByUrl(path);
@@ -109,11 +147,12 @@ export class LoginRegisterComponent implements OnInit {
       this.afterLoginRedirect(r)
     }, error => {
       console.log('err', error)
+      this.errorMessage = error.message;
       this.showSpinner = false;
       if (error.status === 400) {
-        this.toasterService.presentToast('Invalid user credentials','warning')
-      }else{
-        this.toasterService.presentToast('Something went wrong','danger')
+        this.toasterService.presentToast('Invalid user credentials', 'warning')
+      } else {
+        this.toasterService.presentToast('Something went wrong', 'danger')
       }
     })
   }
@@ -134,12 +173,21 @@ export class LoginRegisterComponent implements OnInit {
       console.log('err reg', error)
       this.showSpinner = false;
       if (error.status === 400) {
-        this.toasterService.presentToast("Can't sign up with this credentials",'warning')
-      }else{
-        this.toasterService.presentToast('Something went wrong','danger')
+        this.toasterService.presentToast("Can't sign up with this credentials", 'warning')
+      } else {
+        this.toasterService.presentToast('Something went wrong', 'danger')
       }
 
     })
+  }
+
+  ngOnDestroy() {
+    this.keyboardShowSubscription.unsubscribe();
+    this.keyboardHideSubscription.unsubscribe();
+  }
+
+  redirectToGiftTab() {
+    this.commonService.goToRoute('tabs/tabs/gift-tab')
   }
 
   onSubmit() {

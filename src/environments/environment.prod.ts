@@ -1,7 +1,7 @@
 export const environment = {
   keycloak: {
     url: 'https://nicetogift-keycloak.azurewebsites.net',
-    realm: 'nice-to-gift-mobile',
+    realm: 'nice-to-gift',
     clientId: 'nice-to-gift-mobile',
     client_secret:'Lf0m2SaEHDR8ywLgQlnKpnQJ7v9KKXEk'
   },

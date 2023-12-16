@@ -14,16 +14,17 @@ export class KeycloakService {
   constructor(private readonly httpClient: HttpClient,private platform: Platform) {
   }
 
-  private readonly baseUrl: string = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
-  // private readonly baseUrl: string = `${this.getApiUrl()}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
+
+  // private readonly baseUrl: string = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
+  private readonly baseUrl: string = `${this.getApiUrl()}/realms/${environment.keycloak.realm}/protocol/openid-connect`;
   private readonly tokenUrl: string = 'token';
 
   getApiUrl(): string {
     if (this.platform.is('android')) {
-      // return 'http://10.0.2.2:28081';
-      return 'http://192.168.0.17:28081';
+      return 'http://192.168.8.22:28081';
+      // return 'http://192.168.0.17:28081';
     } else if (this.platform.is('ios')) {
-      return 'http://192.168.0.17:28081';
+      return 'http://192.168.0.42:28081';
     } else {
       // Default URL for other platforms or when running in the browser
       return 'https://localhost:28081';

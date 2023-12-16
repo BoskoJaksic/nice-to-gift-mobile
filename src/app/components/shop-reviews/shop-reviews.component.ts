@@ -6,6 +6,10 @@ import {GetShopReviewModel} from "../../shared/model/shops/get-shop-review.model
 import {ActivatedRoute} from "@angular/router";
 import {ShopService} from "../../shared/services/shop.service";
 import {LoaderService} from "../../shared/services/loader.service";
+import {UserApiServices} from "../../shared/services/user.api.services";
+import {warning} from "ionicons/icons";
+import {AlertController} from "@ionic/angular";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'app-shop-reviews',
@@ -25,6 +29,9 @@ export class ShopReviewsComponent implements OnInit {
               private toasterService: ToasterService,
               private route: ActivatedRoute,
               private shopService: ShopService,
+              private alertController: AlertController,
+              private userApiServices: UserApiServices,
+              private commonService: CommonService,
               private storageService: StorageService,
   ) {
   }
@@ -100,16 +107,40 @@ export class ShopReviewsComponent implements OnInit {
     }, error => {
       this.showSpinner = false
     })
-
   }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Warning',
+      subHeader: 'You can not give review',
+      message: 'You are not logged in',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Log in',
+          handler: () => {
+            this.commonService.goToRoute('');
+          }
+        },
+      ]
+    });
 
+    await alert.present();
+  }
   discardReview() {
     this.ratingVisible = !this.ratingVisible
     this.textRate = ''
   }
 
   toggleRating() {
-    this.ratingVisible = !this.ratingVisible
+    if (this.userApiServices.isUserLoggedIn()){
+      this.ratingVisible = !this.ratingVisible
+
+    }else{
+      this.presentAlert();
+    }
   }
 
   setRating(rating: number): void {

@@ -20,10 +20,12 @@ export class GiftTabPage implements OnInit {
               private route: ActivatedRoute,
               private amountService: AmountService,
               private loaderService: LoaderService,
+              private shopApiServices: ShopApiServices,
               private checkoutService: CheckoutService
   ) {
     this.route.paramMap.subscribe(params => {
       this.getShops();
+      this.getFeeAmount();
       const state = window.history.state;
       this.amountService.setTotalAmount(0);
       this.checkoutService.setAllProducts([])
@@ -38,7 +40,12 @@ export class GiftTabPage implements OnInit {
 
   ngOnInit() {
   }
-
+  getFeeAmount() {
+    this.shopApiServices.getFeeAmount().subscribe(r => {
+      let fee = r.feePercentRate.toString()
+      this.amountService.setFeeAmount(fee)
+    })
+  }
   getShops(): void {
     this.loaderService.showLoader()
     this.shopApiService.get10Shops().subscribe(
