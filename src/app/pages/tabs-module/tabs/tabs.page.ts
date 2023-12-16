@@ -14,14 +14,14 @@ export class TabsPage implements OnInit {
   iconTabs = [
     './assets/icon/home-tab.svg',
     './assets/icon/gift-tab.svg',
-    './assets/icon/maps-tab.svg',
+    // './assets/icon/maps-tab.svg',
     './assets/icon/profile-tab.svg',
     './assets/icon/settings-tab.svg',
   ]
   tabs = [
     'home-tab',
     'gift-tab',
-    'maps-tab',
+    // 'maps-tab',
     'profile-tab',
     'settings-tab'
   ]
@@ -29,14 +29,14 @@ export class TabsPage implements OnInit {
   tabsRouting = [
     'home-tab',
     'gift-tab',
-    'maps-tab',
+    // 'maps-tab',
     'profile-tab/false',
     'settings-tab'
   ]
   labels = [
     'Home',
     'Gift',
-    'Maps',
+    // 'Maps',
     'Profile',
     'Settings'
   ]

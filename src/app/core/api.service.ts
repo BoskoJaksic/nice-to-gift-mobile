@@ -9,19 +9,19 @@ import {environment} from "../../environments/environment";
 })
 export class ApiService {
 
-  // baseUrl = this.getApiUrl();
-  baseUrl = environment.baseURL
+  baseUrl = this.getApiUrl();
+  // baseUrl = environment.baseURL
 
   constructor(private http: HttpClient, private platform: Platform) {
   }
   getApiUrl(): string {
     if (this.platform.is('android')) {
       // 192.168.0.17 real device
+
       // 10.0.2.2 emulator
-      // return 'https://10.0.2.2:7295/api/';
-      return 'https://10.0.2.2:7295/api/';
+      return 'https://192.168.8.22:7295/api/';
     } else if (this.platform.is('ios')) {
-      return 'https://192.168.0.17:7295/api/';
+      return 'https://localhost:7295/api/';
     } else {
       // Default URL for other platforms or when running in the browser
       return 'https://10.0.2.2:7295/api/';

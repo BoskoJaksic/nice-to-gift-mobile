@@ -1,4 +1,4 @@
-<div class="checkout-button" *ngIf="buttonVisible" [ngClass]="{'ios-checkout-button': commonService.isIos(), 'android-checkout-button': !commonService.isIos()}" (click)="goToRoute()">
+<div class="checkout-button" [ngClass]="{'ios-checkout-button': commonService.isIos(), 'android-checkout-button': !commonService.isIos()}" (click)="goToRoute()">
   <ion-row>
     <ion-col>
       <div style="display:flex;justify-content: start;margin-left: 30px;margin-top: 13px">

@@ -5,14 +5,12 @@ import {HttpClient} from "@angular/common/http";
 import {StorageService} from "../../shared/services/storage.service";
 import {StripeService} from "../../shared/services/stripe.service";
 import {PaymentSheetEventsEnum, Stripe} from "@capacitor-community/stripe";
-import {Subscription} from "rxjs";
 import {OrdersApiService} from "../../shared/services/orders-api.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
 import {ProductModel, SelectedProducts} from "../../shared/model/product.model";
 import {ReceiverMessageService} from "../../shared/services/receiver-message.service";
 import {KeyboardService} from "../../shared/services/keyboard.service";
 import {OrderIdService} from "../../shared/services/order-id.service";
-import {ApiService} from "../../core/api.service";
 import {ToasterService} from "../../shared/services/toaster.service";
 import {LoaderService} from "../../shared/services/loader.service";
 
@@ -34,14 +32,11 @@ export class CheckoutComponent implements OnInit {
   orderProducts: ProductModel [] = []
   orderId: string = ''
   items: SelectedProducts[] = []
-  keyboardSubscription: Subscription;
-  buttonVisible = true;
   goodToGo = false;
 
   constructor(public commonService: CommonService,
               private router: Router,
               private orderIdService: OrderIdService,
-              private apiService: ApiService,
               private ordersApiService: OrdersApiService,
               private checkoutService: CheckoutService,
               private stripeService: StripeService,
@@ -51,11 +46,6 @@ export class CheckoutComponent implements OnInit {
               private keyboardService: KeyboardService,
               private loaderService: LoaderService,
               private http: HttpClient) {
-    this.keyboardSubscription = this.keyboardService.keyboardVisible$.subscribe(
-      keyboardVisible => {
-        this.buttonVisible = !keyboardVisible;
-      }
-    );
   }
 
   async ngOnInit() {
@@ -199,7 +189,6 @@ export class CheckoutComponent implements OnInit {
         this.orderIdService.setID(this.orderId)
         this.router.navigate(['tabs/tabs/gift-tab'], navigationExtras);
       } else {
-
         if ((this.goTo === 'all-shops/checkout' && this.amount === 0) || (this.goTo === 'all-shops/payment-method' && this.amount === 0)) {
           this.toasterService.presentToast('Add at least one product to cart', 'warning')
         } else {
@@ -209,9 +198,5 @@ export class CheckoutComponent implements OnInit {
       this.loaderService.hideLoader();
 
     }
-  }
-
-  ngOnDestroy() {
-    this.keyboardSubscription.unsubscribe();
   }
 }

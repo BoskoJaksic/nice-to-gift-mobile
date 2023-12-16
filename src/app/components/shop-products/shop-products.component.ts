@@ -6,6 +6,9 @@ import {ToasterService} from "../../shared/services/toaster.service";
 import {CheckoutService} from "../../shared/services/checkout.service";
 import {ActivatedRoute} from "@angular/router";
 import {ShopService} from "../../shared/services/shop.service";
+import {UserApiServices} from "../../shared/services/user.api.services";
+import {AlertController} from "@ionic/angular";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'app-shop-products',
@@ -20,10 +23,12 @@ export class ShopProductsComponent implements OnInit {
 
   constructor(private amountService: AmountService,
               private toasterService: ToasterService,
-              private storageService: AmountService,
+              private userApiServices: UserApiServices,
               private shopService: ShopService,
               public checkoutService: CheckoutService,
+              public commonService: CommonService,
               private route: ActivatedRoute,
+              private alertController: AlertController,
               private productApiService: ProductApiService) {
 
   }
@@ -52,7 +57,7 @@ export class ShopProductsComponent implements OnInit {
           return {...product, quantity: 0, total: 0, amount: newAmount.toFixed(2)};
         });
 
-        const uniqueNewProducts = newProducts.filter((newProduct:ProductModel) => {
+        const uniqueNewProducts = newProducts.filter((newProduct: ProductModel) => {
           return !this.allProducts.some((existingProduct) => existingProduct.id === newProduct.id);
         });
 
@@ -98,15 +103,37 @@ export class ShopProductsComponent implements OnInit {
   //     }
   //   );
   // }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Warning',
+      subHeader: 'You can not place order',
+      message: 'You are not logged in',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Log in',
+          handler: () => {
+            this.commonService.goToRoute('');
+          }
+        },
+      ]
+    });
 
-
+    await alert.present();
+  }
 
   increaseQuantity(product: any) {
-    console.log('inc', product)
-    if (product.stock === product.quantity) {
-      this.toasterService.presentToast('No more in the stock', 'warning')
+    if (!this.userApiServices.isUserLoggedIn()) {
+      this.presentAlert();
     } else {
-      product.quantity++; // Increase product quantity by 1
+      if (product.stock === product.quantity) {
+        this.toasterService.presentToast('No more in the stock', 'warning')
+      } else {
+        product.quantity++; // Increase product quantity by 1
+      }
     }
   }
 

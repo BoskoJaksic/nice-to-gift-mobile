@@ -27,6 +27,8 @@ PODS:
     - Capacitor
   - CordovaPlugins (5.4.1):
     - CapacitorCordova
+  - JcesarmobileSslSkip (0.2.0):
+    - Capacitor
   - StripeApplePay (23.17.2):
     - StripeCore (= 23.17.2)
   - StripeCameraCore (23.17.2):
@@ -67,6 +69,7 @@ DEPENDENCIES:
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
+  - "JcesarmobileSslSkip (from `../../node_modules/@jcesarmobile/ssl-skip`)"
 
 SPEC REPOS:
   trunk:
@@ -106,6 +109,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/status-bar"
   CordovaPlugins:
     :path: "../capacitor-cordova-ios-plugins"
+  JcesarmobileSslSkip:
+    :path: "../../node_modules/@jcesarmobile/ssl-skip"
 
 SPEC CHECKSUMS:
   Capacitor: 8a9db42d105f55843cd8ed2a3cb54e2b78e7f102
@@ -121,6 +126,7 @@ SPEC CHECKSUMS:
   CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
   CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
   CordovaPlugins: 7866b2398b16bb354b043a8b0927adc2763c6466
+  JcesarmobileSslSkip: c41af6d8f679d128666d64e4495863ce7b69a764
   StripeApplePay: f7c6962657ca6e43e16d0c73bc128a5ef014bb51
   StripeCameraCore: cef5c20ec0643daafe48b3016a015266d4753055
   StripeCore: f93a26f947bad20babbabd2b7adac2d1f44a63d2
@@ -130,6 +136,6 @@ SPEC CHECKSUMS:
   StripePaymentsUI: 3032f37b5523509d3cf5a0ac8de6efdadcce3048
   StripeUICore: 700b63cb313429df67e461b82c6151b1dd5e4721
 
-PODFILE CHECKSUM: 766d08b48fbaddb9a56851c2f3a5dfddcef1c1a8
+PODFILE CHECKSUM: ed97ba915c8e48bb8de8f4a952ff3c0c200c6672
 
 COCOAPODS: 1.12.1
