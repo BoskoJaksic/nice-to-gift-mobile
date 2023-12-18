@@ -11,6 +11,8 @@ import {CommonService} from "./services/common.service";
 import {Geolocation} from "@capacitor/geolocation";
 import {GeocodingService} from "./shared/services/geo.service";
 import {NavController} from "@ionic/angular";
+import {LocalStorageService} from "./shared/services/local-storage.service";
+import {StorageService} from "./shared/services/storage.service";
 
 register();
 
@@ -28,6 +30,8 @@ export class AppComponent {
               private appPathService: AppPathService,
               private geocodingService: GeocodingService,
               private navCtrl: NavController,
+              private storageService: StorageService,
+              private localStorageService: LocalStorageService,
               private ngZone: NgZone, private router: Router) {
     window.screen.orientation.lock('portrait');
     this.initApp();
@@ -35,8 +39,10 @@ export class AppComponent {
     this.initStripe();
     this.determinePlatform();
     this.getCurrentLocation();
+    this.removeKeys();
   }
   ngOnInit() {
+
     document.addEventListener('ionBackButton', (ev: any) => {
       ev.detail.register(10, () => {
         this.ngZone.run(() => {
@@ -47,11 +53,21 @@ export class AppComponent {
       });
     });
   }
+
   async getCurrentLocation() {
     const coordinates = await Geolocation.getCurrentPosition();
     this.geocodingService.setCoordinates(coordinates);
   }
-
+  removeKeys() {
+    this.storageService.removeToken('token')
+    this.storageService.removeToken('refresh_token')
+    this.storageService.removeToken('userName')
+    this.storageService.removeToken('userSurname')
+    this.storageService.removeToken('userId')
+    this.storageService.removeToken('userEmail')
+    this.storageService.removeToken('keycloak_id')
+    this.localStorageService.clearLocalStorage();
+  }
   determinePlatform() {
     this.isWebPlatform = this.commonService.determinePlatform() === 'web';
   }
