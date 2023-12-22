@@ -147,9 +147,9 @@ export class LoginRegisterComponent implements OnInit {
       this.afterLoginRedirect(r)
     }, error => {
       console.log('err', error)
-      this.errorMessage = error.message;
+      // this.errorMessage = error.message;
       this.showSpinner = false;
-      if (error.status === 400) {
+      if (error.status === 401) {
         this.toasterService.presentToast('Invalid user credentials', 'warning')
       } else {
         this.toasterService.presentToast('Something went wrong', 'danger')
