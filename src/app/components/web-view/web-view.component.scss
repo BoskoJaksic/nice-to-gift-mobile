@@ -1,12 +1,22 @@
+.main-img {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .main-class {
   background-color: var(--ion-color-primary);
   height: 100vh;
+
+}
+.second-div{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  height:50%
 }
+
 .image-container img {
   margin-bottom: 20px; /* Opciono: Dodaje razmak između slike i teksta */
 }
@@ -29,7 +39,8 @@
   width: 216px;
   height: 70px;
 }
-.download-text-small{
+
+.download-text-small {
   color: #FFF;
   font-size: 10px;
   font-style: normal;
@@ -37,7 +48,8 @@
   line-height: normal;
   text-align: left;
 }
-.download-text-large{
+
+.download-text-large {
   color: #FFF;
   font-size: 18px;
   font-style: normal;
