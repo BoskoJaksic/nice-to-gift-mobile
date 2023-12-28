@@ -24,6 +24,9 @@ export class ShopApiServices {
   getAllShops(url: string): Observable<ShopModel> {
     return this.apiService.get(url);
   }
+  getAllShopsUnfiltered(): Observable<any> {
+    return this.apiService.get('Shops');
+  }
 
   searchShop(url: string): Observable<ShopModel> {
     return this.apiService.get(url);

@@ -42,7 +42,6 @@ export class AppComponent {
     this.removeKeys();
   }
   ngOnInit() {
-
     document.addEventListener('ionBackButton', (ev: any) => {
       ev.detail.register(10, () => {
         this.ngZone.run(() => {

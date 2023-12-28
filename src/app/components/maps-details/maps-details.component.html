@@ -1,0 +1,59 @@
+<ion-content>
+  <div class="main-content">
+    <ion-row>
+      <ion-col>
+        <div class="no-of-stars"> {{ marker.title }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div>{{ shops.streetNumber + ' ' + shops.street }}</div>
+      </ion-col>
+      <ion-col>
+        <div class="screen-card-text-small center-content" style="margin-bottom: 5px">
+          <ion-icon src="./assets/icon/runner.svg" style="margin-right: 6px;margin-top: 3px"></ion-icon>
+         {{distance}} km away
+        </div>
+      </ion-col>
+    </ion-row>
+    <div style="margin-top: 3em">
+      <ion-item-divider mode="md"></ion-item-divider>
+    </div>
+    <div class="working-hours-section ">
+      <div class="screen-card-text-small center-content" style="margin-bottom: 5px">
+        <ion-icon src="./assets/icon/clock.svg" style="margin-right: 6px;margin-top: 3px"></ion-icon>
+        Working hours
+      </div>
+      <div *ngFor="let x of workingHours">
+        <ion-row>
+          <ion-col>
+            <div class="text">{{ x.dayName }}</div>
+          </ion-col>
+          <ion-col>
+            <div class="phone-contact" *ngIf="x.isOpened">{{ x.openingTime }} - {{ x.closingTime }}</div>
+            <div class="phone-contact" *ngIf="!x.isOpened">Closed</div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div style="margin-top: 2em;margin-bottom: 25px">
+      <ion-item-divider mode="md"></ion-item-divider>
+    </div>
+
+    <div class="">
+      <ion-row>
+        <ion-col>
+          <div class="screen-card-text-small center-content" style="margin-bottom: 5px">
+            <ion-icon src="./assets/icon/phone.svg" style="margin-right: 6px;margin-top: 3px"></ion-icon>
+            Contact
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="phone-contact">{{ shops.phoneNumber }}</div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>

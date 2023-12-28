@@ -9,19 +9,20 @@ import {CommonService} from "../../../services/common.service";
 export class TabsPage implements OnInit {
   selectedTabIndex: number = 0;
   profileId: string = 'false';
+  isNotMapTab: boolean = false;
 
 
   iconTabs = [
     './assets/icon/home-tab.svg',
     './assets/icon/gift-tab.svg',
-    // './assets/icon/maps-tab.svg',
+    './assets/icon/maps-tab.svg',
     './assets/icon/profile-tab.svg',
     './assets/icon/settings-tab.svg',
   ]
   tabs = [
     'home-tab',
     'gift-tab',
-    // 'maps-tab',
+    'maps-tab',
     'profile-tab',
     'settings-tab'
   ]
@@ -29,14 +30,14 @@ export class TabsPage implements OnInit {
   tabsRouting = [
     'home-tab',
     'gift-tab',
-    // 'maps-tab',
+    'maps-tab',
     'profile-tab/false',
     'settings-tab'
   ]
   labels = [
     'Home',
     'Gift',
-    // 'Maps',
+    'Maps',
     'Profile',
     'Settings'
   ]
@@ -51,6 +52,7 @@ export class TabsPage implements OnInit {
   }
 
   ionTabsWillChange(e: any) {
+    this.isNotMapTab = e.tab !== 'maps-tab';
     const selectedIndex = this.tabs.indexOf(e.tab);
     if (selectedIndex !== -1) {
       this.iconTabs[this.selectedTabIndex] = `./assets/icon/${this.tabs[this.selectedTabIndex]}.svg`;
