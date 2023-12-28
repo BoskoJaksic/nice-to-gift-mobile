@@ -31,9 +31,6 @@ export class MapsDetailsComponent implements OnInit {
       }
     });
     this.workingHours = newShopDetails;
-    console.log('marker init', this.marker)
-    console.log('shop init', this.shops)
-    console.log('currentPosition', this.currentPosition)
     this.distance = this.geoService.calculateDistance(this.marker.latitude, this.marker.longitude, this.currentPosition.lat, this.currentPosition.lng).toFixed(2)
   }
 

@@ -76,7 +76,6 @@ export class MapsTabPage implements OnInit {
     this.shopApiServices.getAllShopsUnfiltered().subscribe({
       next: async (r) => {
         this.allShops = r.data;
-        console.log('eeee', r)
         r.data.forEach((r: any) => {
           const marker: MapMarkerModel = {
             title: r.name,
@@ -120,7 +119,6 @@ export class MapsTabPage implements OnInit {
       this.loaderService.hideLoader();
       await this.newMap.addMarkers(this.markers);
       await this.newMap.setOnMarkerClickListener(async (marker) => {
-        console.log('mar', marker)
         // @ts-ignore
         let shopToPass = this.allShops.find((s: any) => s.location.latitude === marker.latitude)
         const modal = await this.modalCtrl.create({
