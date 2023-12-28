@@ -13,6 +13,10 @@ PODS:
   - CapacitorCordova (5.4.2)
   - CapacitorGeolocation (5.0.6):
     - Capacitor
+  - CapacitorGoogleMaps (5.4.0):
+    - Capacitor
+    - Google-Maps-iOS-Utils (~> 4.1)
+    - GoogleMaps (~> 7.3)
   - CapacitorHaptics (5.0.6):
     - Capacitor
   - CapacitorKeyboard (5.0.6):
@@ -27,6 +31,32 @@ PODS:
     - Capacitor
   - CordovaPlugins (5.4.1):
     - CapacitorCordova
+  - Google-Maps-iOS-Utils (4.2.2):
+    - Google-Maps-iOS-Utils/Clustering (= 4.2.2)
+    - Google-Maps-iOS-Utils/Geometry (= 4.2.2)
+    - Google-Maps-iOS-Utils/GeometryUtils (= 4.2.2)
+    - Google-Maps-iOS-Utils/Heatmap (= 4.2.2)
+    - Google-Maps-iOS-Utils/QuadTree (= 4.2.2)
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Clustering (4.2.2):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Geometry (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/GeometryUtils (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/Heatmap (4.2.2):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps (~> 7.3)
+  - Google-Maps-iOS-Utils/QuadTree (4.2.2):
+    - GoogleMaps (~> 7.3)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
+  - JcesarmobileSslSkip (0.2.0):
+    - Capacitor
   - StripeApplePay (23.17.2):
     - StripeCore (= 23.17.2)
   - StripeCameraCore (23.17.2):
@@ -60,6 +90,7 @@ DEPENDENCIES:
   - "CapacitorCommunityStripe (from `../../node_modules/@capacitor-community/stripe`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
+  - "CapacitorGoogleMaps (from `../../node_modules/@capacitor/google-maps`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
@@ -67,9 +98,12 @@ DEPENDENCIES:
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
+  - "JcesarmobileSslSkip (from `../../node_modules/@jcesarmobile/ssl-skip`)"
 
 SPEC REPOS:
   trunk:
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - StripeApplePay
     - StripeCameraCore
     - StripeCore
@@ -92,6 +126,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorGeolocation:
     :path: "../../node_modules/@capacitor/geolocation"
+  CapacitorGoogleMaps:
+    :path: "../../node_modules/@capacitor/google-maps"
   CapacitorHaptics:
     :path: "../../node_modules/@capacitor/haptics"
   CapacitorKeyboard:
@@ -106,6 +142,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/status-bar"
   CordovaPlugins:
     :path: "../capacitor-cordova-ios-plugins"
+  JcesarmobileSslSkip:
+    :path: "../../node_modules/@jcesarmobile/ssl-skip"
 
 SPEC CHECKSUMS:
   Capacitor: 8a9db42d105f55843cd8ed2a3cb54e2b78e7f102
@@ -114,6 +152,7 @@ SPEC CHECKSUMS:
   CapacitorCommunityStripe: 2fac7716e3810fcb021dd57cd46538c81942f37c
   CapacitorCordova: cfcc06b698481da655415985eeb2b8da363f8451
   CapacitorGeolocation: 7be5f77abc205c0efe319fff8587a7183e7b0240
+  CapacitorGoogleMaps: b45e66a0c819bee7665ea1a50a23cd1fb54ca9cd
   CapacitorHaptics: 1fffc1217c7e64a472d7845be50fb0c2f7d4204c
   CapacitorKeyboard: b978154b024a5f65e044908e37d15b7de58b9d12
   CapacitorScreenOrientation: e5ef438489815d05340f1b51a2b1794108dc0ac3
@@ -121,6 +160,9 @@ SPEC CHECKSUMS:
   CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
   CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
   CordovaPlugins: 7866b2398b16bb354b043a8b0927adc2763c6466
+  Google-Maps-iOS-Utils: f77eab4c4326d7e6a277f8e23a0232402731913a
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
+  JcesarmobileSslSkip: c41af6d8f679d128666d64e4495863ce7b69a764
   StripeApplePay: f7c6962657ca6e43e16d0c73bc128a5ef014bb51
   StripeCameraCore: cef5c20ec0643daafe48b3016a015266d4753055
   StripeCore: f93a26f947bad20babbabd2b7adac2d1f44a63d2
@@ -130,6 +172,6 @@ SPEC CHECKSUMS:
   StripePaymentsUI: 3032f37b5523509d3cf5a0ac8de6efdadcce3048
   StripeUICore: 700b63cb313429df67e461b82c6151b1dd5e4721
 
-PODFILE CHECKSUM: 766d08b48fbaddb9a56851c2f3a5dfddcef1c1a8
+PODFILE CHECKSUM: 63a13e08bb5359511a4fc66c207be10c96244f8c
 
 COCOAPODS: 1.12.1

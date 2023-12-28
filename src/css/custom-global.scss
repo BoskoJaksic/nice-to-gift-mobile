@@ -12,6 +12,8 @@ ion-header, ion-toolbar{
   --background: var(--ion-color-primary);
 }
 
+
+
 .mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
   --mdc-tab-indicator-active-indicator-color: var(--ion-color-primary) !important;
   --mat-tab-header-disabled-ripple-color: rgba(0, 0, 0, 0.38);
@@ -27,4 +29,3 @@ ion-header, ion-toolbar{
   --mat-tab-header-active-focus-indicator-color: var(--ion-color-primary);
   --mat-tab-header-active-hover-indicator-color: var(--ion-color-primary);
 }
-

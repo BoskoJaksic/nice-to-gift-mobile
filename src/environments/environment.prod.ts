@@ -8,6 +8,8 @@ export const environment = {
   stripe:{
     publishKey:'pk_live_51OEyPCCqTcMdhSZxNRAKjxnWGcPmxCtSpDBnPlxR7a2f4Dxci2GJQ91CkWOhTTnSJxM9ITzoKKiQULhfrfm3YzbL002A1yAAXX'
   },
+  mapsKey:'AIzaSyBs5U7ylFKBL2rv52EmI78gDe2xevJOoSo',
+
   baseURL: 'https://nicetogift-api.azurewebsites.net/api/',
   production: true
 };

@@ -1,4 +1,4 @@
-<ion-tabs (ionTabsWillChange)="ionTabsWillChange($event)" style="background-color: #FFFFFF">
+<ion-tabs (ionTabsWillChange)="ionTabsWillChange($event)" [ngClass]="{'white-background': isNotMapTab, 'no-background': !isNotMapTab}">
   <ion-tab-bar slot="bottom">
     <ion-tab-button *ngFor="let tab of tabsRouting; let i = index" [tab]="tab"
                     [routerLink]="'/tabs/tabs/' + tab">

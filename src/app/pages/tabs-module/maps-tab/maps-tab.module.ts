@@ -5,8 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MapsTabPageRoutingModule } from './maps-tab-routing.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { MapsTabPage } from './maps-tab.page';
+import {MapsDetailsComponent} from "../../../components/maps-details/maps-details.component";
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { MapsTabPage } from './maps-tab.page';
     IonicModule,
     MapsTabPageRoutingModule
   ],
-  declarations: [MapsTabPage]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  declarations: [MapsTabPage, MapsDetailsComponent]
 })
 export class MapsTabPageModule {}

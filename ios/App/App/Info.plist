@@ -29,7 +29,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Need camera access for read credit card.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>Your location allows you to find all the shops nearby</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location allows you to find all the shops nearby</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

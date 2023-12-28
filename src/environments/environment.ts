@@ -12,6 +12,7 @@ export const environment = {
   stripe:{
     publishKey:'pk_test_51O5wNKLfGHxlGY8I8qAxIcYowDovVM9eS16YNWOgaUTTThkPvJOqnsFcLL0qsZH6gE1W0JpCx5mf8uABkWEs2Z3H00RlciTA7F'
   },
+  mapsKey:'AIzaSyBs5U7ylFKBL2rv52EmI78gDe2xevJOoSo',
   baseURL: 'https://localhost:7295/api/',
   production: false
 };
